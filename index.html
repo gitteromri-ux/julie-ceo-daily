@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Julie Masterclass · Campaign update</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:oklch(13% 0.02 260);--ink:oklch(97% 0.01 90);--ink2:oklch(80% 0.02 90);--ink3:oklch(64% 0.02 90);
+  --gold:oklch(87% 0.10 215);--gold2:oklch(70% 0.14 230);--blue:oklch(80% 0.12 230);--red:oklch(70% 0.19 25);--green:oklch(80% 0.16 150);
+  --line:oklch(100% 0 0 / .11);
+  --fs-xxl:clamp(64px,8.5vw,160px);--fs-xl:clamp(44px,5vw,92px);--fs-l:clamp(36px,3.6vw,66px);--fs-m:clamp(23px,1.8vw,33px);--fs-s:clamp(20px,1.4vw,26px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:
+  radial-gradient(1200px 800px at 85% -10%, oklch(45% 0.12 230 / .35), transparent 60%),
+  radial-gradient(900px 700px at -10% 110%, oklch(45% 0.10 240 / .30), transparent 60%),var(--bg);
+  font-feature-settings:"tnum" 1;line-height:1.25}
+section.slide{min-height:100svh;scroll-snap-align:start;padding:clamp(28px,4vw,64px) clamp(22px,5.5vw,100px) clamp(60px,6vw,90px);display:flex;flex-direction:column;justify-content:center;position:relative;border-top:1px solid var(--line)}
+.kicker{font-size:clamp(20px,1.5vw,27px);letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:16px;display:flex;gap:16px;align-items:center}
+.kicker .no{display:inline-grid;place-items:center;width:1.9em;height:1.9em;border-radius:50%;background:var(--gold);color:oklch(20% 0.05 240);font-weight:800;letter-spacing:0}
+h1,h2{font-family:"Instrument Serif",Georgia,serif;font-weight:500;letter-spacing:-.02em;line-height:1.02}
+h1{font-size:var(--fs-xl)}
+h2{font-size:var(--fs-l);margin-bottom:clamp(18px,2.2vw,34px);max-width:28ch}
+h2 b,h1 b{color:var(--gold);font-weight:500}
+p,li{font-size:var(--fs-m);color:var(--ink2);line-height:1.35}
+.num{font-family:"Instrument Serif",serif;font-weight:500;font-variant-numeric:tabular-nums;letter-spacing:-.03em;line-height:.95}
+.grid{display:grid;gap:clamp(12px,1.4vw,24px)}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g6{grid-template-columns:repeat(6,1fr)}
+.card{background:linear-gradient(160deg,oklch(100% 0 0 / .07),oklch(100% 0 0 / .02));border:1px solid var(--line);border-radius:24px;padding:clamp(18px,2vw,32px);backdrop-filter:blur(10px);box-shadow:0 30px 60px -30px oklch(0% 0 0 / .8), inset 0 1px 0 oklch(100% 0 0 / .08)}
+.card .lab{font-size:var(--fs-s);color:var(--ink3);text-transform:uppercase;letter-spacing:.12em;font-weight:600;margin-bottom:10px}
+.card .big{font-size:var(--fs-xl);color:var(--ink)}
+.card .sub{font-size:var(--fs-s);color:var(--ink2);margin-top:10px;line-height:1.3}
+.gold{color:var(--gold)}.blue{color:var(--blue)}.red{color:var(--red)}.green{color:var(--green)}.dim{color:var(--ink3)}
+.tbl{width:100%}
+table{width:100%;border-collapse:collapse;font-size:var(--fs-m)}
+th{font-size:var(--fs-s);text-align:left;color:var(--ink3);text-transform:uppercase;letter-spacing:.1em;font-weight:600;padding:10px 14px;border-bottom:1px solid var(--line)}
+td{padding:clamp(10px,1vw,18px) 14px;border-bottom:1px solid var(--line);color:var(--ink);font-variant-numeric:tabular-nums;vertical-align:top}
+td.n,th.n{text-align:right}
+td small{display:block;font-size:var(--fs-s);color:var(--ink3);margin-top:4px;line-height:1.3}
+tr.total td{font-weight:700;border-top:2px solid oklch(100% 0 0 / .25);border-bottom:none}
+.dense td{padding:clamp(8px,.8vw,13px) 14px}.dense{font-size:clamp(18px,1.4vw,25px)}
+.pill{display:inline-block;padding:5px 13px;border-radius:999px;font-size:var(--fs-s);font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.p-red{background:oklch(68% 0.19 25 / .18);color:var(--red)}.p-green{background:oklch(78% 0.16 150 / .16);color:var(--green)}.p-gold{background:oklch(87% 0.10 215 / .16);color:var(--gold)}.p-blue{background:oklch(78% 0.12 230 / .16);color:var(--blue)}.p-dim{background:oklch(100% 0 0 / .08);color:var(--ink2)}
+.foot{position:absolute;left:clamp(22px,5.5vw,100px);right:clamp(22px,5.5vw,100px);bottom:18px;display:flex;justify-content:space-between;font-size:17px;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase}
+ul.big{list-style:none;display:grid;gap:clamp(12px,1.3vw,20px)}
+ul.big li{padding-left:44px;position:relative;font-size:var(--fs-m);color:var(--ink)}
+ul.big li::before{content:"";position:absolute;left:0;top:.42em;width:18px;height:18px;border-radius:5px;background:var(--gold);transform:rotate(45deg)}
+ul.big li b{color:var(--gold);font-weight:700}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.cover{background:radial-gradient(900px 600px at 70% 40%, oklch(60% 0.14 230 / .25), transparent 60%)}
+.cover h1{font-size:clamp(40px,5.2vw,92px);max-width:16ch}
+.cover .meta{display:flex;gap:clamp(24px,4vw,64px);flex-wrap:wrap;margin-top:clamp(28px,3.5vw,56px)}
+.cover .meta div{font-size:var(--fs-m)}
+.cover .meta span{display:block;font-size:var(--fs-s);color:var(--ink3);text-transform:uppercase;letter-spacing:.12em;font-weight:600;margin-bottom:6px}
+.note{font-size:var(--fs-s);color:var(--ink2);margin-top:16px;line-height:1.4;max-width:120ch}
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,3.5vw,60px);align-items:start}
+/* phase cards */
+.phase{position:relative;overflow:hidden}
+.phase::after{content:"";position:absolute;inset:auto -20% -40% auto;width:60%;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,oklch(70% 0.14 230 / .22),transparent)}
+.phase.sell::after{background:radial-gradient(closest-side,oklch(78% 0.16 150 / .22),transparent)}
+/* chart */
+.chart{width:100%;height:auto;display:block}
+.chart text{font-family:Inter,sans-serif;fill:var(--ink2)}
+/* adset cards */
+.set{display:flex;flex-direction:column;gap:10px;padding:clamp(14px,1.4vw,22px)}
+.set .id{font-family:"Instrument Serif",serif;font-size:var(--fs-l);line-height:1;display:flex;justify-content:space-between;align-items:baseline}
+.set .id small{font-family:Inter;font-size:14px;color:var(--ink3);letter-spacing:.08em}
+.set .nm{font-size:var(--fs-s);font-weight:700;color:var(--gold)}
+.set .aud{font-size:clamp(14px,1.05vw,19px);color:var(--ink2);line-height:1.35;min-height:4.1em}
+.set .kv{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:clamp(14px,1vw,18px);color:var(--ink3)}
+.set .kv b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.ads{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:6px}
+.ads figure{aspect-ratio:1;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:oklch(20% .02 260);position:relative}
+.ads img{width:100%;height:100%;object-fit:cover;display:block}
+.ads figcaption{position:absolute;left:0;right:0;bottom:0;font-size:clamp(11px,.8vw,14px);line-height:1.15;padding:6px 7px;background:linear-gradient(transparent,oklch(0% 0 0 / .85));color:#fff;font-weight:600}
+.ads figure.new::before{content:"NEW";position:absolute;top:7px;left:7px;font-size:11px;font-weight:800;letter-spacing:.08em;background:var(--green);color:#042;padding:2px 5px;border-radius:4px;z-index:1}
+.set .res{font-size:clamp(14px,1.05vw,19px);color:var(--ink);border-top:1px solid var(--line);padding-top:8px}
+.set .res b{color:var(--green)}
+/* groups wall */
+.wall{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:baseline}
+.wall span{font-family:"Instrument Serif",serif;line-height:1;color:var(--ink2);white-space:nowrap;padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:oklch(100% 0 0 / .03)}
+.wall span i{font-style:normal;color:var(--ink3);font-family:Inter;font-size:.55em;margin-left:6px;letter-spacing:.04em}
+.wall span.live{color:var(--green);border-color:oklch(78% 0.16 150 / .4);background:oklch(78% 0.16 150 / .08)}
+/* timeline table rows */
+.tlx td:first-child{white-space:nowrap;font-weight:700;color:var(--gold)}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.4vw,24px);align-items:stretch}
+.step .lab{color:var(--ink3)}
+.step .big{font-size:clamp(48px,5.6vw,104px)}
+.arrow{font-size:var(--fs-l);color:var(--ink3);align-self:center;text-align:center}
+.card table{font-size:clamp(18px,1.25vw,23px)}.card td{padding:clamp(6px,.55vw,9px) 10px;white-space:nowrap}.card th{padding:6px 10px;font-size:clamp(14px,1vw,17px);white-space:nowrap}.card td small{white-space:normal;font-size:clamp(14px,1vw,17px)}
+.xdense{font-size:clamp(19px,1.35vw,24px)}.xdense td{padding:clamp(7px,.65vw,11px) 12px}.xdense td small{font-size:clamp(13px,.95vw,17px)}
+#s3 .card .sub,#s5 .note,#s3 .note{font-size:clamp(16px,1.15vw,21px)}#s3 h2,#s5 h2{margin-bottom:14px}#s3 .card .big{font-size:clamp(40px,4.2vw,78px)}#s4 .split{grid-template-columns:1.45fr .55fr;align-items:center}#cps{max-height:46vh;margin:0 auto}#s4 h2{margin-bottom:8px}#s4 .step{padding:clamp(12px,1.1vw,18px) clamp(14px,1.4vw,22px)}#s4 .step .big{font-size:clamp(36px,3.3vw,60px)}#s4 .step .sub{margin-top:4px;font-size:clamp(14px,1.05vw,19px)}#s4 .step .lab{margin-bottom:4px;font-size:clamp(13px,1vw,18px)}
+#s6 .card .sub{font-size:clamp(17px,1.2vw,22px)}
+@media (max-width:1100px){.g6{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:900px){
+  .card .tbl table{min-width:0}.card td,.card th{white-space:normal;padding:6px}.card .tbl{margin:0;padding:0;overflow-x:auto}.card{min-width:0;overflow:hidden}.wall span{white-space:normal}#s4 .split{grid-template-columns:1fr}
+  .g2,.g3,.g4,.split,.steps{grid-template-columns:1fr}.g6{grid-template-columns:repeat(2,1fr)}
+  .tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -8px;padding:0 8px}.tbl table{min-width:720px}
+  .foot{position:static;margin-top:28px;flex-wrap:wrap;gap:8px}
+  section.slide{padding-bottom:clamp(28px,4vw,64px)}
+  .set .aud{min-height:0}
+}
+
+/* neon timeline */
+.neon{background:radial-gradient(1000px 600px at 50% 110%, oklch(55% 0.14 225 / .28), transparent 60%),radial-gradient(800px 500px at 10% -10%, oklch(60% 0.12 230 / .18), transparent 60%)}
+.neon .kicker{color:var(--cy)}
+.neon h2 b{color:var(--cy)}
+:root{--cy:oklch(86% 0.11 220);--cy2:oklch(70% 0.14 230)}
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,28px);align-items:stretch}
+.pillar{position:relative;border-radius:26px;padding:clamp(18px,1.9vw,30px);background:linear-gradient(180deg,oklch(30% 0.07 235 / .55),oklch(16% 0.03 250 / .7));border:1px solid oklch(80% 0.12 220 / .35);box-shadow:0 0 0 1px oklch(80% 0.12 220 / .08) inset,0 0 60px -10px oklch(75% 0.14 225 / .45),0 30px 60px -30px #000;display:flex;flex-direction:column;gap:12px}
+.pillar::before{content:"";position:absolute;left:10%;right:10%;top:-1px;height:3px;border-radius:999px;background:linear-gradient(90deg,transparent,var(--cy),transparent);box-shadow:0 0 24px var(--cy)}
+.pillar .day{font-family:"Instrument Serif",serif;font-size:clamp(30px,2.6vw,46px);color:#fff;line-height:1}
+.pillar .day small{display:block;font-family:Inter;font-size:clamp(16px,1.1vw,20px);color:var(--cy);letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-top:8px}
+.pillar .what{font-size:clamp(20px,1.5vw,27px);color:#fff;line-height:1.3;font-weight:600}
+.pillar .why{font-size:clamp(18px,1.3vw,23px);color:oklch(85% 0.03 230);line-height:1.35}
+.pillar .why b{color:var(--cy);font-weight:700}
+.pillar .res{margin-top:auto;border-top:1px solid oklch(80% 0.12 220 / .25);padding-top:12px;font-size:clamp(18px,1.3vw,23px);color:#fff}
+.pillar .res b{color:var(--green)}
+.pillar .res i{color:var(--red);font-style:normal}
+/* big ad set cards */
+.bigsets{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,28px)}
+.bigset{display:grid;grid-template-columns:1fr;gap:10px;padding:clamp(16px,1.5vw,24px)}
+.bigset .top{display:flex;justify-content:space-between;align-items:baseline}
+.bigset .top .id{font-family:"Instrument Serif",serif;font-size:clamp(40px,3.4vw,60px);line-height:1}
+.bigset .top .intent{font-size:clamp(15px,1.05vw,19px);font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.bigset .nm{font-size:clamp(20px,1.5vw,28px);font-weight:700;color:var(--gold);line-height:1.15}
+.bigset dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:clamp(17px,1.12vw,21px);margin:0;line-height:1.3}
+.bigset dt{color:var(--ink3)}.bigset dd{color:var(--ink);font-weight:600;margin:0;font-variant-numeric:tabular-nums}
+.bigset .ads{grid-template-columns:repeat(4,1fr);gap:10px}
+.bigset .ads figcaption{font-size:clamp(15px,1.05vw,18px)}
+.bigset .verdict{border-top:1px solid var(--line);padding-top:8px;font-size:clamp(18px,1.2vw,22px);color:var(--ink)}
+.bigset .verdict b{color:var(--green)}
+/* organic posts */
+.posts{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.4vw,22px)}
+.post{border-radius:20px;overflow:hidden;background:oklch(100% 0 0 / .05);border:1px solid var(--line);display:flex;flex-direction:column}
+.post .img{aspect-ratio:21/9;overflow:hidden;position:relative}
+.post .img img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02)}
+.post .img .st{position:absolute;top:10px;left:10px;font-size:clamp(14px,1vw,17px);font-weight:800;letter-spacing:.08em;padding:4px 9px;border-radius:999px;background:oklch(0% 0 0 / .55);color:#fff}
+.post .img .st.live{background:var(--green);color:#042}
+.post .b{padding:10px 14px 12px;display:flex;flex-direction:column;gap:4px}
+.post .g{font-size:clamp(18px,1.25vw,23px);font-weight:700;color:#fff;line-height:1.2}
+.post .m{font-size:clamp(16px,1.1vw,19px);color:var(--ink3)}
+.post .t{font-size:clamp(16px,1.05vw,19px);color:var(--ink2);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@media (max-width:1100px){.pillars,.bigsets{grid-template-columns:repeat(2,1fr)}.posts{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:700px){.pillars,.bigsets,.posts{grid-template-columns:1fr}}
+
+#s2 h2{font-size:clamp(28px,2.6vw,48px);margin-bottom:clamp(12px,1.4vw,22px);max-width:none}#s2 ul.big{gap:clamp(10px,1.1vw,18px)}#s2 ul.big li{font-size:clamp(21px,1.6vw,29px)}#s5 h2{font-size:clamp(28px,2.6vw,48px);margin-bottom:12px}#s5 .note{margin-top:10px}
+#s11 h2,#s12 h2,#s14 h2,#s8 h2,#s8b h2,#s7 h2,#s7b h2,#s11b h2,#s13 h2,#s10 h2,#s6 h2{font-size:clamp(28px,2.5vw,46px);margin-bottom:clamp(12px,1.4vw,22px);max-width:none}
+#s7b .pillar{gap:9px;padding:clamp(16px,1.6vw,24px)}#s7b .pillar .what{font-size:clamp(19px,1.35vw,24px)}#s7b .pillar .why,#s7b .pillar .res{font-size:clamp(17px,1.2vw,21px)}#s10 h2,#s11 h2{margin-bottom:10px}#s10 .note,#s11 .note{margin-top:10px;font-size:clamp(17px,1.15vw,21px)}#s11 .xdense td{padding:clamp(6px,.6vw,10px) 12px}#s10 .xdense td,#s10 .dense td{padding:clamp(7px,.65vw,11px) 12px}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+@media print{html{scroll-snap-type:none}section.slide{min-height:auto;height:100vh;page-break-after:always;break-after:page}.reveal{opacity:1;transform:none}body{background:#0b0d14}}
+
+/* daily tabs */
+.tabbar{position:sticky;top:0;z-index:5;background:oklch(13% 0.02 260 / .92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px clamp(22px,5.5vw,100px);display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabbar::-webkit-scrollbar{display:none}
+.tabbar a{flex:0 0 auto;text-decoration:none;color:var(--ink2);border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-size:clamp(17px,1.2vw,22px);font-weight:700;letter-spacing:.02em;white-space:nowrap;background:oklch(100% 0 0 / .04)}
+.tabbar a small{display:block;font-weight:600;font-size:.72em;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+.tabbar a.on{background:var(--gold);color:oklch(20% 0.05 240);border-color:var(--gold)}
+.tabbar a.on small{color:oklch(30% 0.05 240)}
+.daygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.4vw,24px)}
+.daygrid .card .big{font-size:clamp(56px,6.5vw,124px)}
+.daygrid .card.hi{border-color:oklch(87% 0.10 215 / .5);box-shadow:0 0 0 1px oklch(87% 0.10 215 / .25) inset}
+.rate{display:flex;gap:clamp(18px,3vw,56px);flex-wrap:wrap;margin-top:clamp(14px,1.6vw,26px)}
+.rate div{font-size:var(--fs-m);color:var(--ink)}
+.rate span{display:block;font-size:var(--fs-s);color:var(--ink3);text-transform:uppercase;letter-spacing:.12em;font-weight:600;margin-bottom:4px}
+section.slide{scroll-margin-top:84px}
+@media (max-width:900px){.card .tbl table,.tbl table{min-width:0!important;font-size:14px;width:100%}.card td,.card th{padding:8px 3px!important;white-space:nowrap!important}.card th{font-size:11px!important;letter-spacing:.04em}.card td:first-child{font-weight:700}.rate{gap:14px 22px}.rate div{font-size:20px}.daygrid{grid-template-columns:repeat(2,1fr)}.daygrid .card .big{font-size:clamp(44px,12vw,72px)}.card{padding:16px}.tabbar{padding:10px 16px}}
+</style>
+</head>
+<body>
+<nav class="tabbar" id="tabbar"></nav>
+<main id="main"></main>
+<script>
+const DATA = {"updated": "11 Oct 2026, 16:59 Israel", "days": [{"date": "2026-09-28", "spend": 591, "impr": 2022, "cpm": 292, "clicks": 53, "visits": 47, "forms": 1, "ic": 1, "meta": 1, "seats": 1, "seats_src": "Meta (no CRM log yet)", "note": "", "rev": 79, "sets": [{"set": "ecomm_Adset_01_All_All_CPM_#108813", "id": "52668330533628", "spend": 461.33, "impr": 1446, "cpm": 319, "clicks": 38, "visits": 34, "forms": 1, "ic": 1, "meta_purch": 1, "rev": 79}, {"set": "ecomm_Adset_02_All_All_CPM_#108814", "id": "52668268711228", "spend": 129.72, "impr": 536, "cpm": 242, "clicks": 14, "visits": 12, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}]}, {"date": "2026-09-29", "spend": 509, "impr": 1218, "cpm": 418, "clicks": 25, "visits": 24, "forms": 2, "ic": 2, "meta": 1, "seats": 1, "seats_src": "Meta (no CRM log yet)", "note": "", "rev": 49, "sets": [{"set": "ecomm_Adset_01_All_All_CPM_#108813", "id": "52668330533628", "spend": 283.88, "impr": 611, "cpm": 465, "clicks": 14, "visits": 15, "forms": 2, "ic": 2, "meta_purch": 1, "rev": 49}, {"set": "ecomm_Adset_03_All_All_CPM_#108815", "id": "52668330165828", "spend": 105.69, "impr": 281, "cpm": 376, "clicks": 5, "visits": 4, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_02_All_All_CPM_#108814", "id": "52668268711228", "spend": 119.73, "impr": 326, "cpm": 367, "clicks": 6, "visits": 5, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}]}, {"date": "2026-09-30", "spend": 677, "impr": 1842, "cpm": 367, "clicks": 36, "visits": 34, "forms": 2, "ic": 2, "meta": 0, "seats": 0, "seats_src": "Meta (no CRM log yet)", "note": "", "rev": 0, "sets": [{"set": "ecomm_Adset_01_All_All_CPM_#108813", "id": "52668330533628", "spend": 333.7, "impr": 724, "cpm": 461, "clicks": 15, "visits": 13, "forms": 2, "ic": 2, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_03_All_All_CPM_#108815", "id": "52668330165828", "spend": 271.1, "impr": 933, "cpm": 291, "clicks": 17, "visits": 17, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_02_All_All_CPM_#108814", "id": "52668268711228", "spend": 72.0, "impr": 185, "cpm": 389, "clicks": 4, "visits": 4, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}]}, {"date": "2026-10-01", "spend": 894, "impr": 5939, "cpm": 150, "clicks": 82, "visits": 69, "forms": 1, "ic": 1, "meta": 0, "seats": 0, "seats_src": "Meta (no CRM log yet)", "note": "", "rev": 0, "sets": [{"set": "ecomm_Adset_01_All_All_CPM_#108813", "id": "52668330533628", "spend": 373.92, "impr": 604, "cpm": 619, "clicks": 18, "visits": 17, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_03_All_All_CPM_#108815", "id": "52668330165828", "spend": 472.53, "impr": 5249, "cpm": 90, "clicks": 63, "visits": 51, "forms": 1, "ic": 1, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_02_All_All_CPM_#108814", "id": "52668268711228", "spend": 47.36, "impr": 86, "cpm": 551, "clicks": 1, "visits": 1, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}]}, {"date": "2026-10-02", "spend": 648, "impr": 4650, "cpm": 139, "clicks": 52, "visits": 46, "forms": 2, "ic": 2, "meta": 2, "seats": 2, "seats_src": "Meta (no CRM log yet)", "note": "", "rev": 128, "sets": [{"set": "ecomm_Adset_01_All_All_CPM_#108813", "id": "52668330533628", "spend": 302.52, "impr": 667, "cpm": 454, "clicks": 14, "visits": 14, "forms": 1, "ic": 1, "meta_purch": 1, "rev": 79}, {"set": "ecomm_Adset_03_All_All_CPM_#108815", "id": "52668330165828", "spend": 275.59, "impr": 3812, "cpm": 72, "clicks": 34, "visits": 29, "forms": 1, "ic": 1, "meta_purch": 1, "rev": 49}, {"set": "ecomm_Adset_02_All_All_CPM_#108814", "id": "52668268711228", "spend": 70.04, "impr": 171, "cpm": 410, "clicks": 4, "visits": 3, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}]}, {"date": "2026-10-03", "spend": 665, "impr": 26375, "cpm": 25, "clicks": 221, "visits": 192, "forms": 2, "ic": 2, "meta": 2, "seats": 2, "seats_src": "Meta (no CRM log yet)", "note": "", "rev": 98, "sets": [{"set": "ecomm_Adset_05_All_All_CPM_#108817", "id": "52668330871228", "spend": 175.26, "impr": 3542, "cpm": 49, "clicks": 36, "visits": 30, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_04_All_All_CPM_#108816", "id": "52668330870828", "spend": 124.02, "impr": 15932, "cpm": 8, "clicks": 134, "visits": 117, "forms": 2, "ic": 2, "meta_purch": 2, "rev": 98}, {"set": "ecomm_Adset_01_All_All_CPM_#108813", "id": "52668330533628", "spend": 205.74, "impr": 664, "cpm": 310, "clicks": 8, "visits": 7, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_03_All_All_CPM_#108815", "id": "52668330165828", "spend": 101.58, "impr": 5978, "cpm": 17, "clicks": 40, "visits": 35, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_02_All_All_CPM_#108814", "id": "52668268711228", "spend": 58.89, "impr": 259, "cpm": 227, "clicks": 3, "visits": 3, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}]}, {"date": "2026-10-04", "spend": 1779, "impr": 4515, "cpm": 394, "clicks": 192, "visits": 184, "forms": 3, "ic": 3, "meta": 2, "seats": 1, "seats_src": "CRM paid", "note": "CRM log starts midday 4 Oct; Meta shows 2", "rev": 98, "sets": [{"set": "ecomm_Adset_05_All_All_CPM_#108817", "id": "52668330871228", "spend": 141.55, "impr": 277, "cpm": 511, "clicks": 15, "visits": 13, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset6_0_All_All_CPM_#108818", "id": "52668330871028", "spend": 358.86, "impr": 827, "cpm": 434, "clicks": 55, "visits": 54, "forms": 0, "ic": 1, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_04_All_All_CPM_#108816", "id": "52668330870828", "spend": 268.05, "impr": 1051, "cpm": 255, "clicks": 50, "visits": 45, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_01_All_All_CPM_#108813", "id": "52668330533628", "spend": 492.94, "impr": 1177, "cpm": 419, "clicks": 34, "visits": 32, "forms": 1, "ic": 1, "meta_purch": 1, "rev": 49}, {"set": "ecomm_Adset_03_All_All_CPM_#108815", "id": "52668330165828", "spend": 399.99, "impr": 902, "cpm": 443, "clicks": 31, "visits": 33, "forms": 2, "ic": 1, "meta_purch": 1, "rev": 49}, {"set": "ecomm_Adset_02_All_All_CPM_#108814", "id": "52668268711228", "spend": 117.61, "impr": 281, "cpm": 419, "clicks": 7, "visits": 7, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}]}, {"date": "2026-10-05", "spend": 2598, "impr": 5113, "cpm": 508, "clicks": 302, "visits": 292, "forms": 6, "ic": 5, "meta": 4, "seats": 4, "seats_src": "CRM paid", "note": "", "rev": 286, "sets": [{"set": "ecomm_Adset_05_All_All_CPM_#108817", "id": "52668330871228", "spend": 255.31, "impr": 437, "cpm": 584, "clicks": 43, "visits": 43, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset6_0_All_All_CPM_#108818", "id": "52668330871028", "spend": 362.74, "impr": 721, "cpm": 503, "clicks": 55, "visits": 50, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_04_All_All_CPM_#108816", "id": "52668330870828", "spend": 699.24, "impr": 1305, "cpm": 536, "clicks": 80, "visits": 78, "forms": 2, "ic": 2, "meta_purch": 2, "rev": 128}, {"set": "ecomm_Adset_01_All_All_CPM_#108813", "id": "52668330533628", "spend": 445.5, "impr": 1023, "cpm": 435, "clicks": 17, "visits": 15, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_03_All_All_CPM_#108815", "id": "52668330165828", "spend": 717.15, "impr": 1323, "cpm": 542, "clicks": 104, "visits": 103, "forms": 4, "ic": 3, "meta_purch": 2, "rev": 158}, {"set": "ecomm_Adset_02_All_All_CPM_#108814", "id": "52668268711228", "spend": 117.65, "impr": 304, "cpm": 387, "clicks": 3, "visits": 3, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}]}, {"date": "2026-10-06", "spend": 2587, "impr": 3626, "cpm": 713, "clicks": 269, "visits": 254, "forms": 10, "ic": 8, "meta": 8, "seats": 8, "seats_src": "CRM paid", "note": "", "rev": 482, "sets": [{"set": "ecomm_Adset_05_All_All_CPM_#108817", "id": "52668330871228", "spend": 398.9, "impr": 523, "cpm": 763, "clicks": 45, "visits": 42, "forms": 2, "ic": 2, "meta_purch": 2, "rev": 98}, {"set": "ecomm_Adset6_0_All_All_CPM_#108818", "id": "52668330871028", "spend": 291.22, "impr": 452, "cpm": 644, "clicks": 42, "visits": 37, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_04_All_All_CPM_#108816", "id": "52668330870828", "spend": 803.31, "impr": 1054, "cpm": 762, "clicks": 87, "visits": 86, "forms": 4, "ic": 3, "meta_purch": 3, "rev": 177}, {"set": "ecomm_Adset_01_All_All_CPM_#108813", "id": "52668330533628", "spend": 405.49, "impr": 630, "cpm": 644, "clicks": 21, "visits": 22, "forms": 1, "ic": 1, "meta_purch": 1, "rev": 79}, {"set": "ecomm_Adset_03_All_All_CPM_#108815", "id": "52668330165828", "spend": 606.98, "impr": 801, "cpm": 758, "clicks": 72, "visits": 67, "forms": 3, "ic": 2, "meta_purch": 2, "rev": 128}, {"set": "ecomm_Adset_02_All_All_CPM_#108814", "id": "52668268711228", "spend": 81.11, "impr": 166, "cpm": 489, "clicks": 2, "visits": 0, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}]}, {"date": "2026-10-07", "spend": 2610, "impr": 4066, "cpm": 642, "clicks": 244, "visits": 238, "forms": 13, "ic": 13, "meta": 10, "seats": 10, "seats_src": "CRM paid", "note": "", "rev": 759, "sets": [{"set": "ecomm_Adset_05_All_All_CPM_#108817", "id": "52668330871228", "spend": 629.86, "impr": 1061, "cpm": 594, "clicks": 65, "visits": 64, "forms": 6, "ic": 6, "meta_purch": 5, "rev": 245}, {"set": "ecomm_Adset6_0_All_All_CPM_#108818", "id": "52668330871028", "spend": 11.5, "impr": 7, "cpm": 1643, "clicks": 0, "visits": 1, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_04_All_All_CPM_#108816", "id": "52668330870828", "spend": 1015.78, "impr": 1504, "cpm": 675, "clicks": 80, "visits": 78, "forms": 3, "ic": 3, "meta_purch": 3, "rev": 277}, {"set": "ecomm_Adset_01_All_All_CPM_#108813", "id": "52668330533628", "spend": 97.52, "impr": 199, "cpm": 490, "clicks": 6, "visits": 8, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_03_All_All_CPM_#108815", "id": "52668330165828", "spend": 855.26, "impr": 1295, "cpm": 660, "clicks": 93, "visits": 87, "forms": 4, "ic": 4, "meta_purch": 3, "rev": 237}]}, {"date": "2026-10-08", "spend": 2056, "impr": 3457, "cpm": 595, "clicks": 280, "visits": 244, "forms": 4, "ic": 4, "meta": 3, "seats": 3, "seats_src": "CRM paid", "note": "", "rev": 147, "sets": [{"set": "ecomm_Adset_05_All_All_CPM_#108817", "id": "52668330871228", "spend": 736.39, "impr": 1376, "cpm": 535, "clicks": 123, "visits": 105, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_04_All_All_CPM_#108816", "id": "52668330870828", "spend": 737.18, "impr": 1148, "cpm": 642, "clicks": 90, "visits": 79, "forms": 1, "ic": 1, "meta_purch": 1, "rev": 49}, {"set": "ecomm_Adset_03_All_All_CPM_#108815", "id": "52668330165828", "spend": 582.0, "impr": 933, "cpm": 624, "clicks": 67, "visits": 60, "forms": 3, "ic": 3, "meta_purch": 2, "rev": 98}]}, {"date": "2026-10-09", "spend": 1888, "impr": 2986, "cpm": 632, "clicks": 273, "visits": 251, "forms": 5, "ic": 4, "meta": 3, "seats": 3, "seats_src": "CRM paid", "note": "", "rev": 177, "sets": [{"set": "ecomm_Adset_05_All_All_CPM_#108817", "id": "52668330871228", "spend": 505.07, "impr": 824, "cpm": 613, "clicks": 85, "visits": 76, "forms": 1, "ic": 1, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_04_All_All_CPM_#108816", "id": "52668330870828", "spend": 643.73, "impr": 1019, "cpm": 632, "clicks": 92, "visits": 89, "forms": 1, "ic": 1, "meta_purch": 1, "rev": 49}, {"set": "ecomm_Adset_01_All_All_CPM_#108813", "id": "52668330533628", "spend": 162.8, "impr": 176, "cpm": 925, "clicks": 5, "visits": 5, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_03_All_All_CPM_#108815", "id": "52668330165828", "spend": 576.19, "impr": 967, "cpm": 596, "clicks": 91, "visits": 81, "forms": 3, "ic": 2, "meta_purch": 2, "rev": 128}]}, {"date": "2026-10-10", "spend": 1567, "impr": 2821, "cpm": 556, "clicks": 219, "visits": 198, "forms": 6, "ic": 6, "meta": 4, "seats": 4, "seats_src": "CRM paid", "note": "", "rev": 196, "sets": [{"set": "ecomm_Adset_05_All_All_CPM_#108817", "id": "52668330871228", "spend": 598.66, "impr": 1039, "cpm": 576, "clicks": 102, "visits": 95, "forms": 4, "ic": 4, "meta_purch": 3, "rev": 147}, {"set": "ecomm_Adset_04_All_All_CPM_#108816", "id": "52668330870828", "spend": 478.81, "impr": 821, "cpm": 583, "clicks": 59, "visits": 48, "forms": 1, "ic": 1, "meta_purch": 1, "rev": 49}, {"set": "ecomm_Adset_01_All_All_CPM_#108813", "id": "52668330533628", "spend": 189.8, "impr": 332, "cpm": 572, "clicks": 9, "visits": 9, "forms": 0, "ic": 0, "meta_purch": 0, "rev": 0}, {"set": "ecomm_Adset_03_All_All_CPM_#108815", "id": "52668330165828", "spend": 299.85, "impr": 629, "cpm": 477, "clicks": 49, "visits": 46, "forms": 1, "ic": 1, "meta_purch": 0, "rev": 0}]}, {"date": "2026-10-11", "spend": 1866, "impr": 3507, "cpm": 532, "clicks": 197, "visits": 158, "forms": 13, "ic": 13, "meta": 8, "seats": 9, "organic": 1, "seats_src": "CRM paid: 8 Meta + 1 organic", "note": "", "rev": 512, "sets": [{"set": "ecomm_Adset_05_All_All_CPM_#108817", "id": "52668330871228", "spend": 611.9, "impr": 1183, "cpm": 517, "clicks": 71, "visits": 59, "forms": 4, "ic": 4, "meta_purch": 2, "rev": 98}, {"set": "ecomm_Adset_04_All_All_CPM_#108816", "id": "52668330870828", "spend": 466.01, "impr": 932, "cpm": 500, "clicks": 58, "visits": 48, "forms": 2, "ic": 2, "meta_purch": 1, "rev": 79}, {"set": "ecomm_Adset_01_All_All_CPM_#108813", "id": "52668330533628", "spend": 321.55, "impr": 397, "cpm": 810, "clicks": 21, "visits": 15, "forms": 3, "ic": 3, "meta_purch": 2, "rev": 128}, {"set": "ecomm_Adset_03_All_All_CPM_#108815", "id": "52668330165828", "spend": 451.64, "impr": 981, "cpm": 460, "clicks": 47, "visits": 36, "forms": 4, "ic": 4, "meta_purch": 3, "rev": 207}]}]};
+const $=n=>'$'+Math.round(n).toLocaleString('en-US');
+const pct=(a,b)=>b?(100*a/b).toFixed(1)+'%':'—';
+const D=s=>new Date(s+'T12:00:00Z');
+const long=s=>D(s).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
+const short=s=>D(s).toLocaleDateString('en-GB',{weekday:'short',timeZone:'UTC'})+' '+D(s).getUTCDate();
+const setNo=n=>{const m=n.match(/Adset_?(\d+)/i);return m?'Set '+m[1].padStart(2,'0'):n.slice(0,10)};
+const sum=(a,k)=>a.reduce((s,x)=>s+(x[k]||0),0);
+const days=DATA.days.slice().reverse();
+const upd=DATA.updated, updTime=upd.split(', ')[1];
+
+function card(lab,big,sub,hi){return `<div class="card${hi?' hi':''}"><div class="lab">${lab}</div><div class="num big">${big}</div>${sub?`<div class="sub">${sub}</div>`:''}</div>`}
+
+function daySlide(d,i,isToday){
+  const cps=d.seats?$(d.spend/d.seats):'—';
+  const sets=d.sets.slice().sort((a,b)=>b.spend-a.spend);
+  const rows=sets.map(s=>`<tr><td>${setNo(s.set)}</td><td class="n">${$(s.spend)}</td><td class="n">${s.visits}</td><td class="n">${s.forms}</td><td class="n">${s.meta_purch}</td><td class="n">${s.meta_purch?$(s.spend/s.meta_purch):'—'}</td></tr>`).join('');
+  return `<section class="slide" id="d-${d.date}">
+  <div class="kicker"><span class="no">${i+1}</span>${isToday?'Today · to '+updTime:long(d.date)}</div>
+  <h2>${long(d.date)}: <b>${d.seats} seat${d.seats===1?'':'s'}</b>${d.organic?' (incl. '+d.organic+' organic)':''} on ${$(d.spend)}${d.seats?', '+cps+' per seat':''}.</h2>
+  <div class="daygrid">
+    ${card('Spend',$(d.spend),'Meta, campaign #118149')}
+    ${card('Seats paid',d.seats,d.seats_src+(d.note?' · '+d.note:''),true)}
+    ${card('Per seat',cps,'spend ÷ paid seats')}
+    ${card('Visitors',d.visits,$(d.visits?d.spend/d.visits:0)+' per visitor')}
+    ${card('Forms',d.forms,pct(d.forms,d.visits)+' of visitors')}
+    ${card('Meta attributed',d.meta,'purchases credited by Meta')}
+  </div>
+  <div class="rate">
+    <div><span>Visitors who bought</span>${pct(d.seats,d.visits)}</div>
+    <div><span>CPM</span>${$(d.cpm)}</div>
+    <div><span>Revenue (Meta)</span>${$(d.rev)}</div>
+  </div>
+  <div class="card" style="margin-top:clamp(14px,1.6vw,26px)"><div class="lab">By ad set</div>
+  <div class="tbl"><table class="dense"><thead><tr><th>Set</th><th class="n">Spend</th><th class="n">Visits</th><th class="n">Forms</th><th class="n">Meta</th><th class="n">Per seat</th></tr></thead><tbody>${rows||'<tr><td colspan="6">no spend</td></tr>'}</tbody></table></div>
+  <div class="sub">Per-set seats are Meta-attributed; the CRM log does not carry the ad set. Day totals use CRM paid orders.</div></div>
+  <div class="foot"><span>Meta Ads Manager (Israel time) · CRM order log · pixel ${'1440305917310328'} · tests excluded</span><span>Updated ${upd}</span></div>
+</section>`}
+
+function aggSlide(id,no,title,arr,extra,opt){
+  opt=opt||{};
+  const spend=sum(arr,'spend'),seats=sum(arr,'seats'),visits=sum(arr,'visits'),forms=sum(arr,'forms'),meta=sum(arr,'meta'),rev=sum(arr,'rev'),org=sum(arr,'organic');
+  const orgLab=org?' (incl. '+org+' organic)':'';
+  const rows=arr.slice().reverse().map(d=>`<tr><td>${short(d.date)}</td><td class="n">${$(d.spend)}</td><td class="n">${d.visits}</td><td class="n">${d.forms}</td><td class="n">${d.seats}${d.organic?' <small>incl. '+d.organic+' organic</small>':''}</td><td class="n">${d.seats?$(d.spend/d.seats):'—'}</td></tr>`).join('');
+  return `<section class="slide" id="${id}">
+  <div class="kicker"><span class="no">${no}</span>${title}</div>
+  ${opt.metaHero?`<h2><b>${meta+org} paid seats</b> since launch${org?' ('+meta+' Meta + '+org+' organic)':''}.</h2>`:`<h2><b>${seats} seats</b>${orgLab} on ${$(spend)}, ${$(spend/seats)} per seat.</h2>`}
+  <div class="daygrid">
+    ${opt.metaHero?card('Paid seats · Meta',meta,'campaign #118149, created 24 Sep 2026',true):''}
+    ${card('Spend',$(spend),arr.length+' days')}
+    ${opt.metaHero?card('Per seat · Meta',$(spend/meta),'spend ÷ Meta-attributed seats'):''}
+    ${card('Seats paid'+(opt.metaHero?' · CRM':''),seats,'CRM paid from 4 Oct; Meta before'+(org?' · incl. '+org+' organic':''),!opt.metaHero)}
+    ${card('Per seat'+(opt.metaHero?' · CRM':''),$(spend/seats),org?'incl. organic seat':'')}
+    ${card('Visitors',visits,$(spend/visits)+' per visitor')}
+    ${card('Forms',forms,pct(forms,visits)+' of visitors')}
+    ${opt.metaHero?'':card('Meta attributed',meta,'')}
+  </div>
+  ${extra?`<p class="note">${extra}</p>`:''}
+  <div class="card" style="margin-top:clamp(14px,1.6vw,26px)"><div class="lab">Each day</div>
+  <div class="tbl"><table class="dense"><thead><tr><th>Day</th><th class="n">Spend</th><th class="n">Visitors</th><th class="n">Forms</th><th class="n">Seats</th><th class="n">Per seat</th></tr></thead><tbody>${rows}</tbody>
+  <tfoot><tr class="total"><td>Total</td><td class="n">${$(spend)}</td><td class="n">${visits}</td><td class="n">${forms}</td><td class="n">${seats}</td><td class="n">${$(spend/seats)}</td></tr></tfoot></table></div></div>
+  <div class="foot"><span>Meta Ads Manager (Israel time) · CRM order log · tests excluded</span><span>Updated ${upd}</span></div>
+</section>`}
+
+const week2=DATA.days.filter(d=>d.date>='2026-10-05');
+let html='';
+const TL=[
+ ['Oct 11 so far','9 seats (8 Meta, 1 organic). $207 per seat ($1,866 / 9). Top 2 ad sets today: $151 and $161 per seat.'],
+ ['Oct 7','10 seats, $261 per seat.'],
+ ['Oct 7 night','Consolidated 6 ad sets to 3, budget focused on 2, to exit learning faster. This had a negative impact on results.'],
+ ['Oct 8','3 seats, $685 per seat.'],
+ ['Oct 9','3 seats, $629 per seat.'],
+ ['Oct 9 afternoon','Launched 2 new UGC videos in a test ad set.'],
+ ['Oct 10','Budgets lowered. 4 seats, $392 per seat.'],
+ ['Oct 11','9 seats so far, $207 per seat. The 2 new videos brought 2 seats today at $161 per seat.']];
+function tlSlide(no){return `<section class="slide" id="timeline">
+  <div class="kicker"><span class="no">${no}</span>Timeline · Oct 7 → today</div>
+  <h2>What changed, by date.</h2>
+  <div class="card"><div class="tbl"><table class="dense tlx"><thead><tr><th>Date</th><th>What happened</th></tr></thead><tbody>${TL.map(t=>`<tr><td>${t[0]}</td><td>${t[1]}</td></tr>`).join('')}</tbody></table></div></div>
+  <div class="foot"><span>Meta Ads Manager (Israel time) · CRM order log · tests excluded</span><span>Updated ${upd}</span></div>
+</section>`}
+html+=aggSlide('all',1,'Since launch · Mon 28 Sep → today',DATA.days,'',{metaHero:true});
+html+=tlSlide(2);
+html+=aggSlide('week2',3,'Week 2 · Mon 5 → Sun 11 Oct',week2,'');
+days.forEach((d,i)=>html+=daySlide(d,i+3,i===0));
+document.getElementById('main').innerHTML=html;
+
+const tabs=[{id:'all',l:'Since launch',s:'28 Sep →'},{id:'timeline',l:'Timeline',s:'7–11 Oct'},{id:'week2',l:'Week 2',s:'5–11 Oct'},...days.map((d,i)=>({id:'d-'+d.date,l:short(d.date),s:i===0?'today':d.seats+(d.seats===1?' seat':' seats')}))];
+const bar=document.getElementById('tabbar');
+bar.innerHTML=tabs.map(t=>`<a href="#${t.id}" id="t-${t.id}">${t.l}<small>${t.s}</small></a>`).join('');
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.tabbar a').forEach(a=>a.classList.remove('on'));const a=document.getElementById('t-'+e.target.id);if(a){a.classList.add('on');a.scrollIntoView({inline:'center',block:'nearest'})}}})},{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('section.slide').forEach(s=>io.observe(s));
+const target=(location.hash&&document.getElementById(location.hash.slice(1)))?location.hash.slice(1):'d-'+days[0].date;
+history.replaceState(null,'','#'+target);
+requestAnimationFrame(()=>{document.getElementById(target).scrollIntoView({block:'start'});});
+window.addEventListener('load',()=>document.getElementById(target).scrollIntoView({block:'start'}));
+</script>
+</body>
+</html>
