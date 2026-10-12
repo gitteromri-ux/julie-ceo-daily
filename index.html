@@ -367,7 +367,7 @@ function l7Slide(no){const M=v=>'$'+Math.round(v).toLocaleString('en-US'),C=v=>'
  const b2=x=>`<tr${cls(x)}><td>${lab(x)}</td><td>${x.mp}</td><td>${N(x.im)}</td><td>${M(x.sp/x.im*1000)}</td><td>${N(x.cl)}</td><td>${pc(x.cl/x.im)}</td><td>${C(x.sp/x.cl)}</td><td>${N(x.lp)}</td><td>${C(x.sp/x.lp)}</td><td>${x.atc}</td><td>${M(x.sp/x.atc)}</td><td>${x.ic}</td><td>${pc(x.n/x.lp)}</td><td>${pc(x.n/x.atc)}</td><td>${pc(x.n/x.ic)}</td></tr>`;
  const body=fn=>`<tbody>${L7.map(fn).join('')}</tbody><tfoot>${fn(t)}</tfoot>`;
  return `<section class="slide" id="last7">
- <h2 class="top">This week: Tue 6 Oct to Mon 12 Oct (today to ${L7AT})</h2>
+ <h2 class="top">This week: 6–12 October</h2>
  <div class="kpis"><div class="k-sp"><span>Spend</span><b>${M(t.sp)}</b></div><div class="k-n"><span>Purchases (CRM)</span><b>${t.n}</b></div><div class="k-cpa"><span>Cost per purchase</span><b>${M(t.sp/t.n)}</b></div><div><span>Purchase value</span><b>${M(t.val)}</b></div><div><span>LP views</span><b>${N(t.lp)}</b></div><div><span>LPV → purchase</span><b>${pc(t.n/t.lp)}</b></div></div>
  <h3 class="l7h">Bottom line</h3>
  <div class="l7w"><table class="l7 bl"><thead><tr><th>Day</th><th>Spend</th><th>Purchases (CRM)</th><th>Cost per purchase</th><th>Purchase value</th><th>ROAS</th></tr></thead>${body(b1)}</table></div>
