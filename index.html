@@ -260,6 +260,14 @@ section.slide{scroll-margin-top:84px}
 #last7 .kpis{grid-template-columns:repeat(2,1fr)!important}#last7 .kpis b{font-size:34px!important}#last7 .bl td{font-size:20px!important}#last7 .l7 td{font-size:18px!important;padding:6px 8px!important}#last7 .l7 th{font-size:16px!important}
 #plan .pt th{letter-spacing:0!important;text-transform:none!important;font-size:15px!important}#plan .pt th,#plan .pt td{padding:4px 6px!important}#plan .pt th:nth-child(4),#plan .pt td:nth-child(4){display:none}#plan .pt td{font-size:19px!important}#last7 .l7 th,#last7 .l7 td{padding:6px 6px!important}#last7 .bl th{font-size:15px!important}#last7 .bl td,#last7 .bl tfoot td{font-size:19px!important}#last7 .tn{font-size:13px!important;display:block;width:max-content;margin:2px 0 0}
 #last7 .l7 th:first-child,#last7 .l7 td:first-child{position:sticky;left:0;background:oklch(16% 0.02 258);z-index:1}#last7 tr.turn td:first-child{background:oklch(28% 0.08 155)!important}#last7 h2.top{font-size:34px!important}}
+/* tabs v5 */
+.tabbar a{color:var(--ink3)!important;font-size:16px!important;padding:8px 14px!important;opacity:.85}
+.tabbar a#t-last7,.tabbar a#t-plan{color:#fff!important;font-size:22px!important;font-weight:800!important;padding:10px 22px!important;opacity:1;border:0!important}
+.tabbar a#t-last7{background:oklch(52% 0.15 155)!important}.tabbar a#t-plan{background:oklch(50% 0.17 255)!important;margin-right:10px}
+.tabbar a#t-last7 small,.tabbar a#t-plan small{color:#fff!important;opacity:.9}
+.tabbar a#t-last7.on,.tabbar a#t-plan.on{outline:3px solid #fff;outline-offset:2px}
+.tabbar a#t-plan::after{content:"";position:absolute}
+.tabbar a#t-all{margin-left:10px;position:relative}.tabbar a#t-all::before{content:"";position:absolute;left:-21px;top:15%;height:70%;border-left:2px solid var(--line)}
 </style>
 </head>
 <body>
@@ -399,7 +407,7 @@ html+=planSlide(4);html+=l7Slide(5);
 days.forEach((d,i)=>html+=daySlide(d,i+6,i===0));
 document.getElementById('main').innerHTML=html;
 
-const tabs=[{id:'all',l:'Since launch',s:'28 Sep →'},{id:'timeline',l:'Timeline',s:'7–12 Oct'},{id:'week2',l:'Week 2',s:'5–11 Oct'},{id:'plan',l:'Adjusted plan',s:'to 27 Oct'},{id:'last7',l:'This week',s:'6–12 Oct'},...days.map((d,i)=>({id:'d-'+d.date,l:short(d.date),s:i===0?'today':d.seats+(d.seats===1?' seat':' seats')}))];
+const tabs=[{id:'last7',l:'This week',s:'6–12 Oct'},{id:'plan',l:'Adjusted plan',s:'to 27 Oct'},{id:'all',l:'Since launch',s:'28 Sep →'},{id:'timeline',l:'Timeline',s:'7–12 Oct'},{id:'week2',l:'Week 2',s:'5–11 Oct'},...days.map((d,i)=>({id:'d-'+d.date,l:short(d.date),s:i===0?'today':d.seats+(d.seats===1?' seat':' seats')}))];
 const bar=document.getElementById('tabbar');
 bar.innerHTML=tabs.map(t=>`<a href="#${t.id}" id="t-${t.id}">${t.l}<small>${t.s}</small></a>`).join('');
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.tabbar a').forEach(a=>a.classList.remove('on'));const a=document.getElementById('t-'+e.target.id);if(a){a.classList.add('on');a.scrollIntoView({inline:'center',block:'nearest'})}}})},{rootMargin:'-40% 0px -55% 0px'});
@@ -408,6 +416,8 @@ const target=(location.hash&&document.getElementById(location.hash.slice(1)))?lo
 history.replaceState(null,'','#'+target);
 requestAnimationFrame(()=>{document.getElementById(target).scrollIntoView({block:'start'});});
 window.addEventListener('load',()=>document.getElementById(target).scrollIntoView({block:'start'}));
+
+if(!location.hash){const w=document.getElementById('last7');if(w){document.documentElement.style.scrollBehavior='auto';window.scrollTo(0,w.getBoundingClientRect().top+scrollY-(document.getElementById('tabbar').offsetHeight));document.documentElement.style.scrollBehavior=''}}
 </script>
 </body>
 </html>
