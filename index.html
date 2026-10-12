@@ -417,7 +417,7 @@ history.replaceState(null,'','#'+target);
 requestAnimationFrame(()=>{document.getElementById(target).scrollIntoView({block:'start'});});
 window.addEventListener('load',()=>document.getElementById(target).scrollIntoView({block:'start'}));
 
-if(!location.hash){const w=document.getElementById('last7');if(w){document.documentElement.style.scrollBehavior='auto';window.scrollTo(0,w.getBoundingClientRect().top+scrollY-(document.getElementById('tabbar').offsetHeight));document.documentElement.style.scrollBehavior=''}}
+if(!location.hash){const go=()=>{const w=document.getElementById('last7');if(w){document.documentElement.style.scrollBehavior='auto';w.scrollIntoView({block:'start'});document.documentElement.style.scrollBehavior=''}};go();addEventListener('load',()=>{go();setTimeout(go,300)})}
 </script>
 </body>
 </html>
