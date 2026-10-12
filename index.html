@@ -412,12 +412,11 @@ const bar=document.getElementById('tabbar');
 bar.innerHTML=tabs.map(t=>`<a href="#${t.id}" id="t-${t.id}">${t.l}<small>${t.s}</small></a>`).join('');
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.tabbar a').forEach(a=>a.classList.remove('on'));const a=document.getElementById('t-'+e.target.id);if(a){a.classList.add('on');a.scrollIntoView({inline:'center',block:'nearest'})}}})},{rootMargin:'-40% 0px -55% 0px'});
 document.querySelectorAll('section.slide').forEach(s=>io.observe(s));
-const target=(location.hash&&document.getElementById(location.hash.slice(1)))?location.hash.slice(1):'d-'+days[0].date;
+const target=(location.hash&&document.getElementById(location.hash.slice(1)))?location.hash.slice(1):'last7';
 history.replaceState(null,'','#'+target);
 requestAnimationFrame(()=>{document.getElementById(target).scrollIntoView({block:'start'});});
 window.addEventListener('load',()=>document.getElementById(target).scrollIntoView({block:'start'}));
 
-if(!location.hash){const go=()=>{const w=document.getElementById('last7');if(w){document.documentElement.style.scrollBehavior='auto';w.scrollIntoView({block:'start'});document.documentElement.style.scrollBehavior=''}};go();addEventListener('load',()=>{go();setTimeout(go,300)})}
 </script>
 </body>
 </html>
