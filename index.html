@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Julie Masterclass · Campaign update</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:oklch(13% 0.02 260);--ink:oklch(97% 0.01 90);--ink2:oklch(80% 0.02 90);--ink3:oklch(64% 0.02 90);
@@ -171,7 +171,36 @@ ul.big li b{color:var(--gold);font-weight:700}
 .rate span{display:block;font-size:var(--fs-s);color:var(--ink3);text-transform:uppercase;letter-spacing:.12em;font-weight:600;margin-bottom:4px}
 section.slide{scroll-margin-top:84px}
 @media (max-width:900px){.card .tbl table,.tbl table{min-width:0!important;font-size:14px;width:100%}.card td,.card th{padding:8px 3px!important;white-space:nowrap!important}.card th{font-size:11px!important;letter-spacing:.04em}.card td:first-child{font-weight:700}.rate{gap:14px 22px}.rate div{font-size:20px}.daygrid{grid-template-columns:repeat(2,1fr)}.daygrid .card .big{font-size:clamp(44px,12vw,72px)}.card{padding:16px}.tabbar{padding:10px 16px}}
-.slide tr.act td{background:rgba(0,0,0,.04)}
+
+#plan.ap{--apb:#164cca;--apbb:#edf3ff;--apg:#06724f;--apgb:#e8f7f0;--apa:#98420a;--apab:#fff2dd;--apl:#d9e2ed;--apm:#53657b;--apbg:#eef3f9;font-family:"Public Sans",Inter,Arial,sans-serif;font-variant-numeric:tabular-nums}
+#plan .lede{color:var(--apm);margin:0 0 8px}
+#plan .legend{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0 18px;font-weight:700;font-size:15px}#plan .legend span{padding:8px 14px;border-radius:8px}#plan .legend .daily{background:var(--apbb);color:var(--apb)}#plan .legend .total{background:var(--apgb);color:var(--apg)}#plan .legend .cost{background:#fff;color:var(--apm);border:1px solid var(--apl)}
+#plan .table-wrap{overflow-x:auto;border:1px solid var(--apl);border-radius:12px;background:#fff}
+#plan table{width:100%;min-width:2300px;border-collapse:collapse;table-layout:fixed;color:#12263f}
+#plan th,#plan td{padding:12px 8px;border-right:1px solid var(--apl);border-bottom:1px solid var(--apl);text-align:center;font-size:16px}
+#plan th:first-child,#plan td:first-child{width:190px;text-align:left;padding-left:16px;background:#fff;position:sticky;left:0;z-index:2}
+#plan thead th{background:var(--apbb);color:var(--apb);font-weight:800}#plan thead th:first-child{color:#12263f}
+#plan .sub{display:block;font-size:13px;font-weight:500;color:var(--apm);margin-top:4px}
+#plan .dual{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:center}#plan .dual .d{color:var(--apb);font-size:18px;font-weight:600}#plan .dual .t{color:var(--apg);font-size:18px;font-weight:800}#plan .key .dual span{font-size:12px}
+#plan .cost-row td{color:var(--apm);background:var(--apbg);padding-top:6px;padding-bottom:6px;font-size:15px}#plan .cost-row td:first-child{background:var(--apbg)}
+#plan .volume td:first-child{font-weight:800}#plan .paid td,#plan .paid td:first-child{background:var(--apgb)}
+#plan .cumulative td{font-size:20px;font-weight:800;color:var(--apg);background:var(--apgb)}#plan .cumulative td:first-child{color:#12263f;font-size:16px;background:var(--apgb)}
+#plan .summary{margin-top:28px}#plan .h{font-size:24px;margin:0 0 14px;color:#12263f}
+#plan .summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+#plan .summary-card{padding:20px;background:#fff;border-top:5px solid var(--apb);border-radius:8px;color:#12263f}#plan .summary-card.warn{border-color:var(--apa);background:var(--apab)}#plan .summary-card.success{border-color:var(--apg);background:var(--apgb)}
+#plan .summary-card b{display:block;font-size:32px;margin:8px 0}#plan .summary-card p{margin:0 0 8px;font-size:16px;line-height:1.45}#plan .summary-card h3{margin:0 0 8px;font-size:18px;color:var(--apb)}
+#plan .bs{border-top-color:#c2361f}#plan .flag{background:var(--apab);padding:10px 12px;border-radius:6px}
+#plan .assumptions{margin-top:18px;color:var(--apm);font-size:15px;line-height:1.6}
+#plan.ap{background:#eef3f9;color:#12263f}#plan.ap h2,#plan.ap .kicker,#plan.ap .foot,#plan.ap .h{color:#12263f}#plan.ap h2 b{color:#164cca}
+#plan td,#plan th{color:#12263f}#plan .assumptions,#plan .assumptions p{font-size:15px;color:#53657b;line-height:1.6}#plan .assumptions strong{font-size:inherit;color:#12263f}
+#plan .dual{gap:4px}#plan .dual .d,#plan .dual .t{font-size:16px}#plan table{min-width:2900px}
+#plan p,#plan li{color:#33465c;font-size:16px}#plan .summary-card p{color:#12263f}#plan .lede{font-size:18px}
+#plan .mobile-records{display:none}
+@media(max-width:800px){#plan .table-wrap{display:none}#plan .mobile-records{display:block}#plan .summary-grid{grid-template-columns:1fr}
+#plan .record{margin:14px 0;background:#fff;border:1px solid var(--apl);border-radius:12px;padding:16px;color:#12263f}#plan .record h3{font-size:20px;color:var(--apb);margin:0 0 6px}
+#plan .record-head,#plan .record-row{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:8px;align-items:center}#plan .record-head{font-size:13px;font-weight:800;padding:10px 0;border-bottom:2px solid var(--apl)}
+#plan .record-row{font-size:17px;padding-top:12px}#plan .record-row span:nth-child(2){text-align:right;color:var(--apb)}#plan .record-row strong{text-align:right;color:var(--apg)}
+#plan .record-cost{font-size:14px;color:var(--apm);padding:4px 0 10px;border-bottom:1px solid var(--apl)}#plan .record .cum{font-size:19px;font-weight:800;color:var(--apg);margin:14px 0 0}}
 </style>
 </head>
 <body>
@@ -244,29 +273,45 @@ function aggSlide(id,no,title,arr,extra,opt){
 </section>`}
 
 
-const WHY={'2026-10-11':'Actual result (CRM paid sales, Meta spend).','2026-10-12':'Same live ad sets; first step down from $258 to $160.','2026-10-13':'Hold $160 while sales rise to 19.','2026-10-14':'Step to $130 with 20 sales.'};
-const whyOf=d=>WHY[d]||(d<='2026-10-18'?'Cost per sale falls about $9 a day toward $85.':'Hold cost per sale at $85 or under.');
+
+const R={click:0.9136,cart:0.0324,ck:0.9342,paid:0.7183,lpImp:0.0318};R.lpPaid=R.cart*R.ck*R.paid;
+const ACT={d:'2026-10-11',clicks:322,v:275,carts:19,cks:18,n:12,sp:3099,impr:5192};
+const PER=[['2026-10-11','2026-10-11','Oct 11 · actual'],['2026-10-12','2026-10-14','Oct 12–14 · ramp'],['2026-10-15','2026-10-18','Oct 15–18 · cost falls daily'],['2026-10-19','2026-10-25','Oct 19–25 · hold $85'],['2026-10-26','2026-10-27','Oct 26–27 · event']];
+function planRows(){let cum=39;return PLAN.map(p=>{const a=p.d===ACT.d;const lp=a?ACT.v:p.n/R.lpPaid;const o={d:p.d,a,n:p.n,c:p.c,sp:p.sp,lp,clicks:a?ACT.clicks:lp/R.click,carts:a?ACT.carts:lp*R.cart,cks:a?ACT.cks:lp*R.cart*R.ck,cpm:a?ACT.sp/ACT.impr*1000:p.sp/(lp/R.lpImp)*1000};cum+=p.n;o.cum=cum;return o})}
 function planSlide(no){
-  const r=PLAN, last=r[r.length-1];
-  const rows=r.map(p=>`<tr${p.d==='2026-10-11'?' class="act"':''}><td>${short(p.d)}</td><td class="n">${p.n}</td><td class="n"><b>${p.cum}</b></td><td class="n">${$(p.c)}</td><td class="n">${$(p.sp)}</td><td class="n">${$(p.cs)}</td><td class="n">${p.d==='2026-10-11'?$(p.cpm):'≤ '+$(p.cpm)}</td><td class="n">${p.v.toLocaleString('en-US')}</td><td class="n">${p.ck}</td><td class="n">${p.ob?$(p.ob):'$0'}</td><td>${whyOf(p.d)}</td></tr>`).join('');
-  return `<section class="slide" id="plan">
+  const P=planRows(),N=v=>Math.round(v).toLocaleString('en-US'),C=v=>'$'+(Math.round(v*10)/10).toFixed(1),M=v=>'$'+Math.round(v).toLocaleString('en-US');
+  const run={};const keys=['sp','clicks','lp','carts','cks','n'];keys.forEach(k=>run[k]=0);
+  P.forEach(p=>{keys.forEach(k=>{run[k]+=p[k];p['t_'+k]=run[k]})});
+  const specs=[['Budget','CPM target','sp',p=>(p.a?'':'≤ ')+C(p.cpm),1],['Website clicks','Cost per click','clicks',p=>C(p.sp/p.clicks)],['LP visits','Cost per LP visit','lp',p=>C(p.sp/p.lp)],['Add to carts','Cost per cart','carts',p=>C(p.sp/p.carts)],['Initiate checkouts','Cost per checkout','cks',p=>C(p.sp/p.cks)],['Paid sign-ups','Cost per paid sign-up','n',p=>M(p.c)]];
+  const hd=P.map(p=>`<th>${short(p.d)}<span class="sub">${p.a?'actual':'$'+p.c+' / sale'}</span></th>`).join('');
+  const keyr=P.map(()=>'<th><div class="dual"><span class="d">DAY</span><span class="t">TO DATE</span></div></th>').join('');
+  let rows='';specs.forEach(([t,l,k,cf,money])=>{const f=money?M:N;rows+=`<tr class="volume${k==='n'?' paid':''}"><td>${t}</td>${P.map(p=>`<td><div class="dual"><span class="d">${f(p[k])}</span><strong class="t">${f(p['t_'+k])}</strong></div></td>`).join('')}</tr><tr class="cost-row"><td>${l}</td>${P.map(p=>`<td>${cf(p)}</td>`).join('')}</tr>`});
+  rows+=`<tr class="cumulative"><td>Cumulative paid sign-ups</td>${P.map(p=>`<td>${p.cum}</td>`).join('')}</tr>`;
+  const mob=P.map(p=>`<article class="record"><h3>${long(p.d)}${p.a?' · actual':''}</h3><div class="record-head"><span>Metric</span><span>DAY</span><span>TO DATE</span></div>${specs.map(([t,l,k,cf,money])=>{const f=money?M:N;return `<div class="record-row"><span>${t}</span><span>${f(p[k])}</span><strong>${f(p['t_'+k])}</strong></div><div class="record-cost">${l}: ${cf(p)}</div>`}).join('')}<p class="cum">Cumulative: ${p.cum} paid sign-ups</p></article>`).join('');
+  const per=PER.map(([a,b,l])=>{const x=P.filter(p=>p.d>=a&&p.d<=b);const sp=sum(x,'sp'),n=sum(x,'n');return `<p>${l}: <b style="display:inline;font-size:inherit;margin:0">${M(sp)}</b>, ${n} sign-ups, ${M(sp/n)} per sign-up.</p>`}).join('');
+  const by=d=>P.find(p=>p.d===d).cum, last=P[P.length-1], tot=last.t_sp;
+  const wk=PER.map(([a,b,l])=>{const x=P.filter(p=>p.d>=a&&p.d<=b),k=x.length,sp=sum(x,'sp'),n=sum(x,'n'),lp=sum(x,'lp'),cl=sum(x,'clicks'),ca=sum(x,'carts'),ck=sum(x,'cks');return `<article class="summary-card"><h3>${l}</h3><p><strong>${M(sp)} total · ${M(sp/k)}/day</strong></p><p>${N(cl)} clicks · ${N(cl/k)}/day<br>${N(lp)} LP visits · ${N(lp/k)}/day<br>${N(ca)} carts · ${N(ca/k)}/day<br>${N(ck)} checkouts · ${N(ck/k)}/day<br><strong>${n} paid sign-ups · ${N(n/k)}/day</strong></p><p style="margin-top:14px">Per click: ${C(sp/cl)}<br>Per LP visit: ${C(sp/lp)}<br>Per cart: ${C(sp/ca)}<br>Per checkout: ${C(sp/ck)}<br><strong>Per paid sign-up: ${M(sp/n)}</strong></p></article>`}).join('');
+  const pc=v=>(100*v).toFixed(1)+'%';
+  return `<section class="slide ap" id="plan">
   <div class="kicker"><span class="no">${no}</span>Adjusted plan · Oct 11 → Oct 27 event</div>
-  <h2><b>350 paid sign-ups</b> by 27 October, with cost per sale falling from $160 to $85 by 19 October.</h2>
-  <div class="daygrid">
-    ${card('Paid sales through Oct 10','39','CRM paid from 6 Oct; Meta and the 11 Oct CRM pull before')}
-    ${card('Plan sales Oct 11 → 27',last.cum-39,'Oct 11 actual 12, then 16, 19, 20, then 18–19 a day')}
-    ${card('Cumulative by Oct 27',last.cum,'board target 350',true)}
-    ${card('Plan spend Oct 11 → 27',$(last.cs),'Oct 11 actual $3,099 included')}
-  </div>
-  <div class="card" style="margin-top:clamp(14px,1.6vw,26px)"><div class="lab">Board sync · go / no-go</div>
-  <p class="note">Target: 350 paid sign-ups by 27 October. Cost per sign-up falls every day from 12 October, reaches $85 by about 19 October, and stays at $85 or under through 27 October.</p>
-  <p class="note">Below 250 paid sign-ups: the November budget is reduced. From 19 to 27 October, a cost per sign-up above $110 that is not falling means stop.</p>
-  <p class="note">Masterclass media in October: about $48,000 in the board email. This plan comes to <b>$51,044</b> for October (1–11 October actual $20,394 plus $30,650 planned for 12–27 October), which is <b>$3,044 above</b> the $48,000.</p></div>
-  <div class="card" style="margin-top:clamp(14px,1.6vw,26px)"><div class="lab">Day by day</div>
-  <div class="tbl"><table class="dense"><thead><tr><th>Day</th><th class="n">Sales</th><th class="n">Cumul.</th><th class="n">Cost / sale target</th><th class="n">Spend</th><th class="n">Cumul. spend</th><th class="n">Cost / 1,000 views target</th><th class="n">Visits needed</th><th class="n">Checkouts needed</th><th class="n">Budget · original plan</th><th>What makes it happen</th></tr></thead><tbody>${rows}</tbody>
-  <tfoot><tr class="total"><td>Total</td><td class="n">${last.cum-39}</td><td class="n">${last.cum}</td><td class="n">${$(last.cs/(last.cum-39))}</td><td class="n">${$(last.cs)}</td><td class="n">${$(last.cs)}</td><td></td><td class="n">${r.reduce((a,p)=>a+p.v,0).toLocaleString('en-US')}</td><td class="n">${r.reduce((a,p)=>a+p.ck,0)}</td><td class="n">${$(r.reduce((a,p)=>a+p.ob,0))}</td><td></td></tr></tfoot></table></div>
-  <div class="sub">Visits needed = sales ÷ 2.0% (lifetime visit-to-purchase). Checkouts needed = sales ÷ 75% (lifetime cart-to-purchase). Cost per 1,000 views target = spend ÷ the views that produce those visits (lifetime 3.2 visits per 100 views). Original-plan budget = the weekly envelope on slide 10 of the launch report divided by 7 ($14,000 for 12–18 Oct, $8,527 for 19–25 Oct, $0 for 26–27 Oct); Oct 11 sits in the $12,000 week 2. Omri's range of 20–25 sales a day after 14 October would bring the total to 366–431, so days from 15 October are set at 19 and 18 to land exactly on 350.</div></div>
-  <div class="foot"><span>Plan · cumulative from verified CRM and Meta totals</span><span>Updated ${upd}</span></div>
+  <h2><b>350 paid sign-ups</b> by 27 October. Daily activity, running totals.</h2>
+  <p class="lede">Same format as the original 1,000-sign-up plan. Every volume sits directly above its cost.</p>
+  <div class="legend"><span class="daily">BLUE = per day</span><span class="total">GREEN = total since Oct 11</span><span class="cost">GREY = cost per result</span></div>
+  <div class="table-wrap"><table><thead><tr><th rowspan="2">FUNNEL<span class="sub">Volume first.<br>Cost underneath.</span></th>${hd}</tr><tr class="key">${keyr}</tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="mobile-records">${mob}</div>
+  <div class="summary"><h3 class="h">The clear summary</h3><div class="summary-grid">
+   <div class="summary-card"><p>Total spend, Oct 11 → 27</p><b>${M(tot)}</b>${per}</div>
+   <div class="summary-card warn"><p>By the end of Oct 18</p><b>${by('2026-10-18')} sign-ups</b><p>39 through Oct 10 (verified), 12 on Oct 11 (verified), then the plan. Cost per sign-up falls from $160 on Oct 12 to $94 on Oct 18.</p></div>
+   <div class="summary-card success"><p>By Oct 27</p><b>${last.cum} sign-ups</b><p>${by('2026-10-19')} by Oct 19, the day cost per sign-up reaches $85. Held at $85 through Oct 27.</p></div></div>
+  <div class="summary-card bs" style="margin-top:20px"><p><strong>Board sync · go / no-go</strong></p><p>Target: 350 paid sign-ups by 27 October. Cost per sign-up falls every day from 12 October, reaches $85 by about 19 October, and stays at $85 or under through 27 October.</p><p>Below 250 paid sign-ups: the November budget is reduced. From 19 to 27 October, a cost per sign-up above $110 that is not falling means stop.</p><p class="flag">Masterclass media in October is about $48,000 in the board email. This plan comes to <strong>$51,044</strong> for October (1–11 October actual $20,394 plus $30,650 planned for 12–27 October), which is <strong>$3,044 above</strong> the $48,000.</p></div>
+  <div class="assumptions"><p><strong>Calculation assumptions:</strong> real lifetime funnel from 28 Sep to 11 Oct (Meta Ads Manager, Israel time; paid sign-ups from the CRM log): ${pc(R.click)} of clicks load the LP; per 100 LP visits, ${(100*R.cart).toFixed(1)} add to cart, ${(100*R.cart*R.ck).toFixed(1)} start checkout and ${(100*R.lpPaid).toFixed(1)} pay. ${(100*R.lpImp).toFixed(1)} LP visits per 100 views, used for the CPM target. Cost per paid sign-up: $160 on Oct 12–13, $130 on Oct 14, then $121, $112, $103, $94, $85 from Oct 19 to Oct 27. Sales: 16, 19, 20, then 19 a day to Oct 24 and 18 a day on Oct 25–27, which lands exactly on 350. Omri's range of 20–25 a day after Oct 14 would total 366–431. Oct 11 is the actual day, not a plan. Figures are rounded for display.</p></div></div>
+  <div class="summary"><h3 class="h">The funnel ratios, in plain English</h3><div class="summary-grid">
+   <div class="summary-card"><p>To get one add to cart</p><b>${(1/R.cart).toFixed(0)} LP visits</b><p>About ${(1/R.cart/R.click).toFixed(1)} website clicks. Visit → cart: ${pc(R.cart)}.</p></div>
+   <div class="summary-card"><p>To get one checkout</p><b>${(1/R.ck).toFixed(2)} carts</b><p>${(1/(R.cart*R.ck)).toFixed(0)} LP visits. Cart → checkout: ${pc(R.ck)}.</p></div>
+   <div class="summary-card success"><p>To get one paid sign-up</p><b>${(1/(R.ck*R.paid)).toFixed(1)} carts</b><p>${(1/R.paid).toFixed(1)} checkouts, ${(1/R.lpPaid).toFixed(0)} LP visits, or ${(1/R.lpPaid/R.click).toFixed(0)} clicks. Cart → paid: ${pc(R.ck*R.paid)}. Checkout → paid: ${pc(R.paid)}.</p></div></div>
+  <h3 class="h" style="margin-top:28px">Activity by period</h3><div class="summary-grid">${wk}</div>
+  <p class="assumptions"><strong>Drop-off:</strong> ${pc(1-R.click)} from click to loaded visit; ${pc(1-R.cart)} from visit to cart; ${pc(1-R.ck)} from cart to checkout; ${pc(1-R.paid)} from checkout to paid. Overall LP visit → paid: ${pc(R.lpPaid)}. These ratios stay constant in the plan; the falling cost per sign-up comes from the cost path Omri set.</p></div>
+  <div class="foot"><span>Plan · real funnel 28 Sep–11 Oct · Meta Ads Manager + CRM log</span><span>Updated ${upd}</span></div>
 </section>`}
 const week2=DATA.days.filter(d=>d.date>='2026-10-05'&&d.date<='2026-10-11');
 let html='';
