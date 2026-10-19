@@ -414,6 +414,23 @@ section.slide{scroll-margin-top:84px}
 #week3 .muted{opacity:.75;font-size:17px!important}
 #week3 .tr *,#week3 .tr>*{min-width:0;box-sizing:border-box}
 @media(max-width:900px){#week3 .tr{padding:12px}#week3 .trtop>b{font-size:60px}#week3 .trtop>span{font-size:19px}#week3 .trline{grid-template-columns:repeat(2,1fr)}#week3 .trline b{font-size:28px}#week3 .trk{grid-template-columns:repeat(2,1fr);gap:8px}#week3 .trk b{font-size:30px}#week3 .trd{grid-template-columns:1fr}#week3 .trrow p{font-size:18px}}
+#week3 .hero{padding:8px 0 22px;margin-bottom:18px;border-bottom:1px solid var(--line)}
+#week3 .hl{font-size:64px;font-weight:800;line-height:1.1;color:var(--ink)}#week3 .hl b{font-size:96px}
+#week3 .hs{font-size:22px;color:var(--ink2);margin-top:6px}
+#week3 .hp{font-size:28px;color:var(--ink);margin:18px 0 22px;font-weight:600}
+#week3 .g{color:oklch(82% 0.16 155)!important}#week3 .a{color:oklch(82% 0.14 75)!important}#week3 .r{color:oklch(72% 0.17 25)!important}
+#week3 .bars{display:grid;gap:12px;margin-bottom:26px;max-width:1100px}
+#week3 .bar{display:grid;grid-template-columns:110px 1fr 120px;align-items:center;gap:14px}
+#week3 .bn{font-size:28px;font-weight:700;color:var(--ink)}#week3 .bar b{font-size:40px;font-weight:800;text-align:right}
+#week3 .bt{height:34px;background:oklch(100% 0 0 / .06);border-radius:10px;overflow:hidden}#week3 .bt i{display:block;height:100%;border-radius:10px}
+#week3 .bt i.g{background:oklch(70% 0.16 155)}#week3 .bt i.a{background:oklch(75% 0.14 75)}#week3 .bt i.r{background:oklch(65% 0.17 25)}
+#week3 .h3c{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+#week3 .h3c div{border:1px solid var(--line);border-radius:18px;padding:20px 22px;background:oklch(100% 0 0 / .05);min-width:0}
+#week3 .h3c b{display:block;font-size:58px;font-weight:800;color:var(--ink);line-height:1.1}#week3 .h3c div:first-child b{color:oklch(82% 0.16 155)}
+#week3 .h3c span{display:block;font-size:26px;font-weight:700;color:var(--ink)}#week3 .h3c em{display:block;font-style:normal;font-size:18px;color:var(--ink2);margin-top:6px}
+#week3 .w3det{margin:0 0 18px;border:1px solid var(--line);border-radius:14px;padding:12px 18px}#week3 .w3det summary{font-size:24px;font-weight:700;cursor:pointer;color:var(--ink)}
+#week3 .w3det .impr{margin-top:12px}
+@media(max-width:900px){#week3 .hl{font-size:34px}#week3 .hl b{font-size:56px;display:block}#week3 .hs{font-size:17px}#week3 .hp{font-size:20px}#week3 .bar{grid-template-columns:70px 1fr 78px;gap:8px}#week3 .bn{font-size:20px}#week3 .bar b{font-size:26px}#week3 .bt{height:26px}#week3 .h3c{grid-template-columns:1fr;gap:10px}#week3 .h3c b{font-size:44px}#week3 .h3c span{font-size:21px}}
 </style>
 </head>
 <body>
@@ -539,17 +556,27 @@ function w3Slide(){const M=v=>(v<0?'-':'')+'$'+Math.round(Math.abs(v)).toLocaleS
  const cc=v=>v<=250?'good':v<=400?'mid':'bad';
  const lab=x=>x.d==='total'?'Total':short(x.d)+(x.d==='2026-10-19'?' (to 10:00)':'');
  const cls=x=>x.d==='total'?' class="total"':'';
+ const hc=v=>v<250?'g':v<=300?'a':'r';
+ const hero=()=>{const F=W3.slice(4),f=tot(F,'fri'),c=cps(f);const w2=(L7.reduce((a,x)=>a+x.sp,0)-L7.reduce((a,x)=>a+(x.atc-x.mp),0)*28)/L7.reduce((a,x)=>a+x.n,0);
+  const mx=Math.max(...F.map(cps));const nm=x=>x.d==='2026-10-19'?'Today':short(x.d).split(' ')[0];
+  return `<div class="hero"><div class="hl">Cost per purchase: <b class="${hc(c)}">${M(c)}</b></div><div class="hs">Friday 16 Oct to today 10:00 Israel time, after lead split</div>
+  <p class="hp">Sunday ${M(cps(F[2]))} and today ${M(cps(F[3]))}, down from ${M(w2)} average last week</p>
+  <div class="bars">${F.map(x=>`<div class="bar"><span class="bn">${nm(x)}</span><span class="bt"><i class="${hc(cps(x))}" style="width:${(100*cps(x)/mx).toFixed(1)}%"></i></span><b class="${hc(cps(x))}">${M(cps(x))}</b></div>`).join('')}</div>
+  <div class="h3c"><div><b>${f.n}</b><span>purchases</span><em>Fri to now, CRM or Meta, whichever is higher</em></div><div><b>${M(f.lead)}</b><span>moved to leads</span><em>${f.ab} abandoned carts × $28</em></div><div><b>${M(f.net)}</b><span>media net</span><em>spend minus sales value</em></div></div></div>`};
  const trend=()=>{const F=W3.slice(4),f=tot(F,'fri');return `<div class="tr"><div class="trtop"><span>Cost per purchase, Fri 16 → now (after lead split)</span><b class="${cc(cps(f))}">${M(cps(f))}</b><div class="trline">${F.map(x=>`<div><em>${short(x.d)}${x.d==='2026-10-19'?' to 10:00':''}</em><b class="${cc(cps(x))}">${M(cps(x))}</b></div>`).join('')}</div></div><div class="trk"><div class="k-sp"><span>Spend</span><b>${M(f.sp)}</b></div><div class="k-n"><span>Purchases</span><b>${f.n}</b></div><div class="k-lead"><span>Lead spend</span><b>${M(f.lead)}</b><em>${f.ab} abandoned carts × $28</em></div><div class="k-net"><span>Media net</span><b>${M(f.net)}</b><em>spend − sales value</em></div></div><div class="trd">${F.map(x=>`<div class="trrow"><h4>${short(x.d)}${x.d==='2026-10-19'?' (to 10:00)':''}</h4><p><span>Spend</span><b class="c-sp">${M(x.sp)}</b></p><p><span>Purchases</span><b class="c-n">${x.n}</b></p><p><span>Add to carts</span><b>${x.atc}</b></p><p><span>Lead spend</span><b>${M(x.lead)}</b></p><p><span>Cost per purchase</span><b class="${cc(cps(x))}">${M(cps(x))}</b></p><p><span>Media net</span><b class="c-net">${M(x.net)}</b></p></div>`).join('')}</div><p class="w3lab muted">Before lead split: Mon–Wed $390, Thu–today $312.</p></div>`};
  const half=(h,title)=>`<div class="half"><h3>${title}</h3><div class="hk"><div class="k-sp"><span>Spend</span><b>${M(h.sp)}</b></div><div class="k-net"><span>Media net</span><b>${M(h.net)}</b></div><div class="k-n"><span>Purchases</span><b>${h.n}</b></div><div class="k-cpa"><span>Cost per purchase (sales)</span><b class="${cc(cps(h))}">${M(cps(h))}</b></div><div class="k-lead"><span>Lead spend</span><b>${M(h.lead)}</b><em>${h.ab} abandoned carts</em></div></div></div>`;
  const b1=x=>`<tr${cls(x)}><td>${lab(x)}</td><td class="c-sp">${M(x.sp)}</td><td class="c-net">${M(x.net)}</td><td>${M(x.lead)}</td><td class="c-n">${x.n}</td><td class="c-cpa ${cc(cps(x))}">${M(cps(x))}</td></tr>`;
  const b2=x=>`<tr${cls(x)}><td>${lab(x)}</td><td>${x.crm}</td><td>${x.mp}</td><td>${N(x.im)}</td><td>${M(x.sp/x.im*1000)}</td><td>${N(x.cl)}</td><td>${pc(x.cl/x.im)}</td><td>${C(x.sp/x.cl)}</td><td>${N(x.lp)}</td><td>${C(x.sp/x.lp)}</td><td>${x.atc}</td><td>${M(x.sp/x.atc)}</td><td>${x.ic}</td><td>${pc(x.n/x.lp)}</td><td>${pc(x.n/x.atc)}</td><td>${pc(x.n/x.ic)}</td></tr>`;
  const body=fn=>`<tbody>${W3.map(fn).join('')}</tbody><tfoot>${fn(t)}</tfoot>`;
  return `<section class="slide" id="week3">
+ ${hero()}
+ <details class="w3det"><summary>Details</summary>
  <div class="impr"><h3>Improvement</h3><ul><li>Sales up 43%: 67 purchases in Week 3 vs 47 in Week 2.</li><li>Cost per purchase falling: $390 (Mon–Wed) → $312 (Thu–today).</li><li>Last two days: $212 (Sun) and $253 (today to 10:00), 39% and 28% below Week 2's $349.</li><li>Conversion up: landing page view to purchase 2.7% in Week 2 → 3.8% Thu–today.</li></ul></div>
- <h2 class="top">Week 3: 12–19 October</h2>
- ${trend()}
+ <p class="w3lab muted">Before lead split: Mon–Wed $390, Thu–today $312.</p>
  <div class="wkline">Full week: <b class="c-sp">${M(t.sp)}</b> spend · <b class="c-n">${t.n}</b> purchases · <b class="${cc(cps(t))}">${M(cps(t))}</b> per sale · <b>${M(t.lead)}</b> lead spend · media net <b class="c-net">${M(t.net)}</b></div>
  <p class="w3lab">Lead spend: $28 per abandoned cart, allocated to leads. Sales value from Meta.</p>
+ </details>
+ <h2 class="top">Week 3: 12–19 October</h2>
  <h3 class="l7h">Bottom line</h3>
  <div class="l7w"><table class="l7 bl"><thead><tr><th>Day</th><th>Spend</th><th>Media net</th><th>Lead spend</th><th>Purchases</th><th>Cost per purchase</th></tr></thead>${body(b1)}</table></div>
  <h3 class="l7h">Funnel</h3>
