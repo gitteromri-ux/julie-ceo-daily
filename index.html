@@ -351,6 +351,24 @@ section.slide{scroll-margin-top:84px}
 .tabbar a#t-last7{background:oklch(100% 0 0 / .04)!important;color:var(--ink3)!important;font-size:16px!important;font-weight:700!important;padding:8px 14px!important;opacity:.85;border:1px solid var(--line)!important}
 .tabbar a#t-last7 small{color:inherit!important}
 .tabbar a#t-last7.on{background:var(--gold)!important;color:oklch(20% 0.05 240)!important;outline:0!important}
+#week3 .halves{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:14px}
+#week3 .half{border:1px solid var(--line);border-radius:16px;padding:16px 18px;background:oklch(100% 0 0 / .05)}
+#week3 .half h3{font-size:28px;margin:0 0 12px;color:var(--ink)}
+#week3 .hk{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#week3 .hk div{border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+#week3 .hk span{display:block;font-size:19px;color:var(--ink2)}
+#week3 .hk b{font-size:42px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+#week3 .hk em{display:block;font-style:normal;font-size:17px;color:var(--ink2)}
+#week3 .hk .k-sp b{color:var(--cy)}#week3 .hk .k-n b{color:oklch(82% 0.16 155)}
+#week3 .k-net b,#week3 .c-net{color:oklch(85% 0.03 250)!important;font-weight:700}
+#week3 .hk .k-lead{grid-column:1/-1}
+#week3 .hk b.good{color:oklch(82% 0.16 155)!important}#week3 .hk b.mid{color:oklch(82% 0.14 75)!important}#week3 .hk b.bad{color:oklch(72% 0.17 25)!important}
+#week3 .wkline{font-size:26px;color:var(--ink);padding:12px 18px;border:1px solid var(--line);border-radius:14px;background:oklch(100% 0 0 / .06)}
+#week3 .wkline b{font-size:30px}
+#week3 .wkline .good{color:oklch(82% 0.16 155)}#week3 .wkline .mid{color:oklch(82% 0.14 75)}#week3 .wkline .bad{color:oklch(72% 0.17 25)}
+#week3 .w3lab{font-size:19px;color:var(--ink2);margin:8px 0 4px}
+#week3 .halves>*,#week3 .hk>*{min-width:0;box-sizing:border-box}
+@media(max-width:900px){#week3 .halves{grid-template-columns:1fr}#week3 .half{padding:12px}#week3 .hk{gap:8px}#week3 .hk b{font-size:32px}#week3 .half h3{font-size:22px}#week3 .wkline{font-size:20px}#week3 .wkline b{font-size:22px}}
 </style>
 </head>
 <body>
@@ -455,35 +473,41 @@ function l7Slide(no){const M=v=>'$'+Math.round(v).toLocaleString('en-US'),C=v=>'
  const cc=v=>v<=250?'good':v<=400?'mid':'bad';
  const lab=x=>x.d==='total'?'Total':short(x.d)+(x.d==='2026-10-11'?' <span class="tn">Turnaround</span>':'');
  const cls=x=>x.d==='total'?' class="total"':x.d==='2026-10-11'?' class="turn"':'';
- const b1=x=>`<tr${cls(x)}><td>${lab(x)}</td><td class="c-sp">${M(x.sp)}</td><td class="c-n">${x.n}</td><td class="c-cpa ${cc(x.sp/x.n)}">${M(x.sp/x.n)}</td><td>${M(x.val)}</td><td>${(x.val/x.sp).toFixed(2)}x</td></tr>`;
+ const b1=x=>`<tr${cls(x)}><td>${lab(x)}</td><td class="c-sp">${M(x.sp)}</td><td class="c-n">${x.n}</td><td class="c-cpa ${cc(x.sp/x.n)}">${M(x.sp/x.n)}</td><td>${M(x.val)}</td></tr>`;
  const b2=x=>`<tr${cls(x)}><td>${lab(x)}</td><td>${x.mp}</td><td>${N(x.im)}</td><td>${M(x.sp/x.im*1000)}</td><td>${N(x.cl)}</td><td>${pc(x.cl/x.im)}</td><td>${C(x.sp/x.cl)}</td><td>${N(x.lp)}</td><td>${C(x.sp/x.lp)}</td><td>${x.atc}</td><td>${M(x.sp/x.atc)}</td><td>${x.ic}</td><td>${pc(x.n/x.lp)}</td><td>${pc(x.n/x.atc)}</td><td>${pc(x.n/x.ic)}</td></tr>`;
  const body=fn=>`<tbody>${L7.map(fn).join('')}</tbody><tfoot>${fn(t)}</tfoot>`;
  return `<section class="slide" id="last7">
  <h2 class="top">Week 2: 5–11 October</h2>
  <div class="kpis"><div class="k-sp"><span>Spend</span><b>${M(t.sp)}</b></div><div class="k-n"><span>Purchases</span><b>${t.n}</b></div><div class="k-cpa"><span>Cost per purchase</span><b>${M(t.sp/t.n)}</b></div><div><span>Purchase value</span><b>${M(t.val)}</b></div><div><span>LP views</span><b>${N(t.lp)}</b></div><div><span>LPV → purchase</span><b>${pc(t.n/t.lp)}</b></div></div>
  <h3 class="l7h">Bottom line</h3>
- <div class="l7w"><table class="l7 bl"><thead><tr><th>Day</th><th>Spend</th><th>Purchases</th><th>Cost per purchase</th><th>Purchase value</th><th>ROAS</th></tr></thead>${body(b1)}</table></div>
+ <div class="l7w"><table class="l7 bl"><thead><tr><th>Day</th><th>Spend</th><th>Purchases</th><th>Cost per purchase</th><th>Purchase value</th></tr></thead>${body(b1)}</table></div>
  <h3 class="l7h">Funnel</h3>
  <div class="l7w"><table class="l7 fn"><thead><tr><th>Day</th><th>Meta purch.</th><th>Impr.</th><th>CPM</th><th>Link clicks</th><th>CTR</th><th>CPC</th><th>LP views</th><th>Cost / LPV</th><th>ATC</th><th>Cost / ATC</th><th>Check-outs</th><th>LPV → purch.</th><th>ATC → purch.</th><th>Check-out → purch.</th></tr></thead>${body(b2)}</table></div>
- <p class="l7note">Purchases are CRM paid sales, plus 1 Meta-recorded sale on Oct 6, 9 and 11 each where the CRM call was not logged. Meta purchases are shown in the funnel table. Cost per purchase is green at $250 or less, amber up to $400 and red above $400. Purchase value and ROAS are as reported by Meta. Oct 11 was the turnaround: 13 purchases on $3,099. Campaign 52668266203628, Israel time.</p>
+ <p class="l7note">Purchases are CRM paid sales, plus 1 Meta-recorded sale on Oct 6, 9 and 11 each where the CRM call was not logged. Meta purchases are shown in the funnel table. Cost per purchase is green at $250 or less, amber up to $400 and red above $400. Purchase value is as reported by Meta. Oct 11 was the turnaround: 13 purchases on $3,099. Campaign 52668266203628, Israel time.</p>
 </section>`}
 const W3=[{"d": "2026-10-12", "sp": 3384.92, "im": 5479, "cl": 332, "lp": 296, "atc": 14, "ic": 13, "mp": 11, "crm": 11, "n": 11, "val": 659, "src": "CRM = Meta"}, {"d": "2026-10-13", "sp": 3187.58, "im": 6259, "cl": 248, "lp": 241, "atc": 8, "ic": 8, "mp": 5, "crm": 5, "n": 5, "val": 305, "src": "CRM = Meta"}, {"d": "2026-10-14", "sp": 3959.02, "im": 6455, "cl": 421, "lp": 374, "atc": 22, "ic": 18, "mp": 11, "crm": 10, "n": 11, "val": 659, "src": "Meta"}, {"d": "2026-10-15", "sp": 3417.81, "im": 6169, "cl": 377, "lp": 341, "atc": 15, "ic": 14, "mp": 7, "crm": 7, "n": 7, "val": 343, "src": "CRM = Meta"}, {"d": "2026-10-16", "sp": 2857.7, "im": 4634, "cl": 268, "lp": 263, "atc": 16, "ic": 15, "mp": 9, "crm": 10, "n": 10, "val": 531, "src": "CRM"}, {"d": "2026-10-17", "sp": 2406.44, "im": 4582, "cl": 183, "lp": 171, "atc": 14, "ic": 13, "mp": 5, "crm": 6, "n": 6, "val": 275, "src": "CRM"}, {"d": "2026-10-18", "sp": 2540.56, "im": 4075, "cl": 205, "lp": 181, "atc": 17, "ic": 15, "mp": 12, "crm": 12, "n": 12, "val": 618, "src": "CRM = Meta"}, {"d": "2026-10-19", "sp": 1094.25, "im": 1999, "cl": 88, "lp": 84, "atc": 7, "ic": 5, "mp": 5, "crm": 5, "n": 5, "val": 305, "src": "CRM = Meta"}];
-function w3Slide(){const M=v=>'$'+Math.round(v).toLocaleString('en-US'),C=v=>'$'+v.toFixed(2),N=v=>Math.round(v).toLocaleString('en-US'),pc=v=>(100*v).toFixed(1)+'%';
- const t={d:'total'};['sp','im','cl','lp','atc','ic','mp','crm','n','val'].forEach(k=>t[k]=W3.reduce((a,x)=>a+x[k],0));
+function w3Slide(){const M=v=>(v<0?'-':'')+'$'+Math.round(Math.abs(v)).toLocaleString('en-US'),C=v=>'$'+v.toFixed(2),N=v=>Math.round(v).toLocaleString('en-US'),pc=v=>(100*v).toFixed(1)+'%';
+ W3.forEach(x=>{x.ab=x.atc-x.mp;x.lead=x.ab*28;x.net=x.sp-x.val});
+ const tot=(arr,d)=>{const t={d};['sp','im','cl','lp','atc','ic','mp','crm','n','val','ab','lead','net'].forEach(k=>t[k]=arr.reduce((a,x)=>a+x[k],0));return t};
+ const t=tot(W3,'total'),h1=tot(W3.slice(0,3),'h1'),h2=tot(W3.slice(3),'h2');
+ const cps=x=>(x.sp-x.lead)/x.n;
  const cc=v=>v<=250?'good':v<=400?'mid':'bad';
  const lab=x=>x.d==='total'?'Total':short(x.d)+(x.d==='2026-10-19'?' (to 07:00)':'');
  const cls=x=>x.d==='total'?' class="total"':'';
- const b1=x=>`<tr${cls(x)}><td>${lab(x)}</td><td class="c-sp">${M(x.sp)}</td><td class="c-n">${x.n}</td><td class="c-cpa ${cc(x.sp/x.n)}">${M(x.sp/x.n)}</td><td>${M(x.val)}</td><td>${(x.val/x.sp).toFixed(2)}x</td></tr>`;
+ const half=(h,title)=>`<div class="half"><h3>${title}</h3><div class="hk"><div class="k-sp"><span>Spend</span><b>${M(h.sp)}</b></div><div class="k-net"><span>Media net</span><b>${M(h.net)}</b></div><div class="k-n"><span>Purchases</span><b>${h.n}</b></div><div class="k-cpa"><span>Cost per purchase (sales)</span><b class="${cc(cps(h))}">${M(cps(h))}</b></div><div class="k-lead"><span>Lead spend</span><b>${M(h.lead)}</b><em>${h.ab} abandoned carts</em></div></div></div>`;
+ const b1=x=>`<tr${cls(x)}><td>${lab(x)}</td><td class="c-sp">${M(x.sp)}</td><td class="c-net">${M(x.net)}</td><td>${M(x.lead)}</td><td class="c-n">${x.n}</td><td class="c-cpa ${cc(cps(x))}">${M(cps(x))}</td></tr>`;
  const b2=x=>`<tr${cls(x)}><td>${lab(x)}</td><td>${x.crm}</td><td>${x.mp}</td><td>${N(x.im)}</td><td>${M(x.sp/x.im*1000)}</td><td>${N(x.cl)}</td><td>${pc(x.cl/x.im)}</td><td>${C(x.sp/x.cl)}</td><td>${N(x.lp)}</td><td>${C(x.sp/x.lp)}</td><td>${x.atc}</td><td>${M(x.sp/x.atc)}</td><td>${x.ic}</td><td>${pc(x.n/x.lp)}</td><td>${pc(x.n/x.atc)}</td><td>${pc(x.n/x.ic)}</td></tr>`;
  const body=fn=>`<tbody>${W3.map(fn).join('')}</tbody><tfoot>${fn(t)}</tfoot>`;
  return `<section class="slide" id="week3">
  <h2 class="top">Week 3: 12–19 October</h2>
- <div class="kpis"><div class="k-sp"><span>Spend</span><b>${M(t.sp)}</b></div><div class="k-n"><span>Purchases</span><b>${t.n}</b></div><div class="k-cpa"><span>Cost per purchase</span><b>${M(t.sp/t.n)}</b></div><div><span>Purchase value</span><b>${M(t.val)}</b></div><div><span>LP views</span><b>${N(t.lp)}</b></div><div><span>LPV → purchase</span><b>${pc(t.n/t.lp)}</b></div></div>
+ <div class="halves">${half(h1,'Mon 12 – Wed 14 Oct')}${half(h2,'Thu 15 Oct – Mon 19 Oct (to 07:00)')}</div>
+ <div class="wkline">Full week: <b class="c-sp">${M(t.sp)}</b> spend · <b class="c-n">${t.n}</b> purchases · <b class="${cc(cps(t))}">${M(cps(t))}</b> per sale · <b>${M(t.lead)}</b> lead spend · media net <b class="c-net">${M(t.net)}</b></div>
+ <p class="w3lab">Lead spend: $28 per abandoned cart, allocated to leads. Sales value from Meta.</p>
  <h3 class="l7h">Bottom line</h3>
- <div class="l7w"><table class="l7 bl"><thead><tr><th>Day</th><th>Spend</th><th>Purchases</th><th>Cost per purchase</th><th>Purchase value</th><th>ROAS</th></tr></thead>${body(b1)}</table></div>
+ <div class="l7w"><table class="l7 bl"><thead><tr><th>Day</th><th>Spend</th><th>Media net</th><th>Lead spend</th><th>Purchases</th><th>Cost per purchase</th></tr></thead>${body(b1)}</table></div>
  <h3 class="l7h">Funnel</h3>
  <div class="l7w"><table class="l7 fn"><thead><tr><th>Day</th><th>CRM sales</th><th>Meta purch.</th><th>Impr.</th><th>CPM</th><th>Link clicks</th><th>CTR</th><th>CPC</th><th>LP views</th><th>Cost / LPV</th><th>ATC</th><th>Cost / ATC</th><th>Check-outs</th><th>LPV → purch.</th><th>ATC → purch.</th><th>Check-out → purch.</th></tr></thead>${body(b2)}</table></div>
- <p class="l7note">Purchases each day are the higher of CRM paid sales (all sources, including email marketing) and Meta purchases; both counts are in the funnel table. Cost per purchase is Meta spend ÷ purchases: green at $250 or less, amber up to $400, red above $400. Purchase value and ROAS are as reported by Meta. Mon 19 is partial, 00:00–07:00. Campaign 52668266203628, Israel time.</p>
+ <p class="l7note">Purchases each day are the higher of CRM paid sales (all sources, including email marketing) and Meta purchases; both counts are in the funnel table. Cost per purchase = (spend − lead spend) ÷ purchases: green at $250 or less, amber up to $400, red above $400. Lead spend = abandoned carts (Meta add-to-carts minus Meta purchases) × $28. Media net = spend − sales value (Meta purchase value, ${M(t.val)} for the week, which covers Meta-attributed purchases only). Mon 19 is partial, 00:00–07:00. Campaign 52668266203628, Israel time.</p>
 </section>`}
 const week2=DATA.days.filter(d=>d.date>='2026-10-05'&&d.date<='2026-10-11');
 let html='';
