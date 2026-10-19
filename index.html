@@ -374,6 +374,33 @@ section.slide{scroll-margin-top:84px}
 #week3 .impr ul{margin:0;padding-left:1.1em}
 #week3 .impr li{font-size:30px;line-height:1.3;color:#eafff3;margin:6px 0;font-weight:600}
 @media(max-width:900px){#week3 .impr{padding:14px 16px}#week3 .impr h3{font-size:26px}#week3 .impr li{font-size:21px}}
+#launch{justify-content:flex-start!important;padding-top:24px!important;align-items:stretch}
+#launch h2.top{font-size:50px;margin:4px 0 6px;max-width:none}
+#launch .sub2{font-size:22px;color:var(--ink2);margin:0 0 16px}
+#launch .est{font-size:20px;font-weight:800;color:oklch(82% 0.14 75);margin:0 0 6px;letter-spacing:.02em}
+#launch .sofar{border:2px solid oklch(70% 0.17 155);background:oklch(45% 0.12 155 / .30);border-radius:18px;padding:16px 24px;margin-bottom:16px}
+#launch .sofar span{display:block;font-size:26px;color:#eafff3}#launch .sofar b{font-size:84px;line-height:1;color:oklch(85% 0.17 155)}#launch .sofar em{display:block;font-style:normal;font-size:19px;color:var(--ink2)}
+#launch .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px}
+#launch .scen div{border:1px solid var(--line);border-radius:16px;padding:14px 18px;background:oklch(100% 0 0 / .05);text-align:center}
+#launch .scen span{display:block;font-size:24px;color:var(--ink2)}#launch .scen b{font-size:64px;color:var(--ink)}#launch .scen .mid{border:2px solid var(--cy)}#launch .scen .mid b{color:var(--cy)}#launch .scen em{display:block;font-style:normal;font-size:18px;color:var(--ink2)}
+#launch .l7h{font-size:28px;margin:14px 0 8px;color:var(--ink)}
+#launch .l7w{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:oklch(100% 0 0 / .04)}
+#launch table.lt{width:100%;border-collapse:collapse}
+#launch .lt th,#launch .lt td{text-align:right;padding:8px 14px;border-bottom:1px solid var(--line);font-size:24px;white-space:nowrap}
+#launch .lt th{font-size:18px;color:var(--ink2);white-space:normal;vertical-align:bottom;line-height:1.15}
+#launch .lt th:first-child,#launch .lt td:first-child{text-align:left}
+#launch .lt small{display:block;font-size:15px;color:var(--ink2)}
+#launch .lt .c-n{color:oklch(82% 0.16 155);font-weight:800}#launch .lt .cum{color:var(--cy);font-weight:800}
+#launch .lt tfoot td{font-weight:800;border-top:2px solid var(--ink2);background:oklch(100% 0 0 / .06);font-size:26px}
+#launch .lt tr.start td{color:var(--ink2)}
+#launch .blocks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}
+#launch .blk{border:1px solid var(--line);border-radius:16px;padding:16px 20px;background:oklch(100% 0 0 / .05)}
+#launch .blk h3{font-size:28px;margin:0 0 8px;color:var(--ink)}#launch .blk p{font-size:24px;margin:8px 0;color:var(--ink)}#launch .blk small{font-size:18px;color:var(--ink2)}
+#launch .blk .tt{border-top:1px solid var(--line);padding-top:8px}#launch .g{color:oklch(82% 0.16 155)}#launch .r{color:oklch(72% 0.17 25)}
+#launch .blocks>*,#launch .scen>*{min-width:0}
+.tabbar a#t-launch{color:#fff!important;font-size:22px!important;font-weight:800!important;padding:10px 22px!important;opacity:1;border:0!important;background:oklch(55% 0.16 300)!important}
+.tabbar a#t-launch small{color:#fff!important;opacity:.9}.tabbar a#t-launch.on{outline:3px solid #fff;outline-offset:2px}
+@media(max-width:900px){#launch h2.top{font-size:32px}#launch .sofar b{font-size:64px}#launch .scen{gap:8px}#launch .scen div{padding:10px 6px}#launch .scen b{font-size:40px}#launch .scen span{font-size:18px}#launch .lt th,#launch .lt td{font-size:18px;padding:6px 8px}#launch .lt th{font-size:14px}#launch .lt tfoot td{font-size:19px}#launch .blocks{grid-template-columns:1fr}#launch .blk p{font-size:20px}}
 </style>
 </head>
 <body>
@@ -516,6 +543,7 @@ function w3Slide(){const M=v=>(v<0?'-':'')+'$'+Math.round(Math.abs(v)).toLocaleS
  <div class="l7w"><table class="l7 fn"><thead><tr><th>Day</th><th>CRM sales</th><th>Meta purch.</th><th>Impr.</th><th>CPM</th><th>Link clicks</th><th>CTR</th><th>CPC</th><th>LP views</th><th>Cost / LPV</th><th>ATC</th><th>Cost / ATC</th><th>Check-outs</th><th>LPV → purch.</th><th>ATC → purch.</th><th>Check-out → purch.</th></tr></thead>${body(b2)}</table></div>
  <p class="l7note">Purchases each day are the higher of CRM paid sales (all sources, including email marketing) and Meta purchases; both counts are in the funnel table. Cost per purchase = (spend − lead spend) ÷ purchases: green at $250 or less, amber up to $400, red above $400. Lead spend = abandoned carts (Meta add-to-carts minus Meta purchases) × $28. Media net = spend − sales value (Meta purchase value, ${M(t.val)} for the week, which covers Meta-attributed purchases only). Mon 19 is partial, 00:00–07:00. Campaign 52668266203628, Israel time.</p>
 </section>`}
+const LAUNCH="<section class=\"slide\" id=\"launch\">\n <p class=\"est\">ESTIMATE based on Omri's assumptions</p>\n <h2 class=\"top\">Plan to launch: about 291 sign-ups by 27 October</h2>\n <p class=\"sub2\">Live event 27 Oct, 7 PM Eastern = 2 AM Israel time on 28 Oct.</p>\n <div class=\"sofar\"><span>Sign-ups so far</span><b>121</b><em>as of 19 Oct 10:13 Israel time \u00b7 116 through 18 Oct + 5 today (CRM)</em></div>\n <div class=\"scen\"><div class=\"lo\"><span>Low</span><b>281</b><em>by 27 Oct</em></div><div class=\"mid\"><span>Middle</span><b>291</b><em>by 27 Oct</em></div><div class=\"hi\"><span>High</span><b>301</b><em>by 27 Oct</em></div></div>\n <h3 class=\"l7h\">Day by day</h3>\n <div class=\"l7w\"><table class=\"lt\"><thead><tr><th>Day</th><th>Paid + email (low\u2013high)</th><th>Organic push</th><th>Daily total (middle)</th><th>Cumulative (middle)</th></tr></thead><tbody><tr class=\"start\"><td>End of 18 Oct</td><td></td><td></td><td></td><td class=\"cum\">116</td></tr><tr><td>Mon 19 Oct <small>today, incl. 5 so far</small></td><td>15\u201320</td><td>+3</td><td class=\"c-n\">20</td><td class=\"cum\">136</td></tr><tr><td>Tue 20 Oct</td><td>15\u201320</td><td>+3</td><td class=\"c-n\">21</td><td class=\"cum\">157</td></tr><tr><td>Wed 21 Oct</td><td>15\u201320</td><td>+3</td><td class=\"c-n\">20</td><td class=\"cum\">177</td></tr><tr><td>Thu 22 Oct</td><td>15\u201320</td><td>+3</td><td class=\"c-n\">21</td><td class=\"cum\">198</td></tr><tr><td>Fri 23 Oct</td><td>15</td><td>+3</td><td class=\"c-n\">18</td><td class=\"cum\">216</td></tr><tr><td>Sat 24 Oct</td><td>15</td><td>+3</td><td class=\"c-n\">18</td><td class=\"cum\">234</td></tr><tr><td>Sun 25 Oct</td><td>15</td><td>+4</td><td class=\"c-n\">19</td><td class=\"cum\">253</td></tr><tr><td>Mon 26 Oct</td><td>15</td><td>+4</td><td class=\"c-n\">19</td><td class=\"cum\">272</td></tr><tr><td>Tue 27 Oct <small>launch day</small></td><td>15</td><td>+4</td><td class=\"c-n\">19</td><td class=\"cum\">291</td></tr></tbody><tfoot><tr><td>Total 19\u201327 Oct</td><td>135\u2013155</td><td>+30</td><td class=\"c-n\">175</td><td class=\"cum\">291</td></tr></tfoot></table></div>\n <div class=\"blocks\"><div class=\"blk\"><h3>Breakdown</h3><p>Paid and email: <b>251\u2013271</b> <small>(116 + 135\u2013155)</small></p><p>Extra organic push: <b>+30</b> <small>(Julie, teachers, one more retargeting email blast, organic social)</small></p><p class=\"tt\">Total: <b>281\u2013301</b></p></div>\n <div class=\"blk\"><h3>Board check</h3><p>Board line for a reduced November budget: <b>250</b> \u2192 <b class=\"g\">31 to 51 above it</b></p><p>Board target <b>350</b> \u2192 <b class=\"r\">49 to 69 short</b></p></div></div>\n <p class=\"est\">ESTIMATE based on Omri's assumptions: 15\u201320 paid and email sign-ups a day 19\u201322 Oct, 15 a day 23\u201327 Oct, plus a 30 sign-up organic push. Middle case uses 17/18 alternating for 19\u201322 Oct.</p>\n</section>";
 const week2=DATA.days.filter(d=>d.date>='2026-10-05'&&d.date<='2026-10-11');
 let html='';
 const TL=[
@@ -542,11 +570,11 @@ function tlSlide(no){return `<section class="slide" id="timeline">
 </section>`}
 html+=aggSlide('all',1,'Since launch · Mon 28 Sep → today',DATA.days,'',{metaHero:true});
 html+=tlSlide(2);
-html=w3Slide()+html;html+=planSlide(4);html+=l7Slide(5);
+html=w3Slide()+LAUNCH+html;html+=planSlide(4);html+=l7Slide(5);
 days.forEach((d,i)=>html+=daySlide(d,i+2,i===0));
 document.getElementById('main').innerHTML=html;
 
-const tabs=[{id:'week3',l:'Week 3',s:'12–19 Oct'},{id:'plan',l:'Adjusted plan',s:'to 27 Oct'},{id:'last7',l:'Week 2',s:'5–11 Oct'},{id:'all',l:'Since launch',s:'28 Sep →'},{id:'timeline',l:'Timeline',s:'7–19 Oct'},...days.map((d,i)=>({id:'d-'+d.date,l:short(d.date),s:d.seats+(d.seats===1?' seat':' seats')+(i===0?' · to '+updTime.split(' ')[0]:'')}))];
+const tabs=[{id:'week3',l:'Week 3',s:'12–19 Oct'},{id:'launch',l:'Plan to launch',s:'19–27 Oct'},{id:'plan',l:'Adjusted plan',s:'to 27 Oct'},{id:'last7',l:'Week 2',s:'5–11 Oct'},{id:'all',l:'Since launch',s:'28 Sep →'},{id:'timeline',l:'Timeline',s:'7–19 Oct'},...days.map((d,i)=>({id:'d-'+d.date,l:short(d.date),s:d.seats+(d.seats===1?' seat':' seats')+(i===0?' · to '+updTime.split(' ')[0]:'')}))];
 const bar=document.getElementById('tabbar');
 bar.innerHTML=tabs.map(t=>`<a href="#${t.id}" id="t-${t.id}">${t.l}<small>${t.s}</small></a>`).join('');
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.tabbar a').forEach(a=>a.classList.remove('on'));const a=document.getElementById('t-'+e.target.id);if(a){a.classList.add('on');a.scrollIntoView({inline:'center',block:'nearest'})}}})},{rootMargin:'-40% 0px -55% 0px'});
