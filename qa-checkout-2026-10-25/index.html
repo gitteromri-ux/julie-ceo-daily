@@ -4,23 +4,20 @@
 <p>Date: 25 Oct 2026. All times are Israel time (UTC+2 from 25 Oct; UTC+3 before that). Anything not proven is marked <span class="e">ESTIMATE</span>.</p>
 <h2>1. Summary</h2>
 <p>Page: <a href="https://www.longevitylifeacademy.com/julie-masterclass/">longevitylifeacademy.com/julie-masterclass/</a></p>
-<p>On iPhone 14, iOS 16.4, Safari (BrowserStack), the payment form fails with this message: "We could not open the payment form for your package, so nothing was charged. Please try again in a moment or contact advisor@longevitylifeacademy.com. Reference: PAYMENT_FORM_UNAVAILABLE". It happened twice, at about 13:46 and 13:56 on 25 Oct.</p>
-<p>On desktop Chrome at 13:49 it works. The Airwallex drop-in loads with Apple Pay, Google Pay, card fields and a "Pay 49.00 USD" button.</p>
-<p><b>Result: the checkout failed on 3 of 3 iPhones that reached the payment step</b>:</p>
-<ul><li>iPhone 14, iOS 16.4 (twice)</li><li>iPhone 13, iOS 17.5 (once)</li><li>iPhone Air, iOS 26.0 (once, 14:33-14:40 Israel time)</li></ul>
-<p>Passed: desktop Chrome, and Samsung Galaxy S26 (Android 16, Chrome) on the same BrowserStack network.</p>
-<p>iOS 26 runs on about 75% of iPhones (TelemetryDeck, end September 2026). The earlier failures covered only about 2%.</p>
-<p>VERIFIED by the iPhone consoles: the Airwallex payment script never loaded on the iPhone.</p>
-<p class="e">ESTIMATE: BrowserStack slowness is unlikely, because the same network loads the script on Android. Not confirmed until a real buyer phone or the CRM shows it.</p>
-<p>Not yet tested: iOS 27 and iOS 18.</p>
-<h2>2. Test on 25 Oct, run 1 (iPhone 14, iOS 16.4)</h2>
+<p><b>Result: the checkout WORKS on real iPhones.</b></p>
+<ul><li>6 real iPhone sales on the Masterclass since 12:00 Israel time today (Omri, 14:41)</li><li>No fix needed</li></ul>
+<p><b>Cause of the BrowserStack iPhone failures:</b></p>
+<ul><li>BrowserStack's Apple devices lost the connection to checkout.airwallex.com ("The network connection was lost")</li><li>The page was not the cause</li></ul>
+<p><b>Correction:</b> the earlier "iPhone bug" conclusion was wrong. It was based only on BrowserStack.</p>
+<p>The test sections below are kept as history (BrowserStack only).</p>
+<h2>2. Test on 25 Oct, run 1 (iPhone 14, iOS 16.4) (BrowserStack only)</h2>
 <p>Entry point: ad 1821033455982771 ("Apply Now"). We tried iPhone 17 (iOS 26) and iPhone 16 (iOS 18) first, but neither booted on BrowserStack (waited 2+ min and 75 s).</p>
 <p>Phone number +1 2025550143 was rejected with "Please enter a valid US mobile number for United States". 4155552671 was accepted. Step 2: Oct 27, 7:00 PM ET, tuition $49.00. The error appeared about 10-15 s after the payment page loaded.</p>
 <figure><img src="img/00_boot_iphone14_stale.png" loading="lazy"><figcaption>iPhone 14 boot screen</figcaption></figure><figure><img src="img/01_ad_library.png" loading="lazy"><figcaption>Meta Ad Library, ad 1821033455982771</figcaption></figure><figure><img src="img/02_ad_CTA_apply_now.png" loading="lazy"><figcaption>Ad with 'Apply Now' button</figcaption></figure><figure><img src="img/03_landing.png" loading="lazy"><figcaption>Landing page</figcaption></figure><figure><img src="img/04_pricing_card.png" loading="lazy"><figcaption>Pricing card</figcaption></figure><figure><img src="img/05_checkout_step1_empty.png" loading="lazy"><figcaption>Checkout step 1, empty</figcaption></figure><figure><img src="img/06_checkout_step1_name_email.png" loading="lazy"><figcaption>Step 1, name and email</figcaption></figure><figure><img src="img/07_step1_phone_error_2025550143.png" loading="lazy"><figcaption>Phone +1 2025550143 rejected</figcaption></figure><figure><img src="img/08_step1_filled_valid_phone.png" loading="lazy"><figcaption>Step 1 filled, 4155552671 accepted</figcaption></figure><figure><img src="img/09_step2_plan_date.png" loading="lazy"><figcaption>Step 2, Oct 27 7:00 PM ET</figcaption></figure><figure><img src="img/10_step2_summary_49usd.png" loading="lazy"><figcaption>Step 2 summary, tuition $49.00</figcaption></figure><figure><img src="img/11_preparing_secure_payment.png" loading="lazy"><figcaption>Preparing secure payment</figcaption></figure><figure><img src="img/12_payment_page_top.png" loading="lazy"><figcaption>Payment page top</figcaption></figure><figure><img src="img/13_payment_ERROR_PAYMENT_FORM_UNAVAILABLE.png" loading="lazy"><figcaption>ERROR: PAYMENT_FORM_UNAVAILABLE</figcaption></figure><figure><img src="img/14_payment_error_fee_summary.png" loading="lazy"><figcaption>Error with fee summary</figcaption></figure>
-<h2>3. Retest on 25 Oct</h2>
+<h2>3. Retest on 25 Oct (BrowserStack only)</h2>
 <figure><img src="img/r1_desktop_payment.png"><figcaption>Desktop Chrome: payment form loaded in about 10-20 s</figcaption></figure>
 <figure><img src="img/r2_iphone_payment.png"><figcaption>iPhone 14 Safari: error after waiting about 28 s</figcaption></figure>
-<h2>4. Code diagnosis (read-only)</h2>
+<h2>4. Code diagnosis (read-only) (BrowserStack only)</h2>
 <ul>
 <li>The error is thrown by inline script in the julie-masterclass page HTML.</li>
 <li>Line 3493 waits up to 15 s for <code>window.Airwallex</code> (a Promise.race with JULIE_AWX_WAIT).</li>
@@ -34,7 +31,7 @@
 <li>The page is served by GitHub Pages. It was last modified 25 Oct at 11:52 Israel time.</li>
 <li class="e">ESTIMATE, root cause: one of two things. Either the SDK does not load on iOS Safari (or over BrowserStack's network), or the drop-in refuses to build on Safari because of Apple Pay. To confirm, we need the console message from an iPhone.</li>
 </ul>
-<h2>4b. Common-iPhone run, 25 Oct 14:09 Israel time</h2>
+<h2>4b. Common-iPhone run, 25 Oct 14:09 Israel time (BrowserStack only)</h2>
 <ul><li>iPhone 15 (iOS 17) did not boot on BrowserStack within about 65 s, so we skipped it.</li>
 <li>iPhone 13 (iOS 17.5) booted in about 30 s. We tapped Continue to payment at 14:09:48. The payment page appeared about 10 s later. The card fields never appeared, and PAYMENT_FORM_UNAVAILABLE was on screen within about 10 s.</li>
 <li>VERIFIED, console: first "payment SDK not loaded undefined" (inline script, line 3496), then "Error: PAYMENT_FORM_UNAVAILABLE" (line 3600). This means <code>window.Airwallex</code> was never defined on the iPhone. The cause is branch (a), the SDK not loading, not the drop-in failing to build.</li>
@@ -43,7 +40,7 @@
 <figure><img src="img/dev_iPhone13_ios17.png"><figcaption>iPhone 13 iOS 17.5: error on screen</figcaption></figure>
 <figure><img src="img/dev_iPhone13_ios17_console.png"><figcaption>Console: payment SDK not loaded, then PAYMENT_FORM_UNAVAILABLE</figcaption></figure>
 <figure><img src="img/dev_iPhone13_ios17_network_airwallex_filter.png"><figcaption>Network panel filtered for "airwallex": 0 of 16 (DevTools opened after page load)</figcaption></figure>
-<h2>4c. Run on the most used iOS (25 Oct, 14:19-14:40 Israel time)</h2>
+<h2>4c. Run on the most used iOS (25 Oct, 14:19-14:40 Israel time) (BrowserStack only)</h2>
 <p><b>iOS usage</b> (TelemetryDeck, end September 2026):</p>
 <ul><li>iOS 26: 74.58%</li><li>iOS 27: 16.27%</li><li>iOS 18: 7.09%</li><li>iOS 16 and 17: under about 2.1%</li></ul>
 <p>The earlier iPhone 13 (iOS 17.5) and iPhone 14 (iOS 16.4) failures only covered that ~2%.</p>
@@ -55,15 +52,13 @@
 <ul><li>iPhone 17 Pro, 26.6 (~80 seconds)</li><li>iPhone 15, 26.6 (~75 seconds)</li><li>iPhone 17, 26.6 (60+ seconds)</li><li>No iPhone 13 on iOS 26 offered</li></ul>
 <p><b>Samsung Galaxy S26, Android 16, Chrome, 14:19-14:25, same BrowserStack network:</b></p>
 <ul><li>Card fields, Google Pay and "Pay 49.00 USD" loaded within about 10 seconds of "Continue"</li><li>No error</li><li>Console showed <code>Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'catch') at window.JULIE_AWX_INIT (line 2688)</code>. Not seen on iPhone. Did not block.</li></ul>
-<p><b>Conclusion:</b></p>
-<ul><li>The iPhone failure is now seen on iOS 26 (~75% of iPhones)</li><li>The same network loads the script on Android, so BrowserStack slowness is unlikely</li><li class="e">ESTIMATE until confirmed on a real buyer phone or by the CRM</li><li>iOS 27 and iOS 18 untested</li></ul>
+<p><b>Conclusion (updated 14:41):</b></p>
+<ul><li>The checkout works on real iPhones (6 real iPhone sales since 12:00 Israel time)</li><li>The iPhone failure here was caused by BrowserStack's Apple devices losing the connection to checkout.airwallex.com, not by the page</li><li>No fix needed</li></ul>
 <figure><img src="img/dev_samsung_payment.png"><figcaption>Samsung Galaxy S26, Android 16: payment form loaded</figcaption></figure>
 <figure><img src="img/dev_ios26_payment.png"><figcaption>iPhone Air, iOS 26.0: PAYMENT_FORM_UNAVAILABLE</figcaption></figure>
 <h2>5. Open items and next steps</h2>
 <ul>
-<li>Open items:<ul><li>iOS 27 and iOS 18 untested</li><li>Real-buyer confirmation</li><li>Fix not applied (awaiting Omri's go)</li></ul></li>
-<li>Code diagnosis is still in progress; the iPhone console message is needed to confirm.</li>
-<li>Proposed fixes are NOT applied. Golden freeze is in place until 26 Oct, and each fix needs Omri's go-ahead:
-<ul><li>(b) If the drop-in fails to build, retry <code>createElement</code> with ['card'] only, without Apple Pay.</li><li>(a) Retry loading the SDK script once before showing the error.</li></ul></li>
+<li>Open items:<ul><li>iOS 27 and iOS 18 untested on BrowserStack (low priority, real iPhone sales work)</li></ul></li>
+<li>Optional: the Android console error at window.JULIE_AWX_INIT (line 2688) did not block payment</li>
 </ul>
 </body></html>
