@@ -6,6 +6,9 @@
 <p>Page: <a href="https://www.longevitylifeacademy.com/julie-masterclass/">longevitylifeacademy.com/julie-masterclass/</a></p>
 <p>On iPhone 14, iOS 16.4, Safari (BrowserStack), the payment form fails with this message: "We could not open the payment form for your package, so nothing was charged. Please try again in a moment or contact advisor@longevitylifeacademy.com. Reference: PAYMENT_FORM_UNAVAILABLE". It happened twice, at about 13:46 and 13:56 on 25 Oct.</p>
 <p>On desktop Chrome at 13:49 it works. The Airwallex drop-in loads with Apple Pay, Google Pay, card fields and a "Pay 49.00 USD" button.</p>
+<p><b>Result: the checkout failed on 2 of 2 iPhones that reached the payment step</b> (iPhone 14 iOS 16.4 twice, iPhone 13 iOS 17.5 once). Desktop Chrome passed.</p>
+<p>VERIFIED by the iPhone 13 console: the Airwallex payment SDK (<code>window.Airwallex</code>) never loaded on the iPhone.</p>
+<p>Not yet tested: iPhone 15, iPhone 15 Pro Max and iPhone 12, because of BrowserStack boot failures and lack of time.</p>
 <p class="e">ESTIMATE: the problem is specific to iPhone Safari. We have not yet ruled out BrowserStack connectivity.</p>
 <h2>2. Test on 25 Oct, run 1 (iPhone 14, iOS 16.4)</h2>
 <p>Entry point: ad 1821033455982771 ("Apply Now"). We tried iPhone 17 (iOS 26) and iPhone 16 (iOS 18) first, but neither booted on BrowserStack (waited 2+ min and 75 s).</p>
@@ -28,6 +31,15 @@
 <li>The page is served by GitHub Pages. It was last modified 25 Oct at 11:52 Israel time.</li>
 <li class="e">ESTIMATE, root cause: one of two things. Either the SDK does not load on iOS Safari (or over BrowserStack's network), or the drop-in refuses to build on Safari because of Apple Pay. To confirm, we need the console message from an iPhone.</li>
 </ul>
+<h2>4b. Common-iPhone run, 25 Oct 14:09 Israel time</h2>
+<ul><li>iPhone 15 (iOS 17) did not boot on BrowserStack within about 65 s, so we skipped it.</li>
+<li>iPhone 13 (iOS 17.5) booted in about 30 s. We tapped Continue to payment at 14:09:48. The payment page appeared about 10 s later. The card fields never appeared, and PAYMENT_FORM_UNAVAILABLE was on screen within about 10 s.</li>
+<li>VERIFIED, console: first "payment SDK not loaded undefined" (inline script, line 3496), then "Error: PAYMENT_FORM_UNAVAILABLE" (line 3600). This means <code>window.Airwallex</code> was never defined on the iPhone. The cause is branch (a), the SDK not loading, not the drop-in failing to build.</li>
+<li>Network panel filtered for "airwallex": 0 of 16 requests matched. But DevTools was opened after the page had loaded, and the SDK is a <code>&lt;script defer&gt;</code> that loads at page load (line 2691). So the panel most likely missed that request. <span class="e">ESTIMATE: we cannot yet say whether the SDK request was blocked or failed.</span></li>
+<li>The page was last modified 25 Oct at 11:52 Israel time (09:52 UTC).</li></ul>
+<figure><img src="img/dev_iPhone13_ios17.png"><figcaption>iPhone 13 iOS 17.5: error on screen</figcaption></figure>
+<figure><img src="img/dev_iPhone13_ios17_console.png"><figcaption>Console: payment SDK not loaded, then PAYMENT_FORM_UNAVAILABLE</figcaption></figure>
+<figure><img src="img/dev_iPhone13_ios17_network_airwallex_filter.png"><figcaption>Network panel filtered for "airwallex": 0 of 16 (DevTools opened after page load)</figcaption></figure>
 <h2>5. Open items and next steps</h2>
 <ul>
 <li>A timing run on common iPhones is in progress. Results will be added here.</li>
