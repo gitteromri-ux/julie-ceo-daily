@@ -483,6 +483,20 @@ section.slide{scroll-margin-top:84px}
 #gita .gc .gl{grid-column:1;margin:0}#gita .gc p{grid-column:1;margin:6px 0 0!important}#gita .gc .gr4{grid-column:2;grid-row:1/3}
 #gita .gc .gr4 span{font-size:36px!important}
 @media(max-width:700px){#gita .gc{display:block;padding:14px!important}#gita .gc .gl{margin-bottom:8px}#gita .gc .gr4{gap:4px}#gita .gc .gr4 span{font-size:17px!important}#gita .gc p{margin-top:10px!important}}
+#all{justify-content:flex-start!important;padding-top:40px!important;align-items:stretch}
+#all .tx{max-width:1100px;width:100%;margin:0 auto;font-family:Inter,"Public Sans",Arial,sans-serif;font-variant-numeric:tabular-nums}
+#all .tk{font-size:20px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);margin:0 0 8px}
+#all .tbig b{display:block;font-size:200px;line-height:1;font-weight:800;color:oklch(82% 0.16 155);letter-spacing:-.03em}#all .tbig span{font-size:36px;font-weight:700;color:var(--ink)}
+#all .ttoday{margin:20px 0 36px}#all .ttoday b{font-size:72px;font-weight:800;color:var(--cy)}#all .ttoday span{font-size:30px;color:var(--ink);margin-left:14px;font-weight:600}
+#all .tw{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:36px}
+#all .tw div{border:1px solid var(--line);border-radius:18px;padding:18px 20px;background:oklch(100% 0 0 / .04);min-width:0}
+#all .tw b{display:block;font-size:56px;font-weight:800;color:var(--ink)}#all .tw span{display:block;font-size:22px;font-weight:700;color:var(--ink)}#all .tw em{display:block;font-style:normal;font-size:17px;color:var(--ink2)}
+#all .tproj{border:2px dashed oklch(82% 0.14 75);border-radius:20px;padding:22px 26px;margin-bottom:28px}
+#all .te{font-size:20px;font-weight:800;color:oklch(82% 0.14 75);letter-spacing:.08em;margin:0 0 6px}
+#all .tr b{display:block;font-size:110px;line-height:1;font-weight:800;color:oklch(82% 0.14 75)}#all .tr span{font-size:30px;font-weight:700;color:var(--ink)}
+#all .tproj>p:last-child{font-size:20px;color:var(--ink2);margin:14px 0 0}
+#all .tdet summary{font-size:24px;font-weight:700;color:var(--ink);cursor:pointer}#all .tdet p{display:flex;justify-content:space-between;max-width:420px;font-size:22px;margin:8px 0;color:var(--ink2)}#all .tdet b{color:var(--ink)}#all .tdet .tsrc{display:block;max-width:none;font-size:17px}
+@media(max-width:700px){#all{padding-top:20px!important}#all .tbig b{font-size:120px}#all .tbig span{font-size:24px}#all .ttoday b{font-size:52px}#all .ttoday span{font-size:22px}#all .tw{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}#all .tw b{font-size:44px}#all .tw span{font-size:18px}#all .tw em{font-size:15px}#all .tr b{font-size:68px}#all .tr span{font-size:22px}#all .tproj{padding:16px}#all .tproj>p:last-child{font-size:17px}#all .tdet p{font-size:19px}}
 </style>
 </head>
 <body>
@@ -690,13 +704,24 @@ function tlSlide(no){return `<section class="slide" id="timeline">
   <div class="card"><div class="tbl"><table class="dense tlx"><thead><tr><th>Date</th><th>What happened</th></tr></thead><tbody>${TL.map(t=>`<tr><td>${t[0]}</td><td>${t[1]}</td></tr>`).join('')}</tbody></table></div></div>
   <div class="foot"><span>Meta Ads Manager (Israel time) · CRM order log · tests excluded</span><span>Updated ${upd}</span></div>
 </section>`}
-html+=aggSlide('all',1,'Since launch · Mon 28 Sep → today',DATA.days,'',{metaHero:true});
+const TOT={asof:'25 Oct 2026, 10:40 Israel time',total:170,today:6,weeks:[['Week 1','28 Sep–4 Oct',8],['Week 2','5–11 Oct',47],['Week 3','12–18 Oct',62],['This week','19–25 Oct, so far',53]],days:[['Mon 19',10],['Tue 20',5],['Wed 21',12],['Thu 22',8],['Fri 23',5],['Sat 24',7],['Sun 25 (to 10:40)',6]],lo:209,hi:224};
+function totSlide(){const t=TOT;if(t.weeks.reduce((a,w)=>a+w[2],0)!==t.total)throw new Error('total mismatch');
+ return `<section class="slide" id="all"><div class="tx">
+ <p class="tk">Since launch · 28 Sep to ${t.asof}</p>
+ <div class="tbig"><b>${t.total}</b><span>sign-ups (paid purchases)</span></div>
+ <div class="ttoday"><b>${t.today}</b><span>today so far</span></div>
+ <div class="tw">${t.weeks.map(w=>`<div><b>${w[2]}</b><span>${w[0]}</span><em>${w[1]}</em></div>`).join('')}</div>
+ <div class="tproj"><p class="te">ESTIMATE</p><div class="tr"><b>${t.lo}–${t.hi}</b><span>sign-ups by the event (27 Oct)</span></div>
+ <p>If we do 15–20 a day today, tomorrow and on event day: today ends at 15–20 (we have ${t.today}, so ${15-t.today}–${20-t.today} more), plus 15–20 on 26 Oct and 15–20 on 27 Oct. ${t.total} + ${45-t.today}–${60-t.today} = ${t.lo}–${t.hi}.</p></div>
+ <details class="tdet"><summary>This week by day</summary>${t.days.map(d=>`<p><span>${d[0]}</span><b>${d[1]}</b></p>`).join('')}<p class="tsrc">Each day counts the higher of CRM paid sales (Cloudflare checkout log, all sources incl. email and organic) and Meta purchases. Cross-check: 151 at 22 Oct 12:00 + 1 (rest of 22 Oct) + 5 + 7 + 6 = 170.</p></details>
+ </div></section>`}
+html+=totSlide();
 html+=tlSlide(2);
 html=gaSlide()+w3Slide()+LAUNCH+html;html+=planSlide(4);html+=l7Slide(5);
 days.forEach((d,i)=>html+=daySlide(d,i+2,i===0));
 document.getElementById('main').innerHTML=html;
 
-const tabs=[{id:'gita',l:'Gita analysis',s:'weekly'},{id:'week3',l:'Week 3',s:'12–19 Oct'},{id:'launch',l:'Plan to launch',s:'19–27 Oct'},{id:'plan',l:'Adjusted plan',s:'to 27 Oct'},{id:'last7',l:'Week 2',s:'5–11 Oct'},{id:'all',l:'Since launch',s:'28 Sep →'},{id:'timeline',l:'Timeline',s:'7–22 Oct'},...days.map((d,i)=>({id:'d-'+d.date,l:short(d.date),s:d.seats+(d.seats===1?' seat':' seats')+(i===0?' · to '+updTime.split(' ')[0]:'')}))];
+const tabs=[{id:'gita',l:'Gita analysis',s:'weekly'},{id:'week3',l:'Week 3',s:'12–19 Oct'},{id:'launch',l:'Plan to launch',s:'19–27 Oct'},{id:'plan',l:'Adjusted plan',s:'to 27 Oct'},{id:'last7',l:'Week 2',s:'5–11 Oct'},{id:'all',l:'Totals',s:'170 sign-ups'},{id:'timeline',l:'Timeline',s:'7–22 Oct'},...days.map((d,i)=>({id:'d-'+d.date,l:short(d.date),s:d.seats+(d.seats===1?' seat':' seats')+(i===0?' · to '+updTime.split(' ')[0]:'')}))];
 const bar=document.getElementById('tabbar');
 bar.innerHTML=tabs.map(t=>`<a href="#${t.id}" id="t-${t.id}">${t.l}<small>${t.s}</small></a>`).join('');
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.tabbar a').forEach(a=>a.classList.remove('on'));const a=document.getElementById('t-'+e.target.id);if(a){a.classList.add('on');a.scrollIntoView({inline:'center',block:'nearest'})}}})},{rootMargin:'-40% 0px -55% 0px'});
