@@ -714,7 +714,7 @@ function totSlide(){const t=TOT;if(t.weeks.reduce((a,w)=>a+w[2],0)!==t.total||t.
  <div class="ttoday"><b>${t.today}</b><span>today so far</span></div>
  <div class="tw">${t.weeks.map(w=>`<div><b>${w[2]}</b><span>${w[0]}</span><em>${w[1]}</em></div>`).join('')}</div>
  <div class="tproj"><p class="te">ESTIMATE</p><div class="tr"><b>about ${t.proj}</b><span>sign-ups by the event (27 Oct)</span></div>
- <p>Method: about ${t.per} a day (about 3 organic + 14 from paid ads). Today ends at ${t.per} (we have ${t.today}, so ${t.per-t.today} more), plus ${t.per} on 26 Oct and ${t.per} on 27 Oct. ${t.total} + ${t.per-t.today} + ${2*t.per} = ${t.proj}.</p></div>
+ <p>Method: about ${t.per} a day (about 3 organic + 14 from paid ads). Today ends at ${t.per} (we have ${t.today}, so ${t.per-t.today} more), plus ${t.per} on 26 Oct and ${t.per} on 27 Oct. ${t.total} + ${t.per-t.today} + ${2*t.per} = ${t.proj}.</p><p>Of the about ${t.proj-t.total} still to come, 12–14 VIP via a special $69 VIP offer. By the event: about ${t.proj} total, ${t.vip+12}–${t.vip+14} VIP, ${t.proj-t.vip-14}–${t.proj-t.vip-12} regular (counting today's unconfirmed sale as regular).</p></div>
  <details class="tdet"><summary>This week by day</summary>${t.days.map(d=>`<p><span>${d[0]}</span><b>${d[1]}</b></p>`).join('')}<p class="tsrc">Seats by day of purchase, Israel time, from CRM paid orders. This week adds up to ${t.weeks[3][2]}; the four weeks add up to ${t.total}.</p></details>
  </div></section>`}
 html+=totSlide();
