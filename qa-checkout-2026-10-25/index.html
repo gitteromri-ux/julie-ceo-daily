@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Masterclass checkout QA - 25 Oct 2026</title>
+<style>body{font-family:system-ui,sans-serif;max-width:720px;margin:auto;padding:16px;line-height:1.5}img{max-width:100%;border:1px solid #ccc}figure{margin:16px 0}figcaption{font-size:14px;color:#555}.e{background:#fff3cd;padding:0 4px}code{word-break:break-all}</style></head><body>
+<h1>Masterclass $49 checkout: QA report</h1>
+<p>Date: 25 Oct 2026. All times are Israel time (UTC+2 from 25 Oct; UTC+3 before that). Anything not proven is marked <span class="e">ESTIMATE</span>.</p>
+<h2>1. Summary</h2>
+<p>Page: <a href="https://www.longevitylifeacademy.com/julie-masterclass/">longevitylifeacademy.com/julie-masterclass/</a></p>
+<p>On iPhone 14, iOS 16.4, Safari (BrowserStack), the payment form fails with this message: "We could not open the payment form for your package, so nothing was charged. Please try again in a moment or contact advisor@longevitylifeacademy.com. Reference: PAYMENT_FORM_UNAVAILABLE". It happened twice, at about 13:46 and 13:56 on 25 Oct.</p>
+<p>On desktop Chrome at 13:49 it works. The Airwallex drop-in loads with Apple Pay, Google Pay, card fields and a "Pay 49.00 USD" button.</p>
+<p class="e">ESTIMATE: the problem is specific to iPhone Safari. We have not yet ruled out BrowserStack connectivity.</p>
+<h2>2. Test on 25 Oct, run 1 (iPhone 14, iOS 16.4)</h2>
+<p>Entry point: ad 1821033455982771 ("Apply Now"). We tried iPhone 17 (iOS 26) and iPhone 16 (iOS 18) first, but neither booted on BrowserStack (waited 2+ min and 75 s).</p>
+<p>Phone number +1 2025550143 was rejected with "Please enter a valid US mobile number for United States". 4155552671 was accepted. Step 2: Oct 27, 7:00 PM ET, tuition $49.00. The error appeared about 10-15 s after the payment page loaded.</p>
+<figure><img src="img/00_boot_iphone14_stale.png" loading="lazy"><figcaption>iPhone 14 boot screen</figcaption></figure><figure><img src="img/01_ad_library.png" loading="lazy"><figcaption>Meta Ad Library, ad 1821033455982771</figcaption></figure><figure><img src="img/02_ad_CTA_apply_now.png" loading="lazy"><figcaption>Ad with 'Apply Now' button</figcaption></figure><figure><img src="img/03_landing.png" loading="lazy"><figcaption>Landing page</figcaption></figure><figure><img src="img/04_pricing_card.png" loading="lazy"><figcaption>Pricing card</figcaption></figure><figure><img src="img/05_checkout_step1_empty.png" loading="lazy"><figcaption>Checkout step 1, empty</figcaption></figure><figure><img src="img/06_checkout_step1_name_email.png" loading="lazy"><figcaption>Step 1, name and email</figcaption></figure><figure><img src="img/07_step1_phone_error_2025550143.png" loading="lazy"><figcaption>Phone +1 2025550143 rejected</figcaption></figure><figure><img src="img/08_step1_filled_valid_phone.png" loading="lazy"><figcaption>Step 1 filled, 4155552671 accepted</figcaption></figure><figure><img src="img/09_step2_plan_date.png" loading="lazy"><figcaption>Step 2, Oct 27 7:00 PM ET</figcaption></figure><figure><img src="img/10_step2_summary_49usd.png" loading="lazy"><figcaption>Step 2 summary, tuition $49.00</figcaption></figure><figure><img src="img/11_preparing_secure_payment.png" loading="lazy"><figcaption>Preparing secure payment</figcaption></figure><figure><img src="img/12_payment_page_top.png" loading="lazy"><figcaption>Payment page top</figcaption></figure><figure><img src="img/13_payment_ERROR_PAYMENT_FORM_UNAVAILABLE.png" loading="lazy"><figcaption>ERROR: PAYMENT_FORM_UNAVAILABLE</figcaption></figure><figure><img src="img/14_payment_error_fee_summary.png" loading="lazy"><figcaption>Error with fee summary</figcaption></figure>
+<h2>3. Retest on 25 Oct</h2>
+<figure><img src="img/r1_desktop_payment.png"><figcaption>Desktop Chrome: payment form loaded in about 10-20 s</figcaption></figure>
+<figure><img src="img/r2_iphone_payment.png"><figcaption>iPhone 14 Safari: error after waiting about 28 s</figcaption></figure>
+<h2>4. Code diagnosis (read-only)</h2>
+<ul>
+<li>The error is thrown by inline script in the julie-masterclass page HTML.</li>
+<li>Line 3493 waits up to 15 s for <code>window.Airwallex</code> (a Promise.race with JULIE_AWX_WAIT).</li>
+<li>Line 3495: if <code>!awx||!awx.init</code>, it logs "payment SDK not loaded" and throws PAYMENT_FORM_UNAVAILABLE.</li>
+<li>Line 3510: it calls <code>awx.createElement('dropIn', JuliePaymentSafety.dropInOptions(d))</code>. If that returns null, it logs "payment form could not be built" and throws.</li>
+<li>Line 3598: the handler that shows the error message.</li>
+<li>VERIFIED: backend order or intent failures, and an Airwallex.init rejection, show different references. They are ruled out.</li>
+<li>The Airwallex bundle <code>elements.bundle.min.js?version=1.160.0</code> parses on iOS 16. We found no incompatible syntax.</li>
+<li>The drop-in requests three methods: card, googlepay and applepay. On Safari only, the SDK also loads an Apple Pay script from applepay.cdn-apple.com. That fits the pattern of a Safari-only failure.</li>
+<li>The Airwallex bundle was last modified 23 Oct at 06:50 Israel time (03:50 UTC). It is cached for only 5 s.</li>
+<li>The page is served by GitHub Pages. It was last modified 25 Oct at 11:52 Israel time.</li>
+<li class="e">ESTIMATE, root cause: one of two things. Either the SDK does not load on iOS Safari (or over BrowserStack's network), or the drop-in refuses to build on Safari because of Apple Pay. To confirm, we need the console message from an iPhone.</li>
+</ul>
+<h2>5. Open items and next steps</h2>
+<ul>
+<li>A timing run on common iPhones is in progress. Results will be added here.</li>
+<li>Code diagnosis is still in progress; the iPhone console message is needed to confirm.</li>
+<li>Proposed fixes are NOT applied. Golden freeze is in place until 26 Oct, and each fix needs Omri's go-ahead:
+<ul><li>(b) If the drop-in fails to build, retry <code>createElement</code> with ['card'] only, without Apple Pay.</li><li>(a) Retry loading the SDK script once before showing the error.</li></ul></li>
+</ul>
+</body></html>
