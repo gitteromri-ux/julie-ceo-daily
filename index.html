@@ -704,17 +704,17 @@ function tlSlide(no){return `<section class="slide" id="timeline">
   <div class="card"><div class="tbl"><table class="dense tlx"><thead><tr><th>Date</th><th>What happened</th></tr></thead><tbody>${TL.map(t=>`<tr><td>${t[0]}</td><td>${t[1]}</td></tr>`).join('')}</tbody></table></div></div>
   <div class="foot"><span>Meta Ads Manager (Israel time) · CRM order log · tests excluded</span><span>Updated ${upd}</span></div>
 </section>`}
-const TOT={asof:'25 Oct 2026, 11:06 Israel time',total:181,vip:46,reg:135,today:6,weeks:[['Week 1','24 Sep–4 Oct',16],['Week 2','5–11 Oct',48],['Week 3','12–18 Oct',67],['This week','19–25 Oct, so far',50]],days:[['Mon 19',10],['Tue 20',5],['Wed 21',10],['Thu 22',8],['Fri 23',5],['Sat 24',6],['Sun 25 (to 11:06)',6]],lo:220,hi:235};
-function totSlide(){const t=TOT;if(t.weeks.reduce((a,w)=>a+w[2],0)!==t.total||t.vip+t.reg!==t.total||t.days.reduce((a,d)=>a+d[1],0)!==t.weeks[3][2])throw new Error('total mismatch');
+const TOT={asof:'25 Oct 2026, 11:19 Israel time',total:182,vip:46,reg:135,pend:1,today:7,weeks:[['Week 1','24 Sep–4 Oct',16],['Week 2','5–11 Oct',48],['Week 3','12–18 Oct',67],['This week','19–25 Oct, so far',51]],days:[['Mon 19',10],['Tue 20',5],['Wed 21',10],['Thu 22',8],['Fri 23',5],['Sat 24',6],['Sun 25 (to 11:19)',7]],per:17,proj:226};
+function totSlide(){const t=TOT;if(t.weeks.reduce((a,w)=>a+w[2],0)!==t.total||t.vip+t.reg+t.pend!==t.total||t.total+(t.per-t.today)+2*t.per!==t.proj||t.days.reduce((a,d)=>a+d[1],0)!==t.weeks[3][2])throw new Error('total mismatch');
  return `<section class="slide" id="all"><div class="tx">
  <p class="tk">Since the first sale · 24 Sep to ${t.asof}</p>
  <div class="tbig"><b>${t.total}</b><span>sign-ups (paid seats)</span></div>
  <div class="tw tvr"><div><b>${t.vip}</b><span>VIP</span><em>$79 seats</em></div><div><b>${t.reg}</b><span>Regular</span><em>$49 seats</em></div></div>
- <p class="tsrc">Source: CRM paid orders. Every seat counted (2-seat and 3-seat orders included). 5 test orders excluded.</p>
+ <p class="tsrc">Source: CRM paid orders. Every seat counted (2-seat and 3-seat orders included). 5 test orders excluded. Plus ${t.pend} sale today reported by Omri, not yet in the CRM, so its package is not known yet.</p>
  <div class="ttoday"><b>${t.today}</b><span>today so far</span></div>
  <div class="tw">${t.weeks.map(w=>`<div><b>${w[2]}</b><span>${w[0]}</span><em>${w[1]}</em></div>`).join('')}</div>
- <div class="tproj"><p class="te">ESTIMATE</p><div class="tr"><b>${t.lo}–${t.hi}</b><span>sign-ups by the event (27 Oct)</span></div>
- <p>Method: today counts as one day of 15–20 in total, so we add only what is still to come today. If we do 15–20 a day today, tomorrow and on event day: today ends at 15–20 (we have ${t.today}, so ${15-t.today}–${20-t.today} more), plus 15–20 on 26 Oct and 15–20 on 27 Oct. ${t.total} + ${45-t.today}–${60-t.today} = ${t.lo}–${t.hi}.</p></div>
+ <div class="tproj"><p class="te">ESTIMATE</p><div class="tr"><b>about ${t.proj}</b><span>sign-ups by the event (27 Oct)</span></div>
+ <p>Method: about ${t.per} a day (about 3 organic + 14 from paid ads). Today ends at ${t.per} (we have ${t.today}, so ${t.per-t.today} more), plus ${t.per} on 26 Oct and ${t.per} on 27 Oct. ${t.total} + ${t.per-t.today} + ${2*t.per} = ${t.proj}.</p></div>
  <details class="tdet"><summary>This week by day</summary>${t.days.map(d=>`<p><span>${d[0]}</span><b>${d[1]}</b></p>`).join('')}<p class="tsrc">Seats by day of purchase, Israel time, from CRM paid orders. This week adds up to ${t.weeks[3][2]}; the four weeks add up to ${t.total}.</p></details>
  </div></section>`}
 html+=totSlide();
