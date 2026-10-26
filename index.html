@@ -704,17 +704,18 @@ function tlSlide(no){return `<section class="slide" id="timeline">
   <div class="card"><div class="tbl"><table class="dense tlx"><thead><tr><th>Date</th><th>What happened</th></tr></thead><tbody>${TL.map(t=>`<tr><td>${t[0]}</td><td>${t[1]}</td></tr>`).join('')}</tbody></table></div></div>
   <div class="foot"><span>Meta Ads Manager (Israel time) · CRM order log · tests excluded</span><span>Updated ${upd}</span></div>
 </section>`}
-const TOT={asof:'25 Oct 2026, 11:19 Israel time',total:182,vip:46,reg:135,pend:1,today:7,weeks:[['Week 1','24 Sep–4 Oct',16],['Week 2','5–11 Oct',48],['Week 3','12–18 Oct',67],['This week','19–25 Oct, so far',51]],days:[['Mon 19',10],['Tue 20',5],['Wed 21',10],['Thu 22',8],['Fri 23',5],['Sat 24',6],['Sun 25 (to 11:19)',7]],per:17,proj:226};
-function totSlide(){const t=TOT;if(t.weeks.reduce((a,w)=>a+w[2],0)!==t.total||t.vip+t.reg+t.pend!==t.total||t.total+(t.per-t.today)+2*t.per!==t.proj||t.days.reduce((a,d)=>a+d[1],0)!==t.weeks[3][2])throw new Error('total mismatch');
+const TOT={asof:'26 Oct 2026, 14:21 Israel time',total:175,vip:41,reg:134,today:6,s27:[142,31,111],s14:[33,10,23],weeks:[['Week 1','24 Sep–4 Oct',9],['Week 2','5–11 Oct',45],['Week 3','12–18 Oct',61],['This week','19–26 Oct, so far',60]],days:[['Mon 19',10],['Tue 20',5],['Wed 21',10],['Thu 22',8],['Fri 23',5],['Sat 24',6],['Sun 25',10],['Mon 26 (to 14:21)',6]],per:17,proj:170};
+function totSlide(){const t=TOT;if(t.weeks.reduce((a,w)=>a+w[2],0)!==t.total||t.vip+t.reg!==t.total||t.s27[0]+t.s14[0]!==t.total||t.s27[0]+(t.per-t.today)+t.per!==t.proj||t.days.reduce((a,d)=>a+d[1],0)!==t.weeks[3][2])throw new Error('total mismatch');
  return `<section class="slide" id="all"><div class="tx">
  <p class="tk">Since the first sale · 24 Sep to ${t.asof}</p>
  <div class="tbig"><b>${t.total}</b><span>sign-ups (paid seats)</span></div>
- <div class="tw tvr"><div><b>${t.vip}</b><span>VIP</span><em>$79 seats</em></div><div><b>${t.reg}</b><span>Regular</span><em>$49 seats</em></div></div>
- <p class="tsrc">Source: CRM paid orders. Every seat counted (2-seat and 3-seat orders included). 5 test orders excluded. Plus ${t.pend} sale today reported by Omri, not yet in the CRM, so its package is not known yet.</p>
+ <div class="tw tvr"><div><b>${t.vip}</b><span>VIP</span><em>$79 seats ($69 offer included)</em></div><div><b>${t.reg}</b><span>Regular</span><em>$49 seats</em></div></div>
+ <div class="tw tvr"><div><b>${t.s27[0]}</b><span>27 Oct class</span><em>${t.s27[1]} VIP, ${t.s27[2]} regular</em></div><div><b>${t.s14[0]}</b><span>14 Nov session</span><em>${t.s14[1]} VIP, ${t.s14[2]} regular</em></div></div>
+ <p class="tsrc">Source: CRM paid orders, Longevity Masterclass only. Corrected count: bookstore orders ($98, $147, $158, $196) removed, 5 test orders and 3 cancelled registrations excluded.</p>
  <div class="ttoday"><b>${t.today}</b><span>today so far</span></div>
  <div class="tw">${t.weeks.map(w=>`<div><b>${w[2]}</b><span>${w[0]}</span><em>${w[1]}</em></div>`).join('')}</div>
- <div class="tproj"><p class="te">ESTIMATE</p><div class="tr"><b>about ${t.proj}</b><span>sign-ups by the event (27 Oct)</span></div>
- <p>Method: about ${t.per} a day (about 3 organic + 14 from paid ads). Today ends at ${t.per} (we have ${t.today}, so ${t.per-t.today} more), plus ${t.per} on 26 Oct and ${t.per} on 27 Oct. ${t.total} + ${t.per-t.today} + ${2*t.per} = ${t.proj}.</p><p>Of the about ${t.proj-t.total} still to come, 12–14 VIP via a special $69 VIP offer. By the event: about ${t.proj} total, ${t.vip+12}–${t.vip+14} VIP, ${t.proj-t.vip-14}–${t.proj-t.vip-12} regular (counting today's unconfirmed sale as regular).</p></div>
+ <div class="tproj"><p class="te">ESTIMATE</p><div class="tr"><b>about ${t.proj}</b><span>sign-ups for the 27 Oct class by the event</span></div>
+ <p>Method: about ${t.per} a day (about 3 organic + 14 from paid ads). Today ends at ${t.per} (we have ${t.today}, so ${t.per-t.today} more), plus ${t.per} on 27 Oct. ${t.s27[0]} + ${t.per-t.today} + ${t.per} = ${t.proj}.</p></div>
  <details class="tdet"><summary>This week by day</summary>${t.days.map(d=>`<p><span>${d[0]}</span><b>${d[1]}</b></p>`).join('')}<p class="tsrc">Seats by day of purchase, Israel time, from CRM paid orders. This week adds up to ${t.weeks[3][2]}; the four weeks add up to ${t.total}.</p></details>
  </div></section>`}
 html+=totSlide();
@@ -723,7 +724,7 @@ html=gaSlide()+w3Slide()+LAUNCH+html;html+=planSlide(4);html+=l7Slide(5);
 days.forEach((d,i)=>html+=daySlide(d,i+2,i===0));
 document.getElementById('main').innerHTML=html;
 
-const tabs=[{id:'gita',l:'Gita analysis',s:'weekly'},{id:'week3',l:'Week 3',s:'12–19 Oct'},{id:'launch',l:'Plan to launch',s:'19–27 Oct'},{id:'plan',l:'Adjusted plan',s:'to 27 Oct'},{id:'last7',l:'Week 2',s:'5–11 Oct'},{id:'all',l:'Totals',s:'170 sign-ups'},{id:'timeline',l:'Timeline',s:'7–22 Oct'},...days.map((d,i)=>({id:'d-'+d.date,l:short(d.date),s:d.seats+(d.seats===1?' seat':' seats')+(i===0?' · to '+updTime.split(' ')[0]:'')}))];
+const tabs=[{id:'gita',l:'Gita analysis',s:'weekly'},{id:'week3',l:'Week 3',s:'12–19 Oct'},{id:'launch',l:'Plan to launch',s:'19–27 Oct'},{id:'plan',l:'Adjusted plan',s:'to 27 Oct'},{id:'last7',l:'Week 2',s:'5–11 Oct'},{id:'all',l:'Totals',s:'175 sign-ups'},{id:'timeline',l:'Timeline',s:'7–22 Oct'},...days.map((d,i)=>({id:'d-'+d.date,l:short(d.date),s:d.seats+(d.seats===1?' seat':' seats')+(i===0?' · to '+updTime.split(' ')[0]:'')}))];
 const bar=document.getElementById('tabbar');
 bar.innerHTML=tabs.map(t=>`<a href="#${t.id}" id="t-${t.id}">${t.l}<small>${t.s}</small></a>`).join('');
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.tabbar a').forEach(a=>a.classList.remove('on'));const a=document.getElementById('t-'+e.target.id);if(a){a.classList.add('on');a.scrollIntoView({inline:'center',block:'nearest'})}}})},{rootMargin:'-40% 0px -55% 0px'});
