@@ -1,0 +1,545 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Auditor handover: LLA Meta tracking & checkout audit (4 Nov 2026)</title><meta name="robots" content="noindex">
+<style>body{font:15px/1.55 -apple-system,Segoe UI,sans-serif;max-width:1000px;margin:auto;padding:20px;color:#222}table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}td,th{border:1px solid #ccc;padding:5px;vertical-align:top}th{background:#f2f2f2}pre{background:#f6f8fa;padding:10px;overflow:auto;font-size:12px}code{background:#f3f3f3;padding:1px 3px}blockquote{border-left:4px solid #c00;margin:0;padding:4px 12px;background:#fff5f5}h2{border-bottom:2px solid #333;margin-top:2em}</style>
+<script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";mermaid.initialize({startOnLoad:true});</script></head><body>
+<h1>Auditor handover: Meta tracking &amp; checkout audit, Longevity Life Academy funnels</h1>
+<p><strong>Prepared:</strong> Wed 4 Nov 2026, 20:30 Israel time (Asia/Jerusalem, UTC+2).
+<strong>For:</strong> any outside AI coding/research tool (Claude Code, Perplexity, etc.) or human auditor with zero prior knowledge.
+<strong>Rule of the document:</strong> you should be able to run the whole audit without asking anyone a question, and without harming anything. If something here conflicts with what you see live, trust what you see, record the difference, and do <strong>not</strong> "fix" it.</p>
+<blockquote>
+<p><strong>Credentials:</strong> none are in this document. Where access is needed: <em>credentials provided separately by the account owner; never commit or print them.</em> Never paste a token, app secret, API key, cookie or password into a report, a commit, a log or a chat.</p>
+</blockquote>
+<p>Labels used: <strong>VERIFIED</strong> = seen directly by the previous audit (4 Nov 2026, 18:30–19:30 Israel time). <strong>ESTIMATE</strong> = reasoned, not proven.</p>
+<hr />
+<h2>1. Purpose and scope</h2>
+<p><strong>Purpose.</strong> Independently confirm, end to end, that every Meta (Facebook/Instagram ads) tracking event on the Longevity Life Academy (LLA) funnels fires correctly in the browser and on the server, deduplicates, carries good matching data, and that the checkout works up to (not including) payment. Find anything broken, missing or risky.</p>
+<p><strong>In scope</strong>
+- Blueprint funnel (the paid-ads landing page): <code>https://longevitylifeacademy.pages.dev/</code>, <code>/blueprint/checkout</code>, <code>/checkout.html</code>.
+- Main site <code>https://www.longevitylifeacademy.com/</code> and the masterclass page <code>/julie-masterclass/</code> (script <code>julie-meta-tracking.js</code>).
+- Meta pixel/dataset <code>1440305917310328</code>, the server-side relay (CAPI), Google Tag Manager container <code>GTM-PMRKXXJV</code>.
+- The CRM lead/order proxy (eTeacher) and the payment step (Airwallex, PayPal) — <strong>observe only, never pay</strong>.
+- Read-only Meta Graph API checks on ad accounts <code>act_1459085242361281</code> (Longevity Life Academy) and, for comparison only, <code>act_1358975119724184</code> (French Atelier — a different brand; do not audit its funnel unless asked).
+- Ad sets: Masterclass Set 02 <code>52673824399628</code>, Masterclass Set 04 <code>52668330870828</code>, Blueprint Lists <code>52666232368428</code>, Blueprint Interests <code>52669013718628</code>.</p>
+<p><strong>Out of scope (never do):</strong> changing anything anywhere. See section 5.</p>
+<hr />
+<h2>2. Glossary (every term, plain English)</h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pixel</strong> (dataset)</td>
+<td>Meta's JavaScript in the browser (<code>fbq(...)</code>) that reports what a visitor does to <code>https://www.facebook.com/tr</code>. Our id: <code>1440305917310328</code>.</td>
+</tr>
+<tr>
+<td><strong>CAPI</strong> (Conversions API)</td>
+<td>The same event sent server-to-server to Meta, so ad blockers and iOS privacy don't lose it. Here it goes browser → our relay → Meta.</td>
+</tr>
+<tr>
+<td><strong>Relay</strong></td>
+<td>Our small server (Vercel project <code>lla-ac-events</code>) at <code>https://lla-ac-events.vercel.app/api/meta/capi</code> that receives events from the page and forwards them to Meta CAPI. A GET returns <strong>405</strong> — that means "alive".</td>
+</tr>
+<tr>
+<td><strong>event_id / eventID</strong></td>
+<td>A shared id put on the browser copy (<code>eventID</code>) and the server copy (<code>event_id</code>). Meta counts the pair once. This is <strong>deduplication (dedup)</strong>.</td>
+</tr>
+<tr>
+<td><strong>fbclid</strong></td>
+<td>Click id Meta appends to ad links (<code>?fbclid=...</code>).</td>
+</tr>
+<tr>
+<td><strong>fbc</strong></td>
+<td>Cookie <code>_fbc</code> = <code>fb.1.&lt;timestamp&gt;.&lt;fbclid&gt;</code>, built from fbclid. Ties an event to an ad click.</td>
+</tr>
+<tr>
+<td><strong>fbp</strong></td>
+<td>Cookie <code>_fbp</code> = <code>fb.1.&lt;timestamp&gt;.&lt;random&gt;</code>, a browser id set by the pixel.</td>
+</tr>
+<tr>
+<td><strong>EMQ / match quality</strong></td>
+<td>Meta's 0–10 "Event Match Quality" score: how well an event can be matched to a person (email, phone, name, fbc, fbp, IP, user agent... hashed).</td>
+</tr>
+<tr>
+<td><strong>test_event_code</strong></td>
+<td>A code like <code>TEST12345</code> from Events Manager → Test Events. Events sent with it appear only in the Test Events tab and do <strong>not</strong> count for ads.</td>
+</tr>
+<tr>
+<td><strong>ViewContent / AddToCart / InitiateCheckout / Purchase</strong></td>
+<td>Standard Meta funnel events: viewed the product → started enrolling → submitted details and got an order → paid.</td>
+</tr>
+<tr>
+<td><strong>Landing page view (LPV)</strong></td>
+<td>Meta's own count of ad clicks where the page loaded. Not a pixel event.</td>
+</tr>
+<tr>
+<td><strong>promoted_object</strong></td>
+<td>The pixel + event an ad set optimises for.</td>
+</tr>
+<tr>
+<td><strong>url_tags</strong></td>
+<td>Extra query parameters (UTMs etc.) Meta appends to an ad's link.</td>
+</tr>
+<tr>
+<td><strong>GTM</strong></td>
+<td>Google Tag Manager; container <code>GTM-PMRKXXJV</code> loads extra tags (Google Ads, GA4, some custom pixel events).</td>
+</tr>
+<tr>
+<td><strong>eTeacher CRM</strong></td>
+<td>The school's student/order system (owner: eTeacher Group). Reached only via the lead proxy.</td>
+</tr>
+<tr>
+<td><strong>Lead proxy</strong></td>
+<td>Cloudflare Worker <code>eteacher-leads-proxy</code> at <code>https://eteacher-leads-proxy.gitter-omri.workers.dev</code>, which turns form submissions into CRM students/orders.</td>
+</tr>
+<tr>
+<td><strong>Cloudflare Access gate</strong></td>
+<td>A login wall that can be placed in front of a Cloudflare app. It wrongly blocked the lead proxy 3–4 Nov (section 9).</td>
+</tr>
+<tr>
+<td><strong>Airwallex / PayPal</strong></td>
+<td>Payment providers on <code>/blueprint/checkout</code>. A "payment intent" is created when the page loads; it stays unpaid (<code>REQUIRES_PAYMENT_METHOD</code>) unless a card/PayPal is actually submitted.</td>
+</tr>
+<tr>
+<td><strong>Silenced / tester device</strong></td>
+<td>A browser flagged as internal so the pixel and relay do nothing (section 4).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Architecture map</h2>
+<h3>3.1 Inventory</h3>
+<table>
+<thead>
+<tr>
+<th>Piece</th>
+<th>Where</th>
+<th>Host / deploy</th>
+<th>Source code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Blueprint landing + enroll modal</td>
+<td><code>https://longevitylifeacademy.pages.dev/</code> (ads link here)</td>
+<td>Cloudflare Pages project <code>longevitylifeacademy</code> (account <code>gitter-omri</code>). Live deploy at audit: <code>00843d57</code> (VERIFIED)</td>
+<td>GitHub <code>gitteromri-ux/lla-course-checkout</code> (private). Last commits 2 Nov 21:56 &amp; 22:52 Israel (<code>08cd3251</code> Airwallex consent, <code>571d476b</code> layout) — no tracking lines touched (VERIFIED)</td>
+</tr>
+<tr>
+<td>Payment page</td>
+<td><code>https://longevitylifeacademy.pages.dev/blueprint/checkout</code></td>
+<td>same</td>
+<td>same</td>
+</tr>
+<tr>
+<td>Alternate checkout page</td>
+<td><code>https://longevitylifeacademy.pages.dev/checkout.html</code></td>
+<td>same</td>
+<td>same</td>
+</tr>
+<tr>
+<td>Main site</td>
+<td><code>https://www.longevitylifeacademy.com/</code></td>
+<td>GitHub Pages from org repo <code>Longevity-Academy/Longevity-Academy.github.io</code> (mirror <code>gitteromri-ux/lla-site-live</code>). DNS: AWS Route 53, managed by eTeacher</td>
+<td>no commits since 31 Oct (VERIFIED)</td>
+</tr>
+<tr>
+<td>Masterclass page</td>
+<td><code>https://www.longevitylifeacademy.com/julie-masterclass/</code> + <code>julie-meta-tracking.js</code></td>
+<td>GitHub Pages, repo <code>Longevity-Academy/julie-masterclass</code> (mirror <code>gitteromri-ux/julie-masterclass-live</code>)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>CAPI relay</td>
+<td><code>https://lla-ac-events.vercel.app/api/meta/capi</code> (also <code>/api/ac/event</code> for ActiveCampaign)</td>
+<td>Vercel team <code>gitter1</code>, project <code>lla-ac-events</code>; last deploy 27 Sep (VERIFIED)</td>
+<td><code>api/meta/capi.js</code>, <code>lib/blueprint-golden-capi.js</code>, <code>lib/julie-capi.js</code>, <code>lib/click-id.js</code></td>
+</tr>
+<tr>
+<td>Lead / order proxy (CRM)</td>
+<td><code>https://eteacher-leads-proxy.gitter-omri.workers.dev</code> — <code>POST /api/lead/ecomm</code> (creates student + order), <code>POST /api/checkout/details</code>, <code>POST /api/checkout/payments</code> (+ legacy <code>/leads/production</code>, <code>/leads/staging</code>)</td>
+<td>Cloudflare Worker <code>eteacher-leads-proxy</code></td>
+<td>Worker code (owner's Cloudflare account)</td>
+</tr>
+<tr>
+<td>CRM</td>
+<td>eTeacher Group back office</td>
+<td>eTeacher</td>
+<td>not accessible; observe via proxy responses only</td>
+</tr>
+<tr>
+<td>Payments</td>
+<td>Airwallex drop-in (<code>checkout.airwallex.com</code>), PayPal SDK (<code>www.paypal.com/sdk/js</code>)</td>
+<td>eTeacher's merchant accounts</td>
+<td>—</td>
+</tr>
+<tr>
+<td>GTM</td>
+<td><code>GTM-PMRKXXJV</code> (version 22, unchanged since 29 Oct, VERIFIED)</td>
+<td>Google</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Pixel</td>
+<td><code>1440305917310328</code>, in business "ETeacher Group LTD"</td>
+<td>Meta</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Ad accounts</td>
+<td><code>act_1459085242361281</code> (LLA), <code>act_1358975119724184</code> (French Atelier)</td>
+<td>Meta</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Email marketing</td>
+<td>ActiveCampaign (eTeacher account)</td>
+<td>—</td>
+<td>never touch</td>
+</tr>
+</tbody>
+</table>
+<p>Other hosts allowed by the relay (CORS): <code>https://longevitylifeacademy.com</code>, <code>https://lla-checkout.gitter-omri.workers.dev</code> (older Worker checkout).</p>
+<h3>3.2 Data flow</h3>
+<pre class="mermaid">flowchart LR
+  AD[Meta ad&lt;br/&gt;link + fbclid] --&gt; LP[pages.dev/&lt;br/&gt;landing + enroll modal]
+  LP -- &quot;fbq PageView / AddToCart / InitiateCheckout (browser)&quot; --&gt; FB[(facebook.com/tr&lt;br/&gt;pixel 1440305917310328)]
+  LP -- &quot;POST same event + event_id&quot; --&gt; RELAY[lla-ac-events.vercel.app&lt;br/&gt;/api/meta/capi]
+  RELAY -- &quot;Graph API /events (server)&quot; --&gt; FB
+  LP -- &quot;POST /api/lead/ecomm&quot; --&gt; PROXY[eteacher-leads-proxy&lt;br/&gt;Cloudflare Worker]
+  PROXY --&gt; CRM[(eTeacher CRM&lt;br/&gt;studentId, orderId)]
+  LP -- &quot;redirect with order&quot; --&gt; PAY[pages.dev/blueprint/checkout]
+  PAY -- &quot;/api/checkout/details, /payments&quot; --&gt; PROXY
+  PAY --&gt; AWX[Airwallex / PayPal]
+  AWX -- &quot;success only&quot; --&gt; PUR[Purchase: browser eventID = orderId + relay copy]
+  PUR --&gt; FB
+  LP --&gt; GTM[GTM-PMRKXXJV&lt;br/&gt;GA4, Google Ads, custom fbq events]
+  COM[www.longevitylifeacademy.com&lt;br/&gt;/julie-masterclass] -- &quot;PageView, ViewContent, ...&quot; --&gt; FB
+  COM --&gt; RELAY
+</pre>
+<p>ASCII fallback:</p>
+<pre><code>Meta ad (fbclid) -&gt; pages.dev/  --browser fbq--&gt; facebook.com/tr (pixel 1440305917310328)
+                       |  \--POST event_id--&gt; lla-ac-events.vercel.app/api/meta/capi --server--&gt; Meta CAPI
+                       |--POST /api/lead/ecomm--&gt; eteacher-leads-proxy (CF Worker) --&gt; eTeacher CRM
+                       v
+              pages.dev/blueprint/checkout --/api/checkout/*--&gt; proxy ;  Airwallex / PayPal
+                       \-- on payment success only: Purchase (browser + relay, eventID = CRM orderId)
+www.longevitylifeacademy.com (+ /julie-masterclass) --&gt; pixel (PageView, ViewContent via julie-meta-tracking.js) + relay
+</code></pre>
+<hr />
+<h2>4. Events per page, test silencing</h2>
+<h3>4.1 Event map (VERIFIED unless marked)</h3>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>Event</th>
+<th>Browser (pixel)</th>
+<th>Server (relay)</th>
+<th>eventID pattern</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pages.dev/</td>
+<td>PageView</td>
+<td>yes</td>
+<td>yes</td>
+<td><code>lla_pageview_&lt;ms&gt;_&lt;rand&gt;</code> (e.g. <code>lla_pageview_1793810183669_nbsqlx</code>)</td>
+<td>load</td>
+</tr>
+<tr>
+<td>pages.dev/</td>
+<td>ViewContent</td>
+<td><strong>no</strong></td>
+<td><strong>no</strong></td>
+<td>—</td>
+<td>never (finding F1)</td>
+</tr>
+<tr>
+<td>pages.dev/</td>
+<td>AddToCart</td>
+<td>yes</td>
+<td>yes</td>
+<td><code>lla_addtocart_...</code></td>
+<td>Enroll → details → Continue; value 79 USD</td>
+</tr>
+<tr>
+<td>pages.dev/</td>
+<td>InitiateCheckout</td>
+<td>yes</td>
+<td>yes</td>
+<td><code>lla_initiatecheckout_...</code></td>
+<td>after CRM order created (<code>/api/lead/ecomm</code> 200)</td>
+</tr>
+<tr>
+<td>pages.dev/</td>
+<td>custom (<code>Clicked_on_Enroll</code>, <code>Enroll_CTA_Click</code>, <code>Clicked_on_curriculum</code>, ...)</td>
+<td>via GTM / page</td>
+<td>some</td>
+<td>—</td>
+<td>clicks</td>
+</tr>
+<tr>
+<td>/blueprint/checkout</td>
+<td>PageView</td>
+<td>yes</td>
+<td>no</td>
+<td>—</td>
+<td>load</td>
+</tr>
+<tr>
+<td>/blueprint/checkout</td>
+<td>Purchase</td>
+<td>yes</td>
+<td>yes</td>
+<td>eventID = <strong>CRM orderId</strong></td>
+<td>only after Airwallex/PayPal success (code present, not fired in audit)</td>
+</tr>
+<tr>
+<td>/checkout.html</td>
+<td>PageView</td>
+<td>yes</td>
+<td>no</td>
+<td>—</td>
+<td>load</td>
+</tr>
+<tr>
+<td>www…com/</td>
+<td>PageView</td>
+<td>yes (GTM)</td>
+<td>no</td>
+<td>—</td>
+<td>load</td>
+</tr>
+<tr>
+<td>/julie-masterclass/</td>
+<td>PageView, ViewContent, + checkout events</td>
+<td>yes</td>
+<td>yes (strict <code>julie-capi</code> module)</td>
+<td>see <code>julie-meta-tracking.js</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Relay rules (<code>api/meta/capi.js</code>):</strong>
+- Allowed EVENTS: <code>Purchase, InitiateCheckout, AddToCart, Lead, PageView, Clicked_on_curriculum, Clicked_on_Enroll, Enroll_CTA_Click, Clicked_on_Enroll_Pricing, About_Us, Visited_one_of_the_six_pillars</code>. Anything else → <code>400 {"error":"unknown_event"}</code>. <strong>ViewContent is not allowed.</strong>
+- Requests from origin <code>https://longevitylifeacademy.pages.dev</code> with page path <code>/</code>, <code>/index.html</code>, <code>/checkout</code>, <code>/checkout.html</code> and event AddToCart/InitiateCheckout/Purchase go to the frozen "blueprint golden" handler (response header <code>x-lla-release: blueprint-golden-20260927</code>). Julie masterclass requests go to <code>lib/julie-capi.js</code>. Everything else uses the general handler.
+- Body fields: <code>event_name, event_id, email, phone, fn, ln, st, country, external_id, value, currency, order_id, url, fbp, fbc</code> (PII is SHA-256 hashed server-side; country also from geo headers).
+- <code>fbp</code> kept if valid; <code>fbc</code> checked against the click id in <code>url</code>; response header <code>x-lla-fbc</code> reports the fbc state.
+- <code>test_event_code</code> optional; must match <code>^TEST\d{3,10}$</code> else <code>400 invalid_test_event_code</code>. With a valid code the event goes to Test Events only.
+- GET → 405 (alive check). OPTIONS → 204.</p>
+<h3>4.2 Test-silencing rules (why your test might show "nothing")</h3>
+<p>In the page <code>&lt;head&gt;</code> (VERIFIED in deployed HTML):
+- <code>?llatest=1</code> or <code>?qa=1</code> in the URL → device is flagged (<code>localStorage.lla_tester = '1'</code>) and <strong>stays silent on every later page</strong>. <code>?llatest=0</code> clears it.
+- Typing an email matching <code>@example.(com|org|net)</code>, <code>@test.com</code>, <code>@mailinator.com</code>, <code>@eteacher*.*</code>, <code>@gita-agency.*</code>/<code>@gitaagency.*</code>, or anything containing <code>gitter</code> → device silenced immediately (pixel replaced with a no-op, relay disabled).
+- Pixel only runs on <code>longevitylifeacademy.pages.dev</code> / <code>*.longevitylifeacademy.com</code> (or with <code>?llapixel=1</code>).</p>
+<p><strong>Why it matters:</strong> (a) it protects ad data from internal tests — good; (b) with the approved test email <code>qa.audit.test+&lt;tag&gt;@example.com</code> you will see <strong>only PageView and auto click events</strong>, never AddToCart/InitiateCheckout, and you must not conclude "tracking broken"; (c) a real buyer with such an email is invisible to Meta (acceptable by design). (d) Clear localStorage between runs, or your "live" run is silently a test run.</p>
+<hr />
+<h2>5. HARD SAFETY RULES (non-negotiable)</h2>
+<ol>
+<li><strong>Never complete a real payment.</strong> Stop on <code>/blueprint/checkout</code> once the Airwallex/PayPal widget renders. Never type a card, never click Pay, never log in to PayPal.</li>
+<li><strong>Never submit real-looking leads to the CRM.</strong> The only email allowed in a real submission is <code>qa.audit.test+&lt;tag&gt;@example.com</code> (name "QA Audit Test", phone <code>+1 201 555 0123</code>). For any run with a normal-looking email ("dry run"), you <strong>must block</strong> all requests to <code>eteacher-leads-proxy.gitter-omri.workers.dev</code>, <code>lla-ac-events.vercel.app</code>, <code>facebook.com/tr</code>, <code>connect.facebook.net</code> events, <code>checkout.airwallex.com</code>, <code>paypal.com</code> at the browser level (Playwright <code>page.route(..., r =&gt; r.abort())</code> or DevTools request blocking) and record them instead.</li>
+<li><strong>Never send events to the production pixel except from silenced test runs.</strong> To test CAPI for real, use a Test Events <code>test_event_code</code> (from Events Manager → dataset 1440305917310328 → Test Events; credentials/access provided separately by the account owner; never commit or print them).</li>
+<li><strong>No changes</strong> to Meta ads, ad sets, budgets, audiences, the sites, repos, DNS, Cloudflare, Vercel, GTM, ActiveCampaign or emails. Do not push, deploy, redeploy, or open PRs.</li>
+<li><strong>Meta API is read-only: HTTP GET only.</strong> Never POST/DELETE to graph.facebook.com (the token is ads_read anyway).</li>
+<li><strong>Log every test order created</strong> (time Israel, device, email tag, StudentId, OrderId, PaymentID) in the report so the owner can cancel them in the CRM.</li>
+<li>Keep volume tiny: at most one real (test-email) order per device type per audit.</li>
+<li>Never print secrets; never request them from any website or person.</li>
+</ol>
+<hr />
+<h2>6. End-to-end audit procedure</h2>
+<h3>6.0 Setup</h3>
+<ul>
+<li>Tools: Playwright (Chromium + WebKit) or real devices with Safari Web Inspector / Chrome remote debugging; a HAR recorder.</li>
+<li>Device profiles: iPhone 13/15 (WebKit, Safari UA), Pixel 7 (Chromium, Android UA), Desktop Chrome 1440×900.</li>
+<li>Fresh browser context per run (no cookies, empty localStorage).</li>
+<li>Fake click id tag: <code>IwQA_audit&lt;YYYYMMDD&gt;&lt;device&gt;</code>.</li>
+</ul>
+<p><strong>Landing URL (live-observation run, dry):</strong></p>
+<pre><code>https://longevitylifeacademy.pages.dev/?fbclid=IwQA_audit20261105ios&amp;utm_source=Facebook&amp;utm_medium=Topic&amp;utm_campaign=audit_test
+</code></pre>
+<p><strong>Landing URL (silenced run, real CRM order allowed with test email):</strong></p>
+<pre><code>https://longevitylifeacademy.pages.dev/?fbclid=IwQA_audit20261105ios&amp;llatest=1
+</code></pre>
+<p>Also load: <code>https://longevitylifeacademy.pages.dev/checkout.html</code>, <code>https://www.longevitylifeacademy.com/</code>, <code>https://www.longevitylifeacademy.com/julie-masterclass/</code> (each with the same fbclid).</p>
+<h3>6.1 Run A — Dry run (observe pixel + relay, nothing leaves)</h3>
+<p>Route rule: <strong>allow</strong> page/static/GTM loads; <strong>abort and log</strong> (method, URL, post body) every request to <code>facebook.com/tr*</code>, <code>lla-ac-events.vercel.app/*</code>, <code>eteacher-leads-proxy.gitter-omri.workers.dev/*</code>, <code>*.airwallex.com/*</code>, <code>*paypal.com/*</code>. Use a normal-looking fake email that is <em>not</em> in the silencing list, e.g. <code>jordan.lee.audit@outlook.com</code> — because requests are blocked, nothing is created. Note: since <code>/api/lead/ecomm</code> is blocked, the flow stops before InitiateCheckout; you can fulfil it with a mocked <code>200</code> <code>{"studentId":"0","orderId":"0"}</code> via <code>route.fulfill</code> to observe InitiateCheckout firing (still nothing leaves).</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+<th>Expected (captured, blocked)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>open landing URL</td>
+<td><code>_fbc</code> cookie = <code>fb.1.&lt;ts&gt;.IwQA_audit...</code>; <code>_fbp</code> set; <code>facebook.com/tr?id=1440305917310328&amp;ev=PageView&amp;eid=lla_pageview_...</code>; relay POST <code>event_name":"PageView"</code> with <strong>same</strong> event_id, <code>fbc</code> present</td>
+</tr>
+<tr>
+<td>2</td>
+<td>scroll full page</td>
+<td>No ViewContent (known F1). Record if one appears (would mean code changed)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>click Enroll → fill name/email/country/phone → Continue</td>
+<td><code>ev=AddToCart</code> value 79 USD, <code>eid=lla_addtocart_...</code>; relay POST AddToCart same id; email/phone in relay body (hashed by relay)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>pick a start date → Continue</td>
+<td>POST <code>/api/lead/ecomm</code> (blocked or mocked). If mocked 200: <code>ev=InitiateCheckout eid=lla_initiatecheckout_...</code> + relay copy</td>
+</tr>
+<tr>
+<td>5</td>
+<td>stop</td>
+<td>do not continue to payment in the dry run</td>
+</tr>
+</tbody>
+</table>
+<h3>6.2 Run B — Silenced real run (checks the CRM + checkout path)</h3>
+<p>Use <code>?llatest=1</code> and email <code>qa.audit.test+&lt;tag&gt;@example.com</code>. Do not block the proxy. Expected:
+1. Landing: browser silent (no <code>facebook.com/tr</code> from page code, relay not called). Any pixel hit here = <strong>silencing bug</strong> (critical finding).
+2. Continue (details): no AddToCart sent.
+3. Continue (date): <code>POST /api/lead/ecomm</code> → 200 JSON with StudentId/OrderId; then <code>/api/checkout/details</code> 200. <strong>Log the ids.</strong> A 302/HTML login page = Cloudflare Access gate is back (critical).
+4. Redirect to <code>/blueprint/checkout</code>: Airwallex customer + payment intent created (status <code>REQUIRES_PAYMENT_METHOD</code>), PayPal button renders. <strong>STOP HERE.</strong> Screenshot, close the tab. Do not click Pay.</p>
+<h3>6.3 Per device</h3>
+<p>Repeat A and B on iPhone Safari (WebKit — check <code>_fbc</code> survives ITP; check InitiateCheckout fires <em>before</em> navigation), Android Chrome, Desktop Chrome (previous audit: browser InitiateCheckout sometimes lost because the page navigated first — re-check; server copy did arrive).</p>
+<h3>6.4 Other pages</h3>
+<p>For <code>checkout.html</code>, <code>.com/</code> and <code>/julie-masterclass/</code>: capture PageView (and ViewContent on julie-masterclass), relay calls, eventIDs, and whether GTM fires extra fbq events. Do not submit forms on .com without the test email + <code>?llatest=1</code>.</p>
+<hr />
+<h2>7. Verifying CAPI</h2>
+<ol>
+<li><strong>Relay request:</strong> in Run A capture body; confirm <code>event_name</code>, <code>event_id</code> (equals browser <code>eid</code>), <code>url</code> (contains fbclid), <code>fbc</code>, <code>fbp</code>, <code>external_id</code>, <code>value</code>, <code>currency</code>.</li>
+<li><strong>Relay response (only for permitted live calls):</strong> expect <code>200</code> and headers <code>x-lla-release</code>, <code>x-lla-fbc</code> (e.g. <code>match</code>/<code>ok</code>). <code>400 unknown_event</code> → event not in EVENTS.</li>
+<li><strong>Supervised test (optional, needs owner-provided Test Events code):</strong> <code>curl -X POST https://lla-ac-events.vercel.app/api/meta/capi -H 'Origin: https://longevitylifeacademy.pages.dev' -H 'Content-Type: application/json' -d '{"event_name":"PageView","event_id":"lla_pageview_audit_&lt;ts&gt;","url":"https://longevitylifeacademy.pages.dev/?fbclid=IwQA_audit","test_event_code":"TEST&lt;code&gt;"}'</code> → event appears <strong>only</strong> in Events Manager → Test Events. Use PageView only. Never send Purchase.</li>
+<li><strong>Dedup in Events Manager:</strong> (read-only UI) Overview → event → "Deduplication" should show browser+server pairs; Purchase browser/server split ~1:1.</li>
+<li><strong>Match quality:</strong> Events Manager → event → Event Match Quality (target ≥ 6 for Purchase/IC); parameters coverage (email, phone, fbc, fbp, external_id, IP, UA).</li>
+<li><strong>Alive check:</strong> <code>curl -i https://lla-ac-events.vercel.app/api/meta/capi</code> → 405.</li>
+</ol>
+<hr />
+<h2>8. Read-only Graph API checks (GET only)</h2>
+<p>Token: credentials provided separately by the account owner; never commit or print them. Pass it via an env var (<code>$META_TOKEN</code>) and never echo it. Version <code>v21.0</code>. Time zone of results: convert to Israel time.</p>
+<pre><code class="language-bash">G=https://graph.facebook.com/v21.0
+# Pixel stats by event, hourly
+curl -s &quot;$G/1440305917310328/stats?aggregation=event&amp;start_time=$(date -d '-72 hours' +%s)&amp;access_token=$META_TOKEN&quot;
+# by source (browser vs server)
+curl -s &quot;$G/1440305917310328/stats?aggregation=event_source&amp;start_time=$(date -d '-24 hours' +%s)&amp;access_token=$META_TOKEN&quot;
+# by host (which domain sends what)
+curl -s &quot;$G/1440305917310328/stats?aggregation=host&amp;access_token=$META_TOKEN&quot;
+# Pixel diagnostics
+curl -s &quot;$G/1440305917310328/da_checks?access_token=$META_TOKEN&quot;
+# Ad set config / promoted_object
+for A in 52673824399628 52668330870828 52666232368428 52669013718628; do
+ curl -s &quot;$G/$A?fields=name,status,effective_status,promoted_object,optimization_goal,attribution_spec,daily_budget&amp;access_token=$META_TOKEN&quot;; done
+# Ads: links and url_tags
+curl -s &quot;$G/52666232368428/ads?fields=name,effective_status,url_tags,creative{object_story_spec,asset_feed_spec,url_tags}&amp;access_token=$META_TOKEN&quot;
+# Hourly insights for today (Israel time = account tz check: GET act_1459085242361281?fields=timezone_name)
+curl -s &quot;$G/52669013718628/insights?date_preset=today&amp;breakdowns=hourly_stats_aggregated_by_advertiser_time_zone&amp;fields=spend,impressions,clicks,actions&amp;access_token=$META_TOKEN&quot;
+# Account-level
+curl -s &quot;$G/act_1459085242361281/insights?date_preset=last_7d&amp;level=adset&amp;fields=adset_name,spend,actions,action_values&amp;access_token=$META_TOKEN&quot;
+</code></pre>
+<p>Expected: promoted_object <code>{"pixel_id":"1440305917310328","custom_event_type":"PURCHASE"}</code>; optimisation OFFSITE_CONVERSIONS; 7-day click/1-day view. Note: <code>last_fired_time</code> may fail if the token lacks rights on the pixel's owner business — record, don't work around.</p>
+<hr />
+<h2>9. Known findings so far (audit of 4 Nov 2026)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Finding</th>
+<th>Label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F1</td>
+<td><strong>No ViewContent on the ad landing page</strong> <code>pages.dev/</code> in any deploy since 7 Oct; relay EVENTS also rejects ViewContent. All ViewContent in the ad sets came from <code>.com/julie-masterclass</code>.</td>
+<td>VERIFIED</td>
+</tr>
+<tr>
+<td>F2</td>
+<td><strong>Checkout gate outage:</strong> the CRM proxy was behind a Cloudflare Access gate from about <strong>3 Nov 21:00 to 4 Nov 16:09 Israel time</strong>; no InitiateCheckout/Purchase (and no AddToCart) possible. Pixel stats show none from 3 Nov 22:00 until 4 Nov 17:00.</td>
+<td>VERIFIED (AddToCart dependency: ESTIMATE)</td>
+</tr>
+<tr>
+<td>F3</td>
+<td><strong>8 of 10 active ads have no UTMs</strong> (url_tags). Only Ad#3 Courtney (Lists) and Ad#12 Julie (Interests) have them. fbclid still works for the pixel; the CRM can't attribute campaign.</td>
+<td>VERIFIED</td>
+</tr>
+<tr>
+<td>F4</td>
+<td><strong>Test orders already created</strong> (QA Audit Test, <code>qa.audit.test+trk1104@example.com</code>, ~18:36 Israel 4 Nov): Desktop StudentId 11689824 / <strong>OrderId 8071556</strong> / PaymentID 64718479; Android 11689825 / <strong>8071557</strong> / 64718489; iPhone 11689826 / <strong>8071558</strong> / 64718499. Airwallex intents left unpaid. Need cleanup.</td>
+<td>VERIFIED</td>
+</tr>
+<tr>
+<td>F5</td>
+<td>Desktop: browser InitiateCheckout not captured before navigation (server copy arrived).</td>
+<td>VERIFIED once; cause ESTIMATE</td>
+</tr>
+<tr>
+<td>F6</td>
+<td>Pixel diagnostics only catalog warnings ("content_ids don't match a catalog", "missing DPA parameters").</td>
+<td>VERIFIED</td>
+</tr>
+<tr>
+<td>F7</td>
+<td>Low traffic per ad set (1–11 LPV/day) makes zero events normal noise; attribution can lag hours.</td>
+<td>ESTIMATE</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>10. Open questions for the auditor</h2>
+<ol>
+<li>Is the proxy now reachable without the Access gate on all paths (<code>/api/lead/ecomm</code>, <code>/api/checkout/details</code>, <code>/api/checkout/payments</code>)? Any uptime monitor?</li>
+<li>Does browser InitiateCheckout fire reliably before redirect on desktop and iOS? (Is <code>sendBeacon</code>/await used?)</li>
+<li>Do Purchase browser and server copies share event_id = orderId, and is the split ~1:1 in Events Manager for the last 7 days?</li>
+<li>EMQ per event (PageView, AddToCart, InitiateCheckout, Purchase) — values and missing parameters.</li>
+<li>Does <code>_fbc</code> persist from landing to <code>/blueprint/checkout</code> on iOS Safari? Is <code>fbc</code> on the Purchase relay call?</li>
+<li>Since 4 Nov 16:09, do AddToCart/InitiateCheckout/Purchase appear per ad set in insights?</li>
+<li>Are there duplicate pixel loads or double PageViews (page + GTM)?</li>
+<li>Do any other pixels or IDs fire anywhere? (Expect only 1440305917310328 on LLA pages.)</li>
+<li>Is the silencing logic working (no events from <code>?llatest=1</code> / test email) — and is it too broad for real buyers?</li>
+<li>Is <code>checkout.html</code> still used by any ad or link, or is it legacy?</li>
+<li>Which page should receive ViewContent, and with what content_ids/value?</li>
+<li>Any consent banner (Airwallex consent commit <code>08cd3251</code>) blocking the pixel in some regions?</li>
+</ol>
+<hr />
+<h2>11. Report template</h2>
+<pre><code class="language-markdown"># LLA Meta tracking &amp; checkout audit — &lt;date&gt;, &lt;auditor&gt;
+Times: Israel (Asia/Jerusalem). Labels: VERIFIED / ESTIMATE.
+
+## Bottom line (3 lines)
+
+## Safety log
+- Real payments: none
+- Requests blocked in dry runs: &lt;count&gt;
+- Test orders created: | time (Israel) | device | email tag | StudentId | OrderId | PaymentID |
+- Events sent to production pixel from non-silenced runs: none
+- Test Events code used: yes/no (code not printed)
+
+## Results per device
+| Step | iPhone Safari | Android Chrome | Desktop | Expected | Pass? |
+| PageView browser+server, same eid | | | | | |
+| ViewContent | | | | none (F1) | |
+| AddToCart | | | | | |
+| /api/lead/ecomm 200 | | | | | |
+| InitiateCheckout browser+server | | | | | |
+| Checkout page renders (stopped) | | | | | |
+| Silenced run silent | | | | | |
+## CAPI / dedup / EMQ
+## Graph API findings (stats, promoted_object, url_tags, hourly)
+## Status of F1–F7
+## New findings (severity: critical / high / medium / low, evidence link, suggested fix — PROPOSAL ONLY)
+## Answers to open questions
+## Evidence (HAR files, screenshots, no secrets)
+</code></pre>
+<hr />
+<p><em>Source of known findings:</em> https://gitteromri-ux.github.io/julie-ceo-daily/tracking-audit-2026-11-04/</p></body></html>
