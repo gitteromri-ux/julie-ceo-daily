@@ -1,0 +1,77 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>LLA checkout and tracking audit - 4 Nov 2026</title><style>body{font-family:-apple-system,Arial,sans-serif;max-width:720px;margin:auto;padding:14px;line-height:1.45;color:#111}h1{font-size:22px}h2{font-size:18px;margin-top:28px;border-top:1px solid #ddd;padding-top:14px}img{width:100%;max-width:330px;border:1px solid #ccc;border-radius:8px;display:block;margin:6px 0 14px}.F{color:#c00;font-weight:bold}.P{color:#080;font-weight:bold}li{margin:4px 0}.box{background:#fee;border:1px solid #c00;padding:10px;border-radius:8px}</style>
+<h1>Longevity checkout and tracking audit</h1><p>Run 4 Nov 2026, 14:10-14:40 Israel time. Read-only. No payment submitted, no card used, no setting changed.</p>
+<div class=box><b>Verdict: checkout is BROKEN on every device tested (VERIFIED).</b><ul><li>Every buyer from the live ads lands on longevitylifeacademy.pages.dev.</li><li>At step 2 ("Continue" to Pay) the site sends the order to the lead service.</li><li>That service answers with an eTeacher Group company login page (Cloudflare Access, eteachergroup.cloudflareaccess.com, Microsoft sign-in) instead of a confirmation.</li><li>The site then shows "We could not confirm your enrollment request" and never opens the payment form.</li><li>Same failure on longevitylifeacademy.com: checkout page says "No enrollment in progress" and the card/PayPal form never loads.</li><li>So nobody can pay right now. That is also why no AddToCart, InitiateCheckout or Purchase has reached Meta since 3 Nov 21:00 Israel time.</li></ul></div>
+<h2>Bugs, ranked by severity</h2><ol>
+<li><b class=F>CRITICAL</b> - Lead service returns eTeacher Cloudflare Access login page (HTTP 200, HTML) on POST eteacher-leads-proxy.gitter-omri.workers.dev/api/lead/ecomm. Checkout blocked before payment on pages.dev and .com, all 5 devices. VERIFIED.</li>
+<li><b class=F>CRITICAL</b> - No AddToCart / InitiateCheckout / Purchase can fire while #1 is open (they fire after the lead step). Meta last received AddToCart, InitiateCheckout and Purchase in the 3 Nov 21:00 hour (Israel time). VERIFIED from pixel stats.</li>
+<li><b class=F>HIGH</b> - .com checkout.html shows a "Demo checkout - no card is charged" banner on the live site. VERIFIED (screenshot below).</li>
+<li><b class=F>HIGH</b> - The 5 active Masterclass ads (Set 02 and Set 04) have no URL parameters (no UTMs) at all. Traffic from them lands as plain longevitylifeacademy.pages.dev/. Blueprint active ads do carry UTMs. VERIFIED from Graph API.</li>
+<li><b>MEDIUM</b> - AddPaymentInfo never fires (0 in 7 days, browser and server). VERIFIED.</li>
+<li><b>MEDIUM</b> - .com homepage PageView fires from the browser only; no server (CAPI) PageView seen on .com. pages.dev sends both. VERIFIED on emulation.</li>
+<li><b>LOW</b> - Meta diagnostics: "Pixel has low event source match rate" and "Pixel Missing Parameter in DPA Events" (catalog content_ids). VERIFIED from Graph API.</li>
+<li><b>LOW</b> - longevitylifeacademy.dev does not resolve (no DNS). The live ads use longevitylifeacademy.pages.dev. VERIFIED.</li>
+<li><b>LOW</b> - Console: CSP frame-ancestors in a meta tag is ignored; one 404 resource on .com. Cosmetic.</li></ol>
+<h2>Live ad landing URLs (Graph API, now)</h2><ul>
+<li>Masterclass Set 02 (52673824399628, ACTIVE): 3 active ads, all to https://longevitylifeacademy.pages.dev/ - NO UTMs.</li>
+<li>Masterclass Set 04 (52668330870828, ACTIVE): 2 active ads, all to https://longevitylifeacademy.pages.dev/ - NO UTMs.</li>
+<li>Blueprint campaign 52663511211628: ad sets Adset 2 and Adset 4 ACTIVE. 5 active ads, all to https://longevitylifeacademy.pages.dev/. 2 of them carry UTMs (utm_source=Facebook, utm_campaign/term/content = campaign/adset/ad id); the 3 new Claude_Ad ads have none.</li>
+<li>All active ad sets optimize to Purchase on pixel 1440305917310328. The site fires the same pixel. <span class=P>MATCH</span>.</li></ul>
+<h2>Tracking - what fires, per step (VERIFIED on test runs)</h2><ul>
+<li>Landing: PageView browser <span class=P>PASS</span>, PageView server (CAPI via lla-ac-events.vercel.app) <span class=P>PASS</span>, same event_id on both so Meta dedups <span class=P>PASS</span>.</li>
+<li>ViewContent: not seen in first seconds on landing; fires in volume per pixel stats (522 browser / 579 server in 7 days).</li>
+<li>Step 1 and 2 buttons: SubscribedButtonClick (Meta automatic) only.</li>
+<li>AddToCart: <span class=F>FAIL</span> - not reached (blocked by bug 1).</li>
+<li>InitiateCheckout: <span class=F>FAIL</span> - not reached.</li>
+<li>AddPaymentInfo: <span class=F>FAIL</span> - not implemented (0 in 7 days).</li>
+<li>Purchase: <span class=F>FAIL</span> - not reachable today.</li></ul>
+<h2>Pixel 1440305917310328 - last 7 days (Graph API)</h2><ul>
+<li>PageView: 1,178 browser / 790 server</li><li>ViewContent: 522 browser / 579 server</li><li>AddToCart: 19 browser / 18 server</li><li>InitiateCheckout: 18 browser / 18 server</li><li>AddPaymentInfo: 0 / 0</li><li>Purchase: 13 browser / 13 server</li>
+<li>Browser and server counts match one for one on funnel events, so both channels were working until 3 Nov night. VERIFIED.</li>
+<li>Event Match Quality score: not exposed by the API for this token. Match keys on Purchase: email, phone, first and last name, external_id. ESTIMATE: good, in the 7-8 range.</li></ul>
+<h2>Meta vs CRM, 1-3 Nov (Israel time)</h2><ul>
+<li>CRM won deals ($49/$79): 1 Nov 0, 2 Nov 1, 3 Nov 2. Total 3. VERIFIED (ActiveCampaign).</li>
+<li>Pixel received Purchase (each sent by browser and server): 2 Nov 1, 3 Nov 3. VERIFIED.</li>
+<li>Meta-attributed purchases in ads: 1 Nov 0, 2 Nov 1, 3 Nov 1. Total 2. VERIFIED (Ads insights, ecomm-02 campaign; ecomm-01 had 0).</li>
+<li>Pixel shows 1 more Purchase on 3 Nov than CRM. ESTIMATE: a test order or a non-ad buyer.</li></ul>
+<h2>How this was tested</h2><ul><li>BrowserStack real devices were the plan. The BrowserStack connector refused every call with "HTTP Basic: Access denied" (401), so no real-device session could start.</li><li>Backup used: Chrome headless on the box with Playwright mobile emulation (iPhone 15 Pro Max, iPhone 12, Galaxy S24, Pixel 7, iPad Pro 11). This uses the Chrome engine with each device screen and user agent. The bug is on the server side, so it hits every device.</li><li>Test buyer: "QA Audit Test", qa.audit.test+...@example.com, +1 201 555 0123. Stopped before any payment.</li></ul>
+<h2>iPhone 15 Pro Max (emulated, iOS Safari UA)</h2><p>Landing load: 2.79s (to full load event).</p>
+<p><span class=P>PASS</span> - Ad landing page</p><img loading=lazy src="img/ip15_01_landing.webp">
+<p><span class=P>PASS</span> - Tap "Enroll now" - step 1 form opens</p><img loading=lazy src="img/ip15_02_enroll_modal.webp">
+<p><span class=P>PASS</span> - Name, email, phone, state filled</p><img loading=lazy src="img/ip15_03_details_filled.webp">
+<p><span class=P>PASS</span> - Step 2 - plan and date, price $79 then 4 x $169 ($755)</p><img loading=lazy src="img/ip15_04_plan_date.webp">
+<p><span class=P>PASS</span> - Start date picked (Mon Nov 23)</p><img loading=lazy src="img/ip15_04b_date_picked.webp">
+<p><span class=F>FAIL</span> - Tap Continue to Pay - ERROR "We could not confirm your enrollment request". Payment step never opens. No card fields, no PayPal, no Apple Pay, no Google Pay.</p><img loading=lazy src="img/ip15_05_payment.webp">
+<h2>iPhone 12 (emulated, older iPhone)</h2><p>Landing load: 2.64s (to full load event).</p>
+<p><span class=P>PASS</span> - Ad landing page</p><img loading=lazy src="img/ip12_01_landing.webp">
+<p><span class=P>PASS</span> - Tap "Enroll now" - step 1 form opens</p><img loading=lazy src="img/ip12_02_enroll_modal.webp">
+<p><span class=P>PASS</span> - Name, email, phone, state filled</p><img loading=lazy src="img/ip12_03_details_filled.webp">
+<p><span class=P>PASS</span> - Step 2 - plan and date, price $79 then 4 x $169 ($755)</p><img loading=lazy src="img/ip12_04_plan_date.webp">
+<p><span class=P>PASS</span> - Start date picked (Mon Nov 23)</p><img loading=lazy src="img/ip12_04b_date_picked.webp">
+<p><span class=F>FAIL</span> - Tap Continue to Pay - ERROR "We could not confirm your enrollment request". Payment step never opens. No card fields, no PayPal, no Apple Pay, no Google Pay.</p><img loading=lazy src="img/ip12_05_payment.webp">
+<h2>Samsung Galaxy S24 (emulated, Android Chrome)</h2><p>Landing load: 3.28s (to full load event).</p>
+<p><span class=P>PASS</span> - Ad landing page</p><img loading=lazy src="img/s24_01_landing.webp">
+<p><span class=P>PASS</span> - Tap "Enroll now" - step 1 form opens</p><img loading=lazy src="img/s24_02_enroll_modal.webp">
+<p><span class=P>PASS</span> - Name, email, phone, state filled</p><img loading=lazy src="img/s24_03_details_filled.webp">
+<p><span class=P>PASS</span> - Step 2 - plan and date, price $79 then 4 x $169 ($755)</p><img loading=lazy src="img/s24_04_plan_date.webp">
+<p><span class=P>PASS</span> - Start date picked (Mon Nov 23)</p><img loading=lazy src="img/s24_04b_date_picked.webp">
+<p><span class=F>FAIL</span> - Tap Continue to Pay - ERROR "We could not confirm your enrollment request". Payment step never opens. No card fields, no PayPal, no Apple Pay, no Google Pay.</p><img loading=lazy src="img/s24_05_payment.webp">
+<h2>Google Pixel 7 (emulated, Android Chrome)</h2><p>Landing load: 2.74s (to full load event).</p>
+<p><span class=P>PASS</span> - Ad landing page</p><img loading=lazy src="img/px7_01_landing.webp">
+<p><span class=P>PASS</span> - Tap "Enroll now" - step 1 form opens</p><img loading=lazy src="img/px7_02_enroll_modal.webp">
+<p><span class=P>PASS</span> - Name, email, phone, state filled</p><img loading=lazy src="img/px7_03_details_filled.webp">
+<p><span class=P>PASS</span> - Step 2 - plan and date, price $79 then 4 x $169 ($755)</p><img loading=lazy src="img/px7_04_plan_date.webp">
+<p><span class=P>PASS</span> - Start date picked (Mon Nov 23)</p><img loading=lazy src="img/px7_04b_date_picked.webp">
+<p><span class=F>FAIL</span> - Tap Continue to Pay - ERROR "We could not confirm your enrollment request". Payment step never opens. No card fields, no PayPal, no Apple Pay, no Google Pay.</p><img loading=lazy src="img/px7_05_payment.webp">
+<h2>iPad Pro 11 (emulated)</h2><p>Landing load: 2.55s (to full load event).</p>
+<p><span class=P>PASS</span> - Ad landing page</p><img loading=lazy src="img/ipad_01_landing.webp">
+<p><span class=P>PASS</span> - Tap "Enroll now" - step 1 form opens</p><img loading=lazy src="img/ipad_02_enroll_modal.webp">
+<p><span class=P>PASS</span> - Name, email, phone, state filled</p><img loading=lazy src="img/ipad_03_details_filled.webp">
+<p><span class=P>PASS</span> - Step 2 - plan and date, price $79 then 4 x $169 ($755)</p><img loading=lazy src="img/ipad_04_plan_date.webp">
+<p><span class=P>PASS</span> - Start date picked (Mon Nov 23)</p><img loading=lazy src="img/ipad_04b_date_picked.webp">
+<p><span class=F>FAIL</span> - Tap Continue to Pay - ERROR "We could not confirm your enrollment request". Payment step never opens. No card fields, no PayPal, no Apple Pay, no Google Pay.</p><img loading=lazy src="img/ipad_05_payment.webp">
+<h2>longevitylifeacademy.com (iPhone 13 emulated)</h2>
+<p><span class=P>PASS</span> - Homepage</p><img loading=lazy src="img/com_01_landing.webp">
+<p><span class=P>PASS</span> - Enroll form filled</p><img loading=lazy src="img/com_03_filled.webp">
+<p><span class=P>PASS</span> - Step 2 - class time, $79 then 4 x $169</p><img loading=lazy src="img/com_s0.webp">
+<p><span class=F>FAIL</span> - Checkout page - "Demo checkout" banner, tuition stuck on "Confirming"</p><img loading=lazy src="img/com_s1.webp">
+<p><span class=F>FAIL</span> - Full checkout page - "No enrollment in progress". Card / PayPal form never loads</p><img loading=lazy src="img/com_checkout_full.webp">
