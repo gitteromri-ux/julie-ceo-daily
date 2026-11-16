@@ -1,4 +1,66 @@
-<!DOCTYPE html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Longevity Blueprint · deck v3</title><style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#0f0b1a;color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+body{display:flex;flex-direction:column;height:100vh}
+header{display:flex;gap:2vw;align-items:stretch;padding:1.4vh 2vw 1vh}
+.hb{background:#1c1530;border-radius:14px;padding:1vh 1.4vw;display:flex;flex-direction:column;justify-content:center}
+.hb .l{font-size:clamp(12px,1.6vh,16px);color:#c9bde6;text-transform:uppercase;letter-spacing:.04em;font-weight:700}
+.hb .s{font-size:clamp(11px,1.45vh,14px);color:#b3a8cc;margin-top:.3vh}
+.su b{font-size:clamp(34px,6vh,58px);font-weight:900;line-height:1}
+.split{flex:1;flex-direction:row;align-items:center;gap:2vw}
+.split .pc{display:flex;align-items:baseline;gap:.8vw}
+.split .pc b{font-size:clamp(46px,8.4vh,84px);font-weight:900;line-height:1}
+.split .pc.e b{color:#d8b4fe} .split .pc.r b{color:#fcd34d}
+.split .pc span{font-size:clamp(15px,2.3vh,22px);font-weight:700}
+.split .vs{font-size:clamp(16px,2.4vh,24px);color:#8c80a8}
+nav{display:flex;gap:.8vw;padding:0 2vw}
+nav button{flex:1;background:#2a1f45;color:#e9dcff;border:2px solid #6d28d9;border-radius:12px;padding:1vh .8vw;font-size:clamp(15px,2.2vh,21px);font-weight:800;cursor:pointer}
+nav button.on{background:#7c3aed;color:#fff;border-color:#c4b5fd}
+main{flex:1;min-height:0;padding:1.4vh 2vw .6vh;position:relative}
+.slide{display:none;height:100%;flex-direction:column} .slide.on{display:flex}
+h2{font-size:clamp(22px,3.6vh,36px);font-weight:900;margin-bottom:1.2vh;display:flex;align-items:baseline;gap:1vw;flex-wrap:wrap}
+h2 span{color:#c4b5fd} h2 small{font-size:clamp(12px,1.7vh,16px);color:#b3a8cc;font-weight:500}
+.grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:1.4vh 1.2vw}
+.c{background:#1c1530;border:2px solid #3b2a63;border-radius:16px;padding:1.4vh 1.2vw;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.c.hi{border-color:#a855f7;background:#2a1a4a}
+.lab{font-size:clamp(13px,1.9vh,18px);font-weight:800;color:#c9bde6;text-transform:uppercase;letter-spacing:.04em}
+.num{font-size:clamp(38px,7.6vh,74px);font-weight:900;line-height:1.05;margin:.6vh 0}
+.exp{font-size:clamp(14px,2.2vh,21px);color:#e7e1f5;line-height:1.3}
+.tag{margin-top:auto;font-size:clamp(12px,1.5vh,14px);color:#9d92b8}
+.cmp{display:flex;align-items:center;justify-content:center;gap:3vw;margin-top:2vh}
+.side{text-align:center} .big{font-size:clamp(48px,min(10vh,7vw),104px);font-weight:900;line-height:1.05;margin:1vh 0}
+.big.old{color:#9d92b8;text-decoration:line-through;text-decoration-thickness:4px} .big.new{color:#86efac}
+.arrow{font-size:clamp(40px,8vh,80px);color:#c4b5fd}
+.dropw{display:flex;align-items:center;justify-content:center;gap:1.5vw;margin-top:2vh} .dropw .exp{font-size:clamp(16px,2.6vh,26px)} .drop{font-size:clamp(40px,8vh,80px);font-weight:900;color:#86efac;background:#14301f;border-radius:20px;padding:.6vh 1.5vw}
+.bars{margin:3.5vh auto 0;width:70%;display:flex;flex-direction:column;gap:1.4vh}
+.bar{position:relative;height:5vh;background:#1c1530;border-radius:10px;overflow:hidden}
+.fill{height:100%} .fill.o{background:#6b5b8c} .fill.n{background:#22c55e}
+.bar span{position:absolute;left:1vw;top:50%;transform:translateY(-50%);font-size:clamp(14px,2.1vh,20px);font-weight:800}
+.tag.c{text-align:center;margin-top:auto}
+footer{display:flex;justify-content:space-between;padding:.6vh 2vw 1vh;font-size:clamp(12px,1.6vh,15px);color:#b3a8cc}
+footer a{color:#c4b5fd}
+#ov{display:none;position:fixed;inset:0;background:#0f0b1a;z-index:9;flex-direction:column} #ov.on{display:flex}
+#ov .bar2{padding:10px 2vw;display:flex;justify-content:space-between;align-items:center} #ov button{background:#7c3aed;color:#fff;border:0;border-radius:10px;padding:8px 16px;font-weight:800;font-size:16px;cursor:pointer}
+#ov iframe{flex:1;border:0;background:#fff}
+</style></head><body>
+<header>
+<div class="hb su"><div class="l">Masterclass sign-ups</div><b>207</b><div class="s">deck 204 + 3 paid since · VERIFIED (CRM)</div></div>
+<div class="hb split"><div><div class="l">Blueprint sales since Oct 28 · 12 total</div><div class="s">Nov 13 Meta vs rep split is ESTIMATE</div></div>
+<div class="pc e"><b>83%</b><span>E-commerce (10)</span></div><div class="vs">vs</div><div class="pc r"><b>17%</b><span>Sales rep (2)</span></div></div>
+</header>
+<nav><button data-t="t1">Oct 28 – now</button><button data-t="t2">Last 8 days (Nov 9 – now)</button><button data-t="t3">Last 5 days (Nov 12 – now)</button><button data-t="t4">Cost per sale is dropping</button></nav>
+<main><section class="slide" id="t1"><h2>Oct 28 – now<small>Oct 28 – Nov 16, 08:33 Israel time · Blueprint only</small></h2><div class="grid"><article class="c"><div class="lab">Blueprint sales</div><div class="num">12</div><p class="exp">10 e-commerce: 4 Meta ads · 5 online right after the Oct 27 live Masterclass · 1 invitee link<br>2 sales rep</p><p class="tag">VERIFIED (CRM) · Nov 13: which sale was Meta and which was rep is ESTIMATE</p></article><article class="c"><div class="lab">Net media spend</div><div class="num">$28,016.78</div><p class="exp">Meta spend $28,193.78 on the 2 e-commerce campaigns, minus $177.00 Masterclass revenue collected in November</p><p class="tag">VERIFIED (Meta + CRM)</p></article><article class="c hi"><div class="lab">Cost per sale</div><div class="num">$2,334.73</div><p class="exp">Net media spend ÷ 12 Blueprint sales</p><p class="tag">VERIFIED (calculated)</p></article><article class="c"><div class="lab">Blueprint revenue</div><div class="num">$9,061.02</div><p class="exp">Contract value of the 12 Blueprint sales</p><p class="tag">VERIFIED (CRM)</p></article><article class="c"><div class="lab">MER</div><div class="num">0.32</div><p class="exp">Marketing efficiency ratio = revenue ÷ net media spend. $0.32 back for every $1 spent</p><p class="tag">VERIFIED (calculated)</p></article><article class="c"><div class="lab">% of plan</div><div class="num">43–45%</div><p class="exp">7 sales Nov 2–16 vs plan of 15.4–16.4 (the deck plan starts Nov 2). ESTIMATE: weekly targets spread evenly by day</p><p class="tag">ESTIMATE (plan spread by day)</p></article></div></section><section class="slide" id="t2"><h2>Last 8 days <span>(Nov 9 – now)</span><small>Nov 9 – Nov 16, 08:33 Israel time · Blueprint only</small></h2><div class="grid"><article class="c"><div class="lab">Blueprint sales</div><div class="num">7</div><p class="exp">5 e-commerce: 4 Meta ads · 1 invitee link<br>2 sales rep</p><p class="tag">VERIFIED (CRM) · Nov 13: which sale was Meta and which was rep is ESTIMATE</p></article><article class="c"><div class="lab">Net media spend</div><div class="num">$14,459.25</div><p class="exp">Meta spend on the 2 e-commerce campaigns. No Masterclass revenue in these days, so nothing subtracted</p><p class="tag">VERIFIED (Meta + CRM)</p></article><article class="c hi"><div class="lab">Cost per sale</div><div class="num">$2,065.61</div><p class="exp">Net media spend ÷ 7 Blueprint sales</p><p class="tag">VERIFIED (calculated)</p></article><article class="c"><div class="lab">Blueprint revenue</div><div class="num">$5,286.02</div><p class="exp">Contract value of the 7 Blueprint sales</p><p class="tag">VERIFIED (CRM)</p></article><article class="c"><div class="lab">MER</div><div class="num">0.37</div><p class="exp">Marketing efficiency ratio = revenue ÷ net media spend. $0.37 back for every $1 spent</p><p class="tag">VERIFIED (calculated)</p></article><article class="c"><div class="lab">% of plan</div><div class="num">67%</div><p class="exp">7 sales vs plan of 10.4. ESTIMATE: weekly targets spread evenly by day</p><p class="tag">ESTIMATE (plan spread by day)</p></article></div></section><section class="slide" id="t3"><h2>Last 5 days <span>(Nov 12 – now)</span><small>Nov 12 – Nov 16, 08:33 Israel time · Blueprint only</small></h2><div class="grid"><article class="c"><div class="lab">Blueprint sales</div><div class="num">7</div><p class="exp">5 e-commerce: 4 Meta ads · 1 invitee link<br>2 sales rep</p><p class="tag">VERIFIED (CRM) · Nov 13: which sale was Meta and which was rep is ESTIMATE</p></article><article class="c"><div class="lab">Net media spend</div><div class="num">$8,619.30</div><p class="exp">Meta spend on the 2 e-commerce campaigns. No Masterclass revenue in these days, so nothing subtracted</p><p class="tag">VERIFIED (Meta + CRM)</p></article><article class="c hi"><div class="lab">Cost per sale</div><div class="num">$1,231.33</div><p class="exp">Net media spend ÷ 7 Blueprint sales</p><p class="tag">VERIFIED (calculated)</p></article><article class="c"><div class="lab">Blueprint revenue</div><div class="num">$5,286.02</div><p class="exp">Contract value of the 7 Blueprint sales</p><p class="tag">VERIFIED (CRM)</p></article><article class="c"><div class="lab">MER</div><div class="num">0.61</div><p class="exp">Marketing efficiency ratio = revenue ÷ net media spend. $0.61 back for every $1 spent</p><p class="tag">VERIFIED (calculated)</p></article><article class="c"><div class="lab">% of plan</div><div class="num">106%</div><p class="exp">7 sales vs plan of 6.6. Ahead of plan. ESTIMATE: weekly targets spread evenly by day</p><p class="tag">ESTIMATE (plan spread by day)</p></article></div></section><section class="slide" id="t4"><h2>Cost per sale is dropping<small>Net media spend ÷ Blueprint sales · Blueprint only</small></h2>
+<div class="cmp"><div class="side"><div class="lab">Oct 28 – Nov 11</div><div class="big old">$3,879.50</div><p class="exp">$19,397.48 net media spend ÷ 5 sales</p></div>
+<div class="arrow">→</div>
+<div class="side"><div class="lab">Last 5 days (Nov 12 – now)</div><div class="big new">$1,231.33</div><p class="exp">$8,619.30 net media spend ÷ 7 sales</p></div>
+</div><div class="dropw"><div class="drop">−68%</div><p class="exp">cost per sale in the last 5 days vs Oct 28 – Nov 11</p></div>
+<div class="bars"><div class="bar"><div class="fill o" style="width:100%"></div><span>Oct 28 – Nov 11 · $3,879.50</span></div>
+<div class="bar"><div class="fill n" style="width:31.7%"></div><span>Nov 12 – now · $1,231.33</span></div></div>
+<p class="tag c">VERIFIED (Meta + CRM) · Oct 28 – Nov 11 spend $19,574.48 minus $177.00 November Masterclass revenue</p></section></main>
+<footer><span>Checked Nov 16, 08:33 Israel time · VERIFIED from Meta + CRM</span><a href="#earlier" id="ea">Plan and earlier reports</a></footer>
+<div id="ov"><div class="bar2"><b>Plan and earlier reports · order details (reference only)</b><button id="cl">Back to deck</button></div></div>
+<script type="text/plain" id="old"><!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -869,6 +931,18 @@ const target=(location.hash&&document.getElementById(location.hash.slice(1)))?lo
 if(target){requestAnimationFrame(()=>{document.getElementById(target).scrollIntoView({block:'start'});});
 window.addEventListener('load',()=>document.getElementById(target).scrollIntoView({block:'start'}));}
 
-</script>
+<\/script>
 </body>
-</html>
+</html></script>
+<script>
+const ids=['t1','t2','t3','t4'];
+function show(id){if(!ids.includes(id))id='t1';document.querySelectorAll('.slide').forEach(s=>s.classList.toggle('on',s.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));history.replaceState(null,'','#'+id);}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>show(b.dataset.t));
+const ov=document.getElementById('ov');
+function openOld(){if(!ov.querySelector('iframe')){const f=document.createElement('iframe');f.srcdoc=document.getElementById('old').textContent.replace(/<\\\/script/g,'</script');ov.appendChild(f);}ov.classList.add('on');}
+document.getElementById('ea').onclick=e=>{e.preventDefault();openOld();};
+document.getElementById('cl').onclick=()=>{ov.classList.remove('on');show(location.hash.slice(1));};
+document.addEventListener('keydown',e=>{if(ov.classList.contains('on'))return;const i=ids.indexOf(location.hash.slice(1));if(e.key==='ArrowRight')show(ids[Math.min(3,i+1)]);if(e.key==='ArrowLeft')show(ids[Math.max(0,i-1)]);});
+window.addEventListener('hashchange',()=>{if(location.hash==='#earlier')openOld();else show(location.hash.slice(1));});
+if(location.hash==='#earlier')openOld(); show(location.hash.slice(1));
+</script></body></html>
