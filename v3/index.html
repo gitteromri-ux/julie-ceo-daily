@@ -61,6 +61,27 @@ footer{margin-top:16px;font-size:12.5px;color:#857F99}
 #ov button{background:var(--p);color:#fff;border:0;border-radius:10px;padding:9px 16px;font-weight:650;font-size:14px;cursor:pointer}
 #ov iframe{flex:1;border:0}
 .hb.n .t b{font-size:34px;color:#6EE7B7} .hb.o .t b{font-size:24px}
+.panel.wide.on{grid-template-columns:repeat(3,1fr) 600px;grid-template-rows:1fr 1fr;gap:16px}
+.panel.wide .kpi{padding:16px 18px;border-radius:16px}
+.panel.wide .kpi .val{font-size:38px}
+.panel.wide .lab{font-size:11px}
+.panel.wide .foot{height:52px} .panel.wide .sub{font-size:12.5px;line-height:1.3}
+.panel.wide .chips{margin-bottom:6px;gap:5px} .panel.wide .chip{font-size:11.5px;padding:3px 7px}
+.panel.wide .sub-e{display:none} .sub-w{display:none} .panel.wide .sub-w{display:block}
+.rank{grid-column:4;grid-row:1 / span 2;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh);padding:18px 22px;display:flex;flex-direction:column}
+.rhead{display:flex;flex-direction:column;gap:10px}
+.leader{display:flex;align-items:center;gap:12px;background:var(--pl);border-radius:12px;padding:10px 14px}
+.leader .lt{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#fff;background:var(--p);padding:4px 8px;border-radius:6px}
+.leader b{font-size:16px;font-weight:650} .leader .lv{margin-left:auto;font-size:24px;font-weight:700;letter-spacing:-.03em;color:var(--p)} .leader em{font-style:normal;font-size:12.5px;color:var(--mute);font-weight:500;letter-spacing:0}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13.5px}
+th{white-space:nowrap;text-align:right;font-size:11px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);padding:8px 6px;border-bottom:1px solid var(--line)}
+td{text-align:right;padding:15px 6px;border-bottom:1px solid #F1EFF5;white-space:nowrap}
+th:nth-child(2),td:nth-child(2){text-align:left} td.rk{color:var(--soft);width:18px;text-align:left} th:first-child{width:18px}
+td b{font-weight:600} .cp{margin-left:8px;font-size:11px;color:var(--mute);background:#F1F0F5;border-radius:5px;padding:2px 6px}
+tr.lead td{color:var(--p)} tr.lead td.cps{font-weight:700} tr.lead td b{color:var(--p)}
+td.cps{font-weight:600} .ns{color:var(--soft);font-weight:500}
+.rnote{margin-top:auto;font-size:12px;color:var(--mute)}
+
 </style></head><body>
 <div id="stage">
 <header><div class="brand"><div class="mark"></div>Longevity Blueprint <span>/ Performance review</span></div>
@@ -79,35 +100,38 @@ footer{margin-top:16px;font-size:12.5px;color:#857F99}
 <main><section class="panel" id="t1">
  <div class="kpi"><div class="lab">Blueprint sales</div><div class="val">12</div><div class="foot">
   <div class="chips"><span class="chip p">E-commerce 10</span><span class="chip">Sales rep 2</span></div>
-  <div class="sub">E-commerce = 4 Meta ads · 5 website · 1 invitee</div></div></div>
- <div class="kpi"><div class="lab">Media spend (net)</div><div class="val">$28,016<span class="c">.78</span></div><div class="foot"><div class="sub">Meta, Blueprint e-commerce campaigns</div></div></div>
+  <div class="sub sub-e">E-commerce = 4 Meta ads · 5 website · 1 invitee</div><div class="sub sub-w">E-commerce incl. 1 invitee</div></div></div>
+ <div class="kpi"><div class="lab">Media spend (net)</div><div class="val">$28,016<span class="c">.78</span></div><div class="foot"><div class="sub">Meta e-commerce campaigns</div></div></div>
  <div class="kpi hl"><div class="lab">Cost per sale</div><div class="val">$2,334<span class="c">.73</span></div><div class="foot"><div class="sub">Spend ÷ 12 sales</div></div></div>
  <div class="kpi"><div class="lab">Revenue</div><div class="val">$9,061<span class="c">.02</span></div><div class="foot"><div class="sub">Contract value of 12 sales</div></div></div>
  <div class="kpi"><div class="lab">MER</div><div class="val">0.32<span class="x">×</span></div><div class="foot"><div class="sub">Revenue ÷ spend</div></div></div>
  <div class="kpi"><div class="lab">% of plan</div><div class="val bad">43–45%</div><div class="foot">
   <div class="prog"><i class="bad" style="width:44%"></i></div><div class="sub">7 sales vs 15.4–16.4 planned (plan starts Nov 2)</div></div></div>
-</section><section class="panel" id="t2">
+</section><section class="panel wide" id="t2">
  <div class="kpi"><div class="lab">Blueprint sales</div><div class="val">7</div><div class="foot">
   <div class="chips"><span class="chip p">E-commerce 5</span><span class="chip">Sales rep 2</span></div>
-  <div class="sub">E-commerce = 4 Meta ads · 1 invitee</div></div></div>
- <div class="kpi"><div class="lab">Media spend (net)</div><div class="val">$14,459<span class="c">.25</span></div><div class="foot"><div class="sub">Meta, Blueprint e-commerce campaigns</div></div></div>
+  <div class="sub sub-e">E-commerce = 4 Meta ads · 1 invitee</div><div class="sub sub-w">E-commerce incl. 1 invitee</div></div></div>
+ <div class="kpi"><div class="lab">Media spend (net)</div><div class="val">$14,459<span class="c">.25</span></div><div class="foot"><div class="sub">Meta e-commerce campaigns</div></div></div>
  <div class="kpi hl"><div class="lab">Cost per sale</div><div class="val">$2,065<span class="c">.61</span></div><div class="foot"><div class="sub">Spend ÷ 7 sales</div></div></div>
  <div class="kpi"><div class="lab">Revenue</div><div class="val">$5,286<span class="c">.02</span></div><div class="foot"><div class="sub">Contract value of 7 sales</div></div></div>
  <div class="kpi"><div class="lab">MER</div><div class="val">0.37<span class="x">×</span></div><div class="foot"><div class="sub">Revenue ÷ spend</div></div></div>
  <div class="kpi"><div class="lab">% of plan</div><div class="val mid">67%</div><div class="foot">
   <div class="prog"><i class="mid" style="width:67%"></i></div><div class="sub">7 sales vs 10.4 planned</div></div></div>
-</section><section class="panel" id="t3">
+<div class="rank"><div class="rhead"><div><div class="lab">Ad sets by cost per sale · Nov 9 – now</div></div>
+ <div class="leader"><span class="lt">Leader</span><b>Adset 05 · #108811</b><span class="lv">$1,561.10<em> per sale</em></span></div></div>
+ <table><thead><tr><th></th><th>Ad set</th><th>Spend</th><th>Sales</th><th>Cost per sale</th></tr></thead><tbody><tr class="lead"><td class="rk">1</td><td><b>Adset 05 · #108811</b><span class="cp">ecomm-01</span></td><td>$3,122.20</td><td>2</td><td class="cps">$1,561.10</td></tr><tr class=""><td class="rk">2</td><td><b>Adset 04 · #108810</b><span class="cp">ecomm-01</span></td><td>$1,981.28</td><td>1</td><td class="cps">$1,981.28</td></tr><tr class=""><td class="rk">3</td><td><b>Adset 02 · #108814</b><span class="cp">ecomm-02</span></td><td>$2,084.89</td><td>1</td><td class="cps">$2,084.89</td></tr><tr class=""><td class="rk">4</td><td><b>Adset 02 · #108808</b><span class="cp">ecomm-01</span></td><td>$1,183.06</td><td>–</td><td class="cps"><span class="ns">no sale</span></td></tr></tbody></table>
+ <div class="rnote">Not listed: 2 ecomm-02 ad sets, $6,098.67 spend, no sale. Rep and invitee sales have no ad set.</div></div></section><section class="panel" id="t3">
  <div class="kpi"><div class="lab">Blueprint sales</div><div class="val">7</div><div class="foot">
   <div class="chips"><span class="chip p">E-commerce 5</span><span class="chip">Sales rep 2</span></div>
-  <div class="sub">E-commerce = 4 Meta ads · 1 invitee</div></div></div>
- <div class="kpi"><div class="lab">Media spend (net)</div><div class="val">$8,619<span class="c">.30</span></div><div class="foot"><div class="sub">Meta, Blueprint e-commerce campaigns</div></div></div>
+  <div class="sub sub-e">E-commerce = 4 Meta ads · 1 invitee</div><div class="sub sub-w">E-commerce incl. 1 invitee</div></div></div>
+ <div class="kpi"><div class="lab">Media spend (net)</div><div class="val">$8,619<span class="c">.30</span></div><div class="foot"><div class="sub">Meta e-commerce campaigns</div></div></div>
  <div class="kpi hl"><div class="lab">Cost per sale</div><div class="val">$1,231<span class="c">.33</span></div><div class="foot"><div class="sub">Spend ÷ 7 sales</div></div></div>
  <div class="kpi"><div class="lab">Revenue</div><div class="val">$5,286<span class="c">.02</span></div><div class="foot"><div class="sub">Contract value of 7 sales</div></div></div>
  <div class="kpi"><div class="lab">MER</div><div class="val">0.61<span class="x">×</span></div><div class="foot"><div class="sub">Revenue ÷ spend</div></div></div>
  <div class="kpi"><div class="lab">% of plan</div><div class="val good">106%</div><div class="foot">
   <div class="prog"><i class="good" style="width:100%"></i></div><div class="sub">7 sales vs 6.6 planned</div></div></div>
 </section></main>
-<footer>Plan % = weekly targets spread evenly by day (estimate). Nov 13 e-com vs rep split estimated. Checked Nov 16, 08:33 Israel time.</footer>
+<footer>Plan % = weekly targets spread evenly by day (estimate). Nov 13 e-com vs rep split estimated. Checked Nov 16, 08:33 Israel time.<span id="adn"> Ad sets: VERIFIED Meta pixel purchases, spend at 08:50.</span></footer>
 </div>
 <div id="ov"><div class="bar2"><b>Plan and earlier reports (reference)</b><button id="cl">Back to dashboard</button></div></div>
 <script type="text/plain" id="old"><!DOCTYPE html>
@@ -989,7 +1013,7 @@ const st=document.getElementById('stage');
 function fit(){const s=Math.min(innerWidth/1440,innerHeight/900);st.style.transform='translate(-50%,-50%) scale('+s+')';}
 addEventListener('resize',fit);fit();
 const ids=['t1','t2','t3'];
-function show(id){if(!ids.includes(id))id='t1';document.querySelectorAll('.panel').forEach(s=>s.classList.toggle('on',s.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));history.replaceState(null,'','#'+id);}
+function show(id){if(!ids.includes(id))id='t1';document.getElementById('adn').style.display=id==='t2'?'inline':'none';document.querySelectorAll('.panel').forEach(s=>s.classList.toggle('on',s.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));history.replaceState(null,'','#'+id);}
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>show(b.dataset.t));
 const ov=document.getElementById('ov');
 function openOld(){if(!ov.querySelector('iframe')){const f=document.createElement('iframe');f.srcdoc=document.getElementById('old').textContent.replace(/<\\\/script/g,'</script');ov.appendChild(f);}ov.classList.add('on');}
