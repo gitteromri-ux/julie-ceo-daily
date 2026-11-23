@@ -1,0 +1,136 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Longevity Blueprint · Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F6F5F9;--card:#fff;--line:#E9E6F0;--ink:#15121F;--mute:#6E6981;--soft:#9A95AA;--p:#6D28D9;--p2:#8B5CF6;--pl:#F1ECFD;--g:#0E9F6E;--gl:#E7F7F0;--a:#C2410C;--al:#FDF0E7;
+--sh:0 1px 2px rgba(40,24,80,.04),0 4px 14px rgba(40,24,80,.05)}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-feature-settings:"tnum" 1,"cv11" 1;-webkit-font-smoothing:antialiased}
+#stage{position:absolute;left:50%;top:50%;width:1440px;height:900px;transform-origin:center;padding:34px 56px 26px;display:flex;flex-direction:column}
+header{display:flex;align-items:center;justify-content:space-between;height:36px}
+.brand{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:650;letter-spacing:-.01em}
+.mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#8B5CF6,#5B21B6);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.brand span{color:var(--soft);font-weight:500}
+.asof{font-size:13px;color:var(--mute);display:flex;gap:22px;align-items:center}
+.asof a{color:var(--p);text-decoration:none;font-weight:600}
+.band{display:grid;grid-template-columns:3fr 5fr 4fr;gap:20px;margin-top:22px;height:236px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh);padding:24px 28px;display:flex;flex-direction:column}
+.lab{font-size:12.5px;font-weight:650;letter-spacing:.07em;text-transform:uppercase;color:var(--mute)}
+.lab em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;color:var(--soft)}
+.signups .big{font-size:120px;font-weight:700;letter-spacing:-.05em;line-height:1;margin-top:auto}
+.signups .sub{margin-top:10px}
+.sub{font-size:14px;color:var(--mute);line-height:1.4}
+.split .row{display:flex;gap:40px;margin-top:auto;align-items:flex-end}
+.split .pc{font-size:88px;font-weight:700;letter-spacing:-.05em;line-height:.95}
+.split .pc.e{color:var(--p)} .split .pc.r{color:#2A2540}
+.split .who{font-size:15px;font-weight:600;margin-top:8px} .split .who span{color:var(--mute);font-weight:500}
+.sbar{display:flex;height:10px;border-radius:6px;overflow:hidden;margin-top:20px;gap:3px}
+.sbar i{display:block;height:100%;border-radius:3px}
+.hero{background:radial-gradient(120% 140% at 100% 0%,#3B1D7A 0%,#22124A 45%,#160C30 100%);border:0;color:#fff;position:relative;overflow:hidden}
+.hero .lab{color:#C9B8F5} .hsub{font-size:13.5px;color:#9C8FC2;margin-top:6px}
+.hero .top{display:flex;justify-content:space-between;align-items:flex-start}
+.badge{background:#10B981;color:#04281C;font-weight:750;font-size:26px;letter-spacing:-.02em;padding:6px 12px;border-radius:10px;line-height:1}
+.hbars{margin-top:auto;display:flex;flex-direction:column;gap:14px}
+.hb .t{display:flex;justify-content:space-between;font-size:13px;color:#BFB3DC;margin-bottom:6px}
+.hb .t{align-items:baseline} .hb .t span{font-size:13.5px} .hb .t b{color:#fff;font-size:24px;font-weight:700;letter-spacing:-.03em}
+.hb.o .t b{color:#BFB3DC}
+.hb .tr{height:12px;border-radius:6px;background:rgba(255,255,255,.08)}
+.hb .tr i{display:block;height:100%;border-radius:6px}
+.hb.o i{background:#6E5E96} .hb.n i{background:linear-gradient(90deg,#34D399,#10B981)}
+nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:26px;background:#ECE8F5;padding:6px;border-radius:14px}
+nav button{all:unset;cursor:pointer;display:flex;align-items:baseline;justify-content:center;gap:10px;padding:13px 10px;border-radius:10px;color:#4C3F75;transition:background .15s}
+nav button b{font-size:17px;font-weight:650;letter-spacing:-.01em} nav button span{font-size:13.5px;color:#7F75A0}
+nav button:hover{background:rgba(109,40,217,.07)}
+nav button.on{background:var(--p);color:#fff;box-shadow:0 4px 14px rgba(109,40,217,.35)} nav button.on span{color:#DCCFFB}
+main{flex:1;min-height:0;margin-top:20px}
+.panel{display:none;height:100%;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:20px} .panel.on{display:grid}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh);padding:22px 28px;display:flex;flex-direction:column}
+.kpi .val{font-size:60px;font-weight:700;letter-spacing:-.04em;line-height:1;margin-top:auto}
+.foot{height:62px;display:flex;flex-direction:column;justify-content:flex-end}
+.kpi .val .c{color:var(--soft);font-weight:600;font-size:.62em;letter-spacing:-.02em}
+.kpi .val .x{color:var(--soft);font-weight:600;font-size:.6em;margin-left:2px}
+.kpi.hl{border:1.5px solid var(--p2);box-shadow:0 0 0 4px var(--pl),var(--sh)} .kpi.hl .lab{color:var(--p)}
+.val.good{color:var(--g)} .val.mid{color:#B45309} .val.bad{color:var(--a)}
+.chips{display:flex;gap:8px;margin-bottom:8px} .chip{font-size:13px;font-weight:600;padding:5px 10px;border-radius:999px;background:#F1F0F5;color:#3A3550} .chip.p{background:var(--pl);color:var(--p)}
+.prog{height:8px;border-radius:5px;background:#EFEDF4;margin-bottom:10px;overflow:hidden} .prog i{display:block;height:100%;border-radius:5px}
+.prog i.good{background:var(--g)} .prog i.mid{background:#D97706} .prog i.bad{background:#EA580C}
+footer{margin-top:16px;font-size:12.5px;color:#857F99}
+#ov{display:none;position:fixed;inset:0;background:#fff;z-index:9;flex-direction:column} #ov.on{display:flex}
+#ov .bar2{padding:12px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);font-family:Inter,sans-serif}
+#ov button{background:var(--p);color:#fff;border:0;border-radius:10px;padding:9px 16px;font-weight:650;font-size:14px;cursor:pointer}
+#ov iframe{flex:1;border:0}
+.hb.n .t b{font-size:34px;color:#6EE7B7} .hb.o .t b{font-size:24px}
+.panel.wide.on{grid-template-columns:repeat(3,1fr) 600px;grid-template-rows:1fr 1fr;gap:16px}
+.panel.wide .kpi{padding:16px 18px;border-radius:16px}
+.panel.wide .kpi .val{font-size:38px}
+.panel.wide .lab{font-size:11px}
+.panel.wide .foot{height:52px} .panel.wide .sub{font-size:12.5px;line-height:1.3}
+.panel.wide .chips{margin-bottom:6px;gap:5px} .panel.wide .chip{font-size:11.5px;padding:3px 7px}
+.panel.wide .sub-e{display:none} .sub-w{display:none} .panel.wide .sub-w{display:block}
+.rank{grid-column:4;grid-row:1 / span 2;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh);padding:18px 22px;display:flex;flex-direction:column}
+.rhead{display:flex;flex-direction:column;gap:10px}
+.leader{display:flex;align-items:center;gap:12px;background:var(--pl);border-radius:12px;padding:10px 14px}
+.leader .lt{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#fff;background:var(--p);padding:4px 8px;border-radius:6px}
+.leader b{font-size:16px;font-weight:650} .leader .lv{margin-left:auto;font-size:24px;font-weight:700;letter-spacing:-.03em;color:var(--p)} .leader em{font-style:normal;font-size:12.5px;color:var(--mute);font-weight:500;letter-spacing:0}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13.5px}
+th{white-space:nowrap;text-align:right;font-size:11px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);padding:8px 6px;border-bottom:1px solid var(--line)}
+td{text-align:right;padding:15px 6px;border-bottom:1px solid #F1EFF5;white-space:nowrap}
+th:nth-child(2),td:nth-child(2){text-align:left} td.rk{color:var(--soft);width:18px;text-align:left} th:first-child{width:18px}
+td b{font-weight:600} .cp{margin-left:8px;font-size:11px;color:var(--mute);background:#F1F0F5;border-radius:5px;padding:2px 6px}
+tr.lead td{color:var(--p)} tr.lead td.cps{font-weight:700} tr.lead td b{color:var(--p)}
+td.cps{font-weight:600} .ns{color:var(--soft);font-weight:500}
+.rnote{margin-top:auto;font-size:12px;color:var(--mute)}
+
+</style>
+
+<style>
+/* layout only: 3 KPI cards fill the tab area */
+.panel.trio.on{grid-template-rows:1fr}
+.panel.trio .kpi .val{font-size:72px;margin-bottom:auto}
+.split .pc.amt{font-size:64px}
+</style>
+</head><body>
+<div id="stage">
+<header><div class="brand"><div class="mark"></div>Longevity Blueprint <span>/ Performance review</span></div>
+<div class="asof"></div></header>
+<div class="band">
+ <div class="card signups"><div class="lab">Blueprint sales</div><div class="big">9</div><div class="sub">November 16 to 9 AM November 22</div></div>
+ <div class="card split"><div class="lab">November 16 to 9 AM November 22</div>
+  <div class="row"><div><div class="pc e amt">$12,051</div><div class="who">Spend</div></div>
+  <div><div class="pc r amt">$1,339</div><div class="who">Cost per sale</div></div></div>
+  </div>
+ <div class="card hero"><div class="top"><div><div class="lab">Marginal cost per sale</div><div class="hsub">6 e-commerce sales</div></div><div class="badge">4×</div></div>
+  <div class="hbars"><div class="hb o"><div class="t"><span>Two weeks ago</span><b>$3,000</b></div><div class="tr"><i style="width:100%"></i></div></div>
+  <div class="hb n"><div class="t"><span>Past 4 days · Nov 19 – 22</span><b>$1,060</b></div><div class="tr"><i style="width:35.3%"></i></div></div></div></div>
+</div>
+<nav><button data-t="t1"><b>Nov 16 – 9 AM</b><span>November 16 – 22</span></button><button data-t="t2"><b>Past 4 days</b><span>November 19 – 22</span></button><button data-t="t3"><b>Best day</b><span>Friday November 20</span></button></nav>
+<main>
+<section class="panel trio on" id="t1">
+ <div class="kpi"><div class="lab">Spend</div><div class="val">$12,051</div><div class="foot"><div class="sub">November 16 to 9 AM November 22</div></div></div>
+ <div class="kpi"><div class="lab">Blueprint sales</div><div class="val">9</div><div class="foot"><div class="sub">November 16 to 9 AM November 22</div></div></div>
+ <div class="kpi hl"><div class="lab">Cost per sale</div><div class="val">$1,339</div><div class="foot"><div class="sub">Spend ÷ 9 sales</div></div></div>
+</section>
+<section class="panel trio" id="t2">
+ <div class="kpi"><div class="lab">E-commerce sales</div><div class="val">6</div><div class="foot"><div class="sub">Thursday November 19 to November 22</div></div></div>
+ <div class="kpi hl"><div class="lab">Cost per sale</div><div class="val">$1,060</div><div class="foot"><div class="sub">Past 4 days</div></div></div>
+ <div class="kpi"><div class="lab">Two weeks ago</div><div class="val">$3,000</div><div class="foot"><div class="sub">Cost per sale</div></div></div>
+</section>
+<section class="panel trio" id="t3">
+ <div class="kpi"><div class="lab">E-commerce sales</div><div class="val">3</div><div class="foot"><div class="sub">Friday November 20 · in one day</div></div></div>
+ <div class="kpi"><div class="lab">Spend</div><div class="val">$2,230</div><div class="foot"><div class="sub">Friday November 20</div></div></div>
+ <div class="kpi hl"><div class="lab">Cost per purchase</div><div class="val good">$743</div><div class="foot"><div class="sub">Spend ÷ 3 sales</div></div></div>
+</section>
+</main>
+</div>
+<script>
+const st=document.getElementById('stage');
+function fit(){const s=Math.min(innerWidth/1440,innerHeight/900);st.style.transform='translate(-50%,-50%) scale('+s+')';}
+addEventListener('resize',fit);fit();
+const ids=['t1','t2','t3'];
+function show(id){if(!ids.includes(id))id='t1';document.querySelectorAll('.panel').forEach(s=>s.classList.toggle('on',s.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));history.replaceState(null,'','#'+id);}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>show(b.dataset.t));
+document.addEventListener('keydown',e=>{const i=Math.max(0,ids.indexOf(location.hash.slice(1)));if(e.key==='ArrowRight')show(ids[Math.min(2,i+1)]);if(e.key==='ArrowLeft')show(ids[Math.max(0,i-1)]);});
+addEventListener('hashchange',()=>show(location.hash.slice(1)));
+show(location.hash.slice(1));
+</script></body></html>
