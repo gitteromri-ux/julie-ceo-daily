@@ -38,7 +38,7 @@ header{display:flex;align-items:center;justify-content:space-between;height:36px
 .hb .tr{height:12px;border-radius:6px;background:rgba(255,255,255,.08)}
 .hb .tr i{display:block;height:100%;border-radius:6px}
 .hb.o i{background:#6E5E96} .hb.n i{background:linear-gradient(90deg,#34D399,#10B981)}
-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:26px;background:#ECE8F5;padding:6px;border-radius:14px}
+nav{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:26px;background:#ECE8F5;padding:6px;border-radius:14px}
 nav button{all:unset;cursor:pointer;display:flex;align-items:baseline;justify-content:center;gap:10px;padding:13px 10px;border-radius:10px;color:#4C3F75;transition:background .15s}
 nav button b{font-size:17px;font-weight:650;letter-spacing:-.01em} nav button span{font-size:13.5px;color:#7F75A0}
 nav button:hover{background:rgba(109,40,217,.07)}
@@ -82,6 +82,15 @@ tr.lead td{color:var(--p)} tr.lead td.cps{font-weight:700} tr.lead td b{color:va
 td.cps{font-weight:600} .ns{color:var(--soft);font-weight:500}
 .rnote{margin-top:auto;font-size:12px;color:var(--mute)}
 
+
+.panel.weeks.on{grid-template-columns:repeat(3,1fr);grid-template-rows:1fr;gap:20px}
+.wk{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh);padding:20px 14px 10px;display:flex;flex-direction:column;min-width:0}
+.wtop{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0;min-height:18px;padding:0 8px}
+.wk svg{flex:1;width:100%;height:100%;min-height:0;display:block;overflow:visible}
+.wleg{display:flex;gap:12px;align-items:center}
+.wleg span{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--mute);font-weight:500}
+.wleg i{width:8px;height:8px;border-radius:2px;display:block;flex-shrink:0}
+
 </style></head><body>
 <div id="stage">
 <header><div class="brand"><div class="mark"></div>Longevity Blueprint <span>/ Performance review</span></div>
@@ -96,7 +105,7 @@ td.cps{font-weight:600} .ns{color:var(--soft);font-weight:500}
   <div class="hbars"><div class="hb o"><div class="t"><span>Oct 28 – Nov 11</span><b>$3,880</b></div><div class="tr"><i style="width:100%"></i></div></div>
   <div class="hb n"><div class="t"><span>Past 4 days · Nov 19 – 22</span><b>$1,060</b></div><div class="tr"><i style="width:27.3%"></i></div></div></div></div>
 </div>
-<nav><button data-t="t1"><b>This week</b><span>Nov 16 – 22</span></button><button data-t="t2"><b>Past 4 days</b><span>Nov 19 – 22</span></button><button data-t="t3"><b>Best day</b><span>Friday November 20</span></button></nav>
+<nav><button data-t="t1"><b>This week</b><span>Nov 16 – 22</span></button><button data-t="t2"><b>Past 4 days</b><span>Nov 19 – 22</span></button><button data-t="t3"><b>Best day</b><span>Friday November 20</span></button><button data-t="t4"><b>Weekly</b><span>Oct 28 – Nov 22</span></button></nav>
 <main><section class="panel wide" id="t1">
  <div class="kpi"><div class="lab">Blueprint sales</div><div class="val">9</div><div class="foot">
   <div class="chips"><span class="chip p">E-commerce 7</span><span class="chip">Sales rep 2</span></div>
@@ -130,6 +139,78 @@ td.cps{font-weight:600} .ns{color:var(--soft);font-weight:500}
  <div class="kpi"><div class="lab">MER</div><div class="val">1.05<span class="x">×</span></div><div class="foot"><div class="sub">Revenue ÷ spend</div></div></div>
  <div class="kpi"><div class="lab">% of plan</div><div class="val good">214%</div><div class="foot">
   <div class="prog"><i class="good" style="width:100%"></i></div><div class="sub">3 sales vs 1.4 planned</div></div></div>
+</section><section class="panel weeks" id="t4">
+ <div class="wk">
+  <div class="wtop"><div class="lab">Weekly spend</div></div>
+  <svg viewBox="0 0 400 330" role="img" aria-label="Weekly Blueprint spend">
+<defs>
+  <linearGradient id="spg" x1="0" y1="1" x2="0" y2="0">
+    <stop offset="0%" stop-color="#5B21B6"/>
+    <stop offset="100%" stop-color="#8B5CF6"/>
+  </linearGradient>
+</defs>
+<line x1="58" y1="248.00" x2="388" y2="248.00" stroke="#DDD9E6" stroke-width="1.25"/>
+<text x="50" y="248.00" text-anchor="end" dominant-baseline="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="500" fill="#9A95AA">$0</text>
+<line x1="58" y1="178.00" x2="388" y2="178.00" stroke="#E4E0EC" stroke-width="1"/>
+<text x="50" y="178.00" text-anchor="end" dominant-baseline="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="500" fill="#9A95AA">$5,000</text>
+<line x1="58" y1="108.00" x2="388" y2="108.00" stroke="#E4E0EC" stroke-width="1"/>
+<text x="50" y="108.00" text-anchor="end" dominant-baseline="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="500" fill="#9A95AA">$10,000</text>
+<line x1="58" y1="38.00" x2="388" y2="38.00" stroke="#E4E0EC" stroke-width="1"/>
+<text x="50" y="38.00" text-anchor="end" dominant-baseline="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="500" fill="#9A95AA">$15,000</text>
+<g fill="url(#spg)">
+<path d="M80.25,248.00 L80.25,163.38 Q80.25,155.38 88.25,155.38 L110.25,155.38 Q118.25,155.38 118.25,163.38 L118.25,248.00 Z"/><path d="M162.75,248.00 L162.75,156.35 Q162.75,148.35 170.75,148.35 L192.75,148.35 Q200.75,148.35 200.75,156.35 L200.75,248.00 Z"/><path d="M245.25,248.00 L245.25,62.45 Q245.25,54.45 253.25,54.45 L275.25,54.45 Q283.25,54.45 283.25,62.45 L283.25,248.00 Z"/><path d="M327.75,248.00 L327.75,87.29 Q327.75,79.29 335.75,79.29 L357.75,79.29 Q365.75,79.29 365.75,87.29 L365.75,248.00 Z"/>
+</g>
+<text x="99.25" y="146.38" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="700" letter-spacing="-0.03em" fill="#15121F">$6,616</text><text x="181.75" y="139.35" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="700" letter-spacing="-0.03em" fill="#15121F">$7,118</text><text x="264.25" y="45.45" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="700" letter-spacing="-0.03em" fill="#15121F">$13,825</text><text x="346.75" y="70.29" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="700" letter-spacing="-0.03em" fill="#15121F">$12,051</text>
+<text x="99.25" y="270" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="650" fill="#15121F">Week 1</text>
+<text x="99.25" y="288" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" font-weight="500" fill="#6E6981">Oct 28 – Nov 1</text>
+<text x="181.75" y="270" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="650" fill="#15121F">Week 2</text>
+<text x="181.75" y="288" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" font-weight="500" fill="#6E6981">Nov 2 – 8</text>
+<text x="264.25" y="270" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="650" fill="#15121F">Week 3</text>
+<text x="264.25" y="288" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" font-weight="500" fill="#6E6981">Nov 9 – 15</text>
+<text x="346.75" y="270" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="650" fill="#15121F">Week 4</text>
+<text x="346.75" y="288" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" font-weight="500" fill="#6E6981">Nov 16 – 22</text>
+</svg>
+ </div>
+ <div class="wk">
+  <div class="wtop"><div class="lab">Weekly sales</div>
+   <div class="wleg"><span><i style="background:var(--p)"></i>E-commerce</span><span><i style="background:#2A2540"></i>Sales rep</span></div>
+  </div>
+  <svg viewBox="0 0 400 330" role="img" aria-label="Weekly Blueprint sales">
+<line x1="58" y1="248.00" x2="388" y2="248.00" stroke="#DDD9E6" stroke-width="1.25"/>
+<text x="50" y="248.00" text-anchor="end" dominant-baseline="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="500" fill="#9A95AA">0</text>
+<line x1="58" y1="143.00" x2="388" y2="143.00" stroke="#E4E0EC" stroke-width="1"/>
+<text x="50" y="143.00" text-anchor="end" dominant-baseline="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="500" fill="#9A95AA">5</text>
+<line x1="58" y1="38.00" x2="388" y2="38.00" stroke="#E4E0EC" stroke-width="1"/>
+<text x="50" y="38.00" text-anchor="end" dominant-baseline="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="500" fill="#9A95AA">10</text><path d="M80.25,248.00 L80.25,151.00 Q80.25,143.00 88.25,143.00 L110.25,143.00 Q118.25,143.00 118.25,151.00 L118.25,248.00 Z" fill="#6D28D9"/><text x="99.25" y="134.00" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="700" fill="#15121F">5</text><rect x="162.75" y="245.00" width="38" height="3" rx="1.5" fill="#E4E0EC"/><text x="181.75" y="236.00" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="700" fill="#9A95AA">0</text><rect x="245.25" y="164.00" width="38" height="84.00" fill="#6D28D9"/><path d="M245.25,164.00 L245.25,130.00 Q245.25,122.00 253.25,122.00 L275.25,122.00 Q283.25,122.00 283.25,130.00 L283.25,164.00 Z" fill="#2A2540"/><text x="264.25" y="113.00" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="700" fill="#15121F">6</text><rect x="327.75" y="101.00" width="38" height="147.00" fill="#6D28D9"/><path d="M327.75,101.00 L327.75,67.00 Q327.75,59.00 335.75,59.00 L357.75,59.00 Q365.75,59.00 365.75,67.00 L365.75,101.00 Z" fill="#2A2540"/><text x="346.75" y="50.00" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="700" fill="#15121F">9</text><text x="99.25" y="270" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="650" fill="#15121F">Week 1</text>
+<text x="99.25" y="288" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" font-weight="500" fill="#6E6981">Oct 28 – Nov 1</text>
+<text x="181.75" y="270" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="650" fill="#15121F">Week 2</text>
+<text x="181.75" y="288" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" font-weight="500" fill="#6E6981">Nov 2 – 8</text>
+<text x="264.25" y="270" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="650" fill="#15121F">Week 3</text>
+<text x="264.25" y="288" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" font-weight="500" fill="#6E6981">Nov 9 – 15</text>
+<text x="346.75" y="270" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="650" fill="#15121F">Week 4</text>
+<text x="346.75" y="288" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" font-weight="500" fill="#6E6981">Nov 16 – 22</text>
+</svg>
+ </div>
+ <div class="wk">
+  <div class="wtop"><div class="lab">Cost per sale</div></div>
+  <svg viewBox="0 0 400 330" role="img" aria-label="Weekly cost per sale">
+<line x1="58" y1="248.00" x2="388" y2="248.00" stroke="#DDD9E6" stroke-width="1.25"/>
+<text x="50" y="248.00" text-anchor="end" dominant-baseline="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="500" fill="#9A95AA">$0</text>
+<line x1="58" y1="178.00" x2="388" y2="178.00" stroke="#E4E0EC" stroke-width="1"/>
+<text x="50" y="178.00" text-anchor="end" dominant-baseline="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="500" fill="#9A95AA">$1,000</text>
+<line x1="58" y1="108.00" x2="388" y2="108.00" stroke="#E4E0EC" stroke-width="1"/>
+<text x="50" y="108.00" text-anchor="end" dominant-baseline="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="500" fill="#9A95AA">$2,000</text>
+<line x1="58" y1="38.00" x2="388" y2="38.00" stroke="#E4E0EC" stroke-width="1"/>
+<text x="50" y="38.00" text-anchor="end" dominant-baseline="middle" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="500" fill="#9A95AA">$3,000</text><path d="M264.25,86.72 L346.75,154.27 L346.75,248.00 L264.25,248.00 Z" fill="#0E9F6E" fill-opacity="0.10"/><line x1="264.25" y1="86.72" x2="346.75" y2="154.27" stroke="#0E9F6E" stroke-width="2.75" stroke-linecap="round"/><text x="99.25" y="139.39" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="700" letter-spacing="-0.03em" fill="#15121F">$1,323</text><circle cx="99.25" cy="155.39" r="6" fill="#0E9F6E" stroke="#fff" stroke-width="2.5"/><text x="181.75" y="232.00" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="16" font-weight="650" fill="#9A95AA">—</text><text x="264.25" y="70.72" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="700" letter-spacing="-0.03em" fill="#15121F">$2,304</text><circle cx="264.25" cy="86.72" r="6" fill="#0E9F6E" stroke="#fff" stroke-width="2.5"/><text x="346.75" y="138.27" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="700" letter-spacing="-0.03em" fill="#15121F">$1,339</text><circle cx="346.75" cy="154.27" r="6" fill="#0E9F6E" stroke="#fff" stroke-width="2.5"/><text x="99.25" y="270" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="650" fill="#15121F">Week 1</text>
+<text x="99.25" y="288" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" font-weight="500" fill="#6E6981">Oct 28 – Nov 1</text>
+<text x="181.75" y="270" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="650" fill="#15121F">Week 2</text>
+<text x="181.75" y="288" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" font-weight="500" fill="#6E6981">Nov 2 – 8</text>
+<text x="264.25" y="270" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="650" fill="#15121F">Week 3</text>
+<text x="264.25" y="288" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" font-weight="500" fill="#6E6981">Nov 9 – 15</text>
+<text x="346.75" y="270" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="13.5" font-weight="650" fill="#15121F">Week 4</text>
+<text x="346.75" y="288" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="11.5" font-weight="500" fill="#6E6981">Nov 16 – 22</text>
+</svg>
+ </div>
 </section></main>
 <footer>Plan % = weekly targets spread evenly by day (estimate). Checked November 22.<span id="adn"> Ad sets: VERIFIED Meta pixel purchases, spend through Nov 22.</span></footer>
 </div>
@@ -1012,14 +1093,14 @@ window.addEventListener('load',()=>document.getElementById(target).scrollIntoVie
 const st=document.getElementById('stage');
 function fit(){const s=Math.min(innerWidth/1440,innerHeight/900);st.style.transform='translate(-50%,-50%) scale('+s+')';}
 addEventListener('resize',fit);fit();
-const ids=['t1','t2','t3'];
+const ids=['t1','t2','t3','t4'];
 function show(id){if(!ids.includes(id))id='t1';document.getElementById('adn').style.display=id==='t1'?'inline':'none';document.querySelectorAll('.panel').forEach(s=>s.classList.toggle('on',s.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));history.replaceState(null,'','#'+id);}
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>show(b.dataset.t));
 const ov=document.getElementById('ov');
 function openOld(){if(!ov.querySelector('iframe')){const f=document.createElement('iframe');f.srcdoc=document.getElementById('old').textContent.replace(/<\\\/script/g,'</script');ov.appendChild(f);}ov.classList.add('on');}
 document.getElementById('ea').onclick=e=>{e.preventDefault();openOld();};
 document.getElementById('cl').onclick=()=>{ov.classList.remove('on');show(location.hash.slice(1));};
-document.addEventListener('keydown',e=>{if(ov.classList.contains('on'))return;const i=Math.max(0,ids.indexOf(location.hash.slice(1)));if(e.key==='ArrowRight')show(ids[Math.min(2,i+1)]);if(e.key==='ArrowLeft')show(ids[Math.max(0,i-1)]);});
+document.addEventListener('keydown',e=>{if(ov.classList.contains('on'))return;const i=Math.max(0,ids.indexOf(location.hash.slice(1)));if(e.key==='ArrowRight')show(ids[Math.min(3,i+1)]);if(e.key==='ArrowLeft')show(ids[Math.max(0,i-1)]);});
 addEventListener('hashchange',()=>{if(location.hash==='#earlier')openOld();else show(location.hash.slice(1));});
 if(location.hash==='#earlier')openOld(); show(location.hash.slice(1));
 </script></body></html>
